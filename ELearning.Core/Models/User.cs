@@ -12,6 +12,6 @@ namespace ELearning.Core.Models
 		public string? Avatar { get; set; }
 		[Required]
 		public DateTime CreatedAt { get; set; }
-		
+		public virtual Cart? Cart { get; set; }
 	}
 }

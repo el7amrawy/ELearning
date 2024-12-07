@@ -37,19 +37,55 @@ namespace ELearning.EF.Migrations
                     b.ToTable("CourseInstructor");
                 });
 
-            modelBuilder.Entity("CourseStudent", b =>
+            modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
                 {
-                    b.Property<int>("CoursesId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentsId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CoursesId", "StudentsId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("StudentsId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("ELearning.Core.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CartId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
@@ -434,19 +470,34 @@ namespace ELearning.EF.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseStudent", b =>
+            modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
                 {
-                    b.HasOne("ELearning.Core.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
+                    b.HasOne("ELearning.Core.Models.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("ELearning.Core.Models.Cart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ELearning.Core.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ELearning.Core.Models.CartItem", b =>
+                {
+                    b.HasOne("ELearning.Core.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ELearning.Core.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Enrollment", b =>
@@ -552,6 +603,11 @@ namespace ELearning.EF.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
                     b.Navigation("Sections");
@@ -565,6 +621,11 @@ namespace ELearning.EF.Migrations
             modelBuilder.Entity("ELearning.Core.Models.Section", b =>
                 {
                     b.Navigation("Lectures");
+                });
+
+            modelBuilder.Entity("ELearning.Core.Models.User", b =>
+                {
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Student", b =>

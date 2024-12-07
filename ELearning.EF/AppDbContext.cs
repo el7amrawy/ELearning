@@ -15,5 +15,13 @@ namespace ELearning.EF
 		public DbSet<Lecture> Lectures { get; set; }
 		public DbSet<Material> Materials { get; set; }
 		public DbSet<Section> Sections { get; set; }
-	}
+		public DbSet<Cart> Carts { get; set; }
+		public DbSet<CartItem> CartItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+			builder.Entity<Student>().HasMany(s => s.Courses).WithMany(c =>c.Students).UsingEntity<Enrollment>();
+			base.OnModelCreating(builder);
+		}
+    }
 }

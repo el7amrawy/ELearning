@@ -1,4 +1,9 @@
+using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Repositories;
+using ELearning.Core.Models;
 using ELearning.EF;
+using ELearning.EF.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ELearning
@@ -39,6 +44,11 @@ namespace ELearning
             });
 
 			services.AddControllersWithViews();
+
+            services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddScoped<ICoursesRepository,CoursesRepository>();
+
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
         }
     }
 }
