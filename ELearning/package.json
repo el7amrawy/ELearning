@@ -1,0 +1,16 @@
+{
+  "name": "elearning",
+  "version": "1.0.0",
+  "main": "index.js",
+    "scripts": {
+        "css:build": "npx tailwindcss -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/output.css",
+        "css:watch": "npx tailwindcss -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/output.css --watch"
+    },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
+  }
+}
