@@ -3,12 +3,32 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="./css/output.css" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Jaro:opsz@6..72&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    @await RenderSectionAsync("Styles",false)
+    <link href="./assets/css/output.css" rel="stylesheet" />
+    <title>Mega Courses - @ViewBag.Title</title>
 </head>
 <body>
-        @RenderBody()
-</body>
+    <partial name="_NavBarPartial" />
+    @RenderBody()
+    <footer class="p-4  bg-black text-white mt-5 border-t-white drop-shadow-xl  ">
+        <div class="container mx-auto flex items-center justify-center">
+            <a href="#"><img width="100px" src="assets/images/LOGO-footer.png" alt=""></a>
+            <h3 class="ml-4 text-white">© 2024 MEGA COURSES, Inc.</h3>
+        </div>
+    </footer>
+
 @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+<script type="module" src="./assets/ionicons/ionicons.esm.js"></script>
+<script nomodule src="./assets/ionicons/ionicons.js"></script>
+<script src="./assets/js/index.js" type="module"></script>
 @await RenderSectionAsync("Scripts",false)
+</body>
 </html>
