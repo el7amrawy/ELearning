@@ -6,7 +6,7 @@ namespace ELearning.Controllers
     {
         public IActionResult SignUp()
         {
-            return Content("1");
+            return View();
         }
     }
 }

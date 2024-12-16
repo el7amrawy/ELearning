@@ -1,0 +1,42 @@
+﻿@model SignUp_ViewModel
+@{
+	ViewBag.Title = "Sign Up";
+}
+
+<div class="sign">
+    <div class="container">
+        <div class=" flex flex-col justify-between items-center lg:flex-row lg:justify-around ">
+            <div class="text-center flex-col">
+                <img class="lg:flex hidden" src="/assets/images/desktop-illustration-x1 (1).webp" alt="">
+                <img class="lg:hidden mb-10 mt-7 text-center" src="/assets/images/mobile-illustration-x1.webp" alt="">
+            </div>
+            <form class="flex flex-col lg: text-center" id="form" asp-action="SignUp">
+                <h2 class="#000  font-bold mb-14 font text-2xl lg:text-3xl text-center lg:mr-5 ">Sign up and start learning</h2>
+                <div class="input-control">
+                    <input class="bg-white  border-stone-950" asp-for="FirstName" id="username" placeholder="@Html.DisplayNameFor(e=>e.FirstName)">
+                    <span asp-validation-for="FirstName" class="error"></span>
+                </div>
+                <div class="input-control">
+                    <input class="bg-white  border-stone-950" asp-for="LastName" id="second" placeholder="@Html.DisplayNameFor(e=>e.LastName)">
+                    <span asp-validation-for="LastName" class="error"></span>
+                </div>
+                <div class="input-control">
+                    <input class="bg-white  border-stone-950" asp-for="Email" id="email" placeholder="@Html.DisplayNameFor(e=>e.Email)">
+                    <span asp-validation-for="Email" class="error"></span>
+                </div>
+                <div class="input-control">
+                    <input class="bg-white  border-stone-950 " asp-for="Password" id="password" placeholder="@Html.DisplayNameFor(e=>e.Password)">
+                    <span asp-validation-for="Password" class="error"></span>
+                </div>
+                <button type="submit">Sign Up</button>
+                <p class="">By signing up, you agree to our<a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
+                <h6>Already have an account?<a asp-action="SignIn" asp-controller="Account" class="log">Sign In</a></h6>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/assets/js/all.min.js"></script>
+    <script src="/assets/js/master.js"></script>
+}
