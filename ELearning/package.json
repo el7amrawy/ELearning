@@ -2,10 +2,10 @@
   "name": "elearning",
   "version": "1.0.0",
   "main": "index.js",
-    "scripts": {
-        "css:build": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css",
-        "css:watch": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css --watch"
-    },
+  "scripts": {
+    "css:build": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css",
+    "css:watch": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css --watch"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
