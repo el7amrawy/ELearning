@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.EF
 {
-	public class AppDbContext : IdentityDbContext<User,IdentityRole<int>,int>
+	public class AppDbContext : IdentityDbContext<AppUser,IdentityRole<int>,int>
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
 		public DbSet<Student> Students { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ELearning.Core.Models
 {
-	public class User:IdentityUser<int>
+	public class AppUser : IdentityUser<int>
 	{
 		[Required]
 		public string FirstName { get; set; } = null!;

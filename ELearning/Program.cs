@@ -46,7 +46,7 @@ namespace ELearning
 
 			services.AddControllersWithViews();
 
-            services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<AppUser, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<ICoursesRepository,CoursesRepository>();
 
             services.AddScoped<IUnitOfWork,UnitOfWork>();

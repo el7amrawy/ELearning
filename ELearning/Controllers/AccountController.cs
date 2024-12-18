@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Controllers
 {
-    public class AccountController(SignInManager<User> signInManager, UserManager<User> userManager) : Controller
+    public class AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : Controller
     {
-        private readonly SignInManager<User> _signInManager = signInManager;
-        private readonly UserManager<User> _userManager = userManager;
+        private readonly SignInManager<AppUser> _signInManager = signInManager;
+        private readonly UserManager<AppUser> _userManager = userManager;
 
         [HttpGet]
         public IActionResult SignUp()
@@ -20,7 +20,7 @@ namespace ELearning.Controllers
         public async Task<IActionResult> SignUp(SignUp_ViewModel model,int x) {
             if (ModelState.IsValid)
             {
-                var newUser = new User { FirstName = model.FirstName, LastName = model.LastName,UserName=model.Username ,Email = model.Email ,CreatedAt=DateTime.Now};
+                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName,UserName=model.Username ,Email = model.Email ,CreatedAt=DateTime.Now};
                 var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
@@ -36,6 +36,13 @@ namespace ELearning.Controllers
                 TempData["Error"] = "Invalid Data";
             }
             return View(model);
+        }
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+            if (Request.Cookies.ContainsKey(".AspNetCore.Identity.Application"))
+                Response.Cookies.Delete(".AspNetCore.Identity.Application");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

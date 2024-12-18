@@ -7,7 +7,7 @@ namespace ELearning.Core.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required,ForeignKey(nameof(User))]
+        [Required,ForeignKey(nameof(AppUser))]
         public int UserId { get; set; }
         [Required]
         public decimal Total { get; set; }
@@ -15,7 +15,7 @@ namespace ELearning.Core.Models
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
-        public virtual User? User { get; set; }
+        public virtual AppUser? User { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }= new List<CartItem>();
     }
 }
