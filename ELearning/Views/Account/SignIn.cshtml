@@ -1,0 +1,34 @@
+﻿@model SignIn_ViewModel
+@{
+	ViewBag.Title = "Sign In";
+}
+
+<section class="flex flex-col justify-center items-center lg:flex-row lg:justify-around  ">
+    <div class="contain flex flex-col justify-center items-center p-5 lg:w-1/3  xl:w-1/2">
+        <div class="text-center ">
+            <img class="mt-5 w-80 lg:hidden" src="/assets/images/mobile-illustration-x1.jpg" alt="">
+            <img class="hidden lg:flex" src="/assets/images/desktop-illustration-x1.webp" alt="">
+        </div>
+    </div>
+    <div class="lg:w-1/2 flex flex-col justify-center items-center">
+        <h3 class="text-xl lg:text-2xl xl:text-4xl font-bold mt-4 text-center">Sign in to continue your<br> learning journey</h3>
+        <form asp-action="SignIn" class="flex flex-col justify-center items-center mt-5 lg:w-1/2">
+            <input asp-for="Email" placeholder="@Html.DisplayNameFor(e=>e.Email)" class="w-full px-3 font-bold text-black placeholder:text-black py-4 border border-black mb-2 ">
+            <input class="w-full px-3 font-bold text-black placeholder:text-black py-4 border border-black mb-2" asp-for="Password" placeholder="@Html.DisplayNameFor(e=>e.Password)">
+            <button class="w-full flex justify-center items-center mt-4 px-8 bg-violet-600 hover:bg-violet-700">
+                <p class="m-4 font-bold text-white">Sign In</p>
+            </button>
+        </form>
+        <div class="mt-7 relative">
+            <span class="w-10 h-1 bg-black "></span>
+            <span class="text-black/70 before:content-none before:absolute before:border-1 before:border-black">Other Sign in options</span>
+        </div>
+        <div class="social flex  gap-4 mt-8">
+            <a href="#"><img class="border-2 border-black/70 p-4 mr-2 hover:bg-slate-300 transition-all duration-75 h-14" src="/assets/images/OIP (1).jpeg" alt=""></a>
+            <a href="#"><img class="border-2 border-black/70 p-4 mr-2 hover:bg-slate-300 transition-all duration-75 h-14" src="/assets/images/f_logo_RGB-Blue_1024.png" alt=""></a>
+            <a href="#"><img class="border-2 border-black/70 p-4 mr-2 hover:bg-slate-300 transition-all duration-75 h-14" src="/assets/images/apple-fill.png" alt=""></a>
+        </div>
+        <h3 class=" px-6 py-4">Don't have an account? <span class="font-bold text-violet-900 underline"><a asp-action="SignUp">Sign up</a></span></h3>
+
+    </div>
+</section>

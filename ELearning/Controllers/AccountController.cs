@@ -10,14 +10,12 @@ namespace ELearning.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager = signInManager;
         private readonly UserManager<AppUser> _userManager = userManager;
-
+        [TempData]
+        public string Success { get; set; }
         [HttpGet]
-        public IActionResult SignUp()
-        {
-            return View();
-        }
+        public IActionResult SignUp() => View();
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp(SignUp_ViewModel model,int x) {
+        public async Task<IActionResult> SignUp(SignUp_ViewModel model) {
             if (ModelState.IsValid)
             {
                 var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName,UserName=model.Username ,Email = model.Email ,CreatedAt=DateTime.Now};
@@ -34,6 +32,35 @@ namespace ELearning.Controllers
             else
             {
                 TempData["Error"] = "Invalid Data";
+            }
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult SignIn() => View();
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignIn_ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
+                        throw new Exception("Wrong email or password!!");
+
+                    await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent=true, ExpiresUtc=DateTime.Now.AddDays(10)});
+                    
+                    Success = $"User {user.UserName} signed in successfully";
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"]=ex.Message;
+                }
+            }
+            else
+            {
+                TempData["Error"] = "Invalid Input!";
             }
             return View(model);
         }
