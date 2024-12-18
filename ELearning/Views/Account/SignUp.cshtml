@@ -2,7 +2,6 @@
 @{
 	ViewBag.Title = "Sign Up";
 }
-
 <div class="sign">
     <div class="container">
         <div class=" flex flex-col justify-between items-center lg:flex-row lg:justify-around ">
@@ -19,6 +18,10 @@
                 <div class="input-control">
                     <input class="bg-white  border-stone-950" asp-for="LastName" id="second" placeholder="@Html.DisplayNameFor(e=>e.LastName)">
                     <span asp-validation-for="LastName" class="error"></span>
+                </div>
+                <div class="input-control">
+                    <input class="bg-white  border-stone-950" asp-for="Username" placeholder="Username">
+                    <span asp-validation-for="Username" class="error"></span>
                 </div>
                 <div class="input-control">
                     <input class="bg-white  border-stone-950" asp-for="Email" id="email" placeholder="@Html.DisplayNameFor(e=>e.Email)">

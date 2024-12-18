@@ -11,34 +11,31 @@ namespace ELearning.Controllers
         private readonly SignInManager<User> _signInManager = signInManager;
         private readonly UserManager<User> _userManager = userManager;
 
-        [TempData]
-        public string Error { get; set; }
-        [TempData]
-        public string Success { get; set; }
         [HttpGet]
         public IActionResult SignUp()
         {
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> SignUp(SignUp_ViewModel model) {
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUp(SignUp_ViewModel model,int x) {
             if (ModelState.IsValid)
             {
-                var result = await _userManager.CreateAsync(new User { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email }, model.Password);
+                var newUser = new User { FirstName = model.FirstName, LastName = model.LastName,UserName=model.Username ,Email = model.Email ,CreatedAt=DateTime.Now};
+                var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
                     await _signInManager.SignInAsync(user, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
-                    Success = "User Created Successfully";
+                    TempData["Success"] = "User Created Successfully";
                     return RedirectToAction("Index", "Home");
                 }
-                Error = "Couldn't Create User";
+                TempData["Error"] = "Couldn't create user";
             }
             else
             {
-                Error = "Wrong Info";
+                TempData["Error"] = "Invalid Data";
             }
-            return View();
+            return View(model);
         }
     }
 }

@@ -6,7 +6,6 @@ namespace ELearning.Controllers
     {
         public IActionResult Index()
         {
-            TempData["Error"] = "test";
             return View();
         }
 

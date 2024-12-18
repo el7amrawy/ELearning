@@ -30,9 +30,9 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 
 form.addEventListener('submit', e => {
-    e.preventDefault();
+    if(!validateInputs())
+        e.preventDefault();
 
-    validateInputs();
 });
 
 const setError = (element, message) => {
@@ -63,31 +63,39 @@ const validateInputs = () => {
     const secondValue = second.value.trim();
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
+    let bool = true;
 
     if(usernameValue === '') {
         setError(username, 'Username is required');
+        bool = false;
     } else {
         setSuccess(username);
     }
     if(secondValue === '') {
         setError(second, 'second is required');
+        bool = false;
     } else {
         setSuccess(second);
     }
 
     if(emailValue === '') {
         setError(email, 'Email is required');
+        bool = false;
     } else if (!isValidEmail(emailValue)) {
         setError(email, 'Provide a valid email address');
+        bool = false;
     } else {
         setSuccess(email);
     }
 
     if(passwordValue === '') {
         setError(password, 'Password is required');
+        bool = false;
     } else if (passwordValue.length < 8 ) {
         setError(password, 'Password must be at least 8 character.')
+        bool = false;
     } else {
         setSuccess(password);
     }
+    return bool;
 };

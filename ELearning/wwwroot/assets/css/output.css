@@ -612,10 +612,6 @@ video {
   position: relative;
 }
 
-.sticky {
-  position: sticky;
-}
-
 .-inset-0\.5 {
   inset: -0.125rem;
 }
