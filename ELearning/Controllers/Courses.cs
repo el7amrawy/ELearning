@@ -1,14 +1,14 @@
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Controllers
 {
-    public class HomeController : Controller
+    public class Courses : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult About() => View();
-        public IActionResult Instructors() => View();
     }
 }

@@ -20,6 +20,11 @@ namespace ELearning.Extensions
             services.AddControllersWithViews();
 
             services.AddIdentity<AppUser, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+            });
+
             services.AddScoped<ICoursesRepository, CoursesRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

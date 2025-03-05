@@ -14,7 +14,9 @@
         <h3 class="text-xl lg:text-2xl xl:text-4xl font-bold mt-4 text-center">Sign in to continue your<br> learning journey</h3>
         <form asp-action="SignIn" class="flex flex-col justify-center items-center mt-5 lg:w-1/2">
             <input asp-for="Email" placeholder="@Html.DisplayNameFor(e=>e.Email)" class="w-full px-3 font-bold text-black placeholder:text-black py-4 border border-black mb-2 ">
+            <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
             <input class="w-full px-3 font-bold text-black placeholder:text-black py-4 border border-black mb-2" asp-for="Password" placeholder="@Html.DisplayNameFor(e=>e.Password)">
+            <span asp-validation-for="Password" class="text-red-500 text-sm"></span>
             <button class="w-full flex justify-center items-center mt-4 px-8 bg-violet-600 hover:bg-violet-700">
                 <p class="m-4 font-bold text-white">Sign In</p>
             </button>
@@ -32,3 +34,7 @@
 
     </div>
 </section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

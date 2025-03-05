@@ -10,8 +10,6 @@ namespace ELearning.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager = signInManager;
         private readonly UserManager<AppUser> _userManager = userManager;
-        [TempData]
-        public string Success { get; set; }
         [HttpGet]
         public IActionResult SignUp() => View();
         [HttpPost,ValidateAntiForgeryToken]
@@ -49,18 +47,14 @@ namespace ELearning.Controllers
                         throw new Exception("Wrong email or password!!");
 
                     await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent=true, ExpiresUtc=DateTime.Now.AddDays(10)});
-                    
-                    Success = $"User {user.UserName} signed in successfully";
+
+                    TempData["Success"] = $"User {user.UserName} signed in successfully";
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
                     TempData["Error"]=ex.Message;
                 }
-            }
-            else
-            {
-                TempData["Error"] = "Invalid Input!";
             }
             return View(model);
         }
