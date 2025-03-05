@@ -1,4 +1,4 @@
-﻿<header class="shadow-lg relative bg-white" style="z-index: 30 !important;">
+﻿<header class="shadow-lg fixed top-0 left-0 w-full z-30 bg-white" style="z-index: 30 !important;">
     <nav>
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
@@ -15,8 +15,9 @@
                     </button>
                 </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch md:justify-start">
-                    <a href="index.html" class="flex shrink-0 items-center text-2xl font-bold -transparent logo  relative ">
-                        <img class="w-20" src="/assets/images/3.png" alt="Your Company">
+                    <a asp-action="index" asp-controller="home" class="flex shrink-0 items-center text-2xl font-bold -transparent logo  relative ">
+                        <!-- udemy -->
+                        <img class="w-[150px]" src="/assets/images/dark-logo.png" alt="Your Company">
                     </a>
                     <div class="hidden md:ml-6 md:block w-full">
                         <div class="flex items-center w-full space-x-4 ">
@@ -48,13 +49,10 @@
                             </button>
                         </div>
                         <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            @if(User.Identity.IsAuthenticated){
-                                <a asp-action="Index" asp-controller="Account" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                <a asp-controller="Account" asp-action="LogOut" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-top-left-radius: 0;border-top-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                            }else{
-                                <a asp-controller="Account" asp-action="SignIn" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign In</a>
-                                <a asp-controller="Account" asp-action="SignUp" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign Up</a>
-                            }
+                            <span></span>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Log in</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-top-left-radius: 0;border-top-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
                         </div>
                     </div>
                 </div>

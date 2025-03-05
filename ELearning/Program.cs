@@ -1,10 +1,4 @@
-using ELearning.Core.Interfaces;
-using ELearning.Core.Interfaces.Repositories;
-using ELearning.Core.Models;
-using ELearning.EF;
-using ELearning.EF.Repositories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using ELearning.Extensions;
 
 namespace ELearning
 {
@@ -15,7 +9,7 @@ namespace ELearning
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            ConfigureServices(builder.Services);
+            builder.Services.AddApplicationServices(builder.Configuration);
 
             var app = builder.Build();
 
@@ -30,26 +24,13 @@ namespace ELearning
        
             app.MapStaticAssets();
 
+            app.MapControllerRoute("home", "{action=index}", new { controller = "home" });
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-                //.WithStaticAssets();
+                pattern: "{controller}/{action=Index}/{id?}");
 
             app.Run();
-        }
-        public static void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer("name=ConnectionStrings:dev");
-            });
-
-			services.AddControllersWithViews();
-
-            services.AddIdentity<AppUser, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
-            services.AddScoped<ICoursesRepository,CoursesRepository>();
-
-            services.AddScoped<IUnitOfWork,UnitOfWork>();
         }
     }
 }
