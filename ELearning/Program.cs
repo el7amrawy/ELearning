@@ -1,10 +1,12 @@
+using ELearning.Core.Interfaces;
+using ELearning.EF;
 using ELearning.Extensions;
 
 namespace ELearning
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,12 @@ namespace ELearning
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller}/{action=Index}/{id?}");
+
+            var scope = app.Services.CreateScope();
+            var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
+
+            var seed = new Seed(uow);
+            await seed.SeedAsync();
 
             app.Run();
         }
