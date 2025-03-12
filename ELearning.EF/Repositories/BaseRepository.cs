@@ -42,5 +42,14 @@ namespace ELearning.EF.Repositories
 
             return query.FirstOrDefaultAsync(criteria);
         }
+        public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null)
+        {
+            var query = _db.Set<Entity>().AsQueryable();
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            return await query.CountAsync();
+        }
     }
 }
