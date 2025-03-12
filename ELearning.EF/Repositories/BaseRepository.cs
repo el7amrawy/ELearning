@@ -12,6 +12,16 @@ namespace ELearning.EF.Repositories
         public void Add(Entity entity) => _db.Entry(entity).State = EntityState.Added;
         public void Update(Entity entity) => _db.Entry(entity).State = EntityState.Modified;
         public void Delete(Entity entity) => _db.Entry(entity).State = EntityState.Deleted;
+        public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null)
+        {
+            var query = _db.Set<Entity>().AsQueryable();
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            return await query.CountAsync();
+        }
+        public async Task AddRangeAsync(IEnumerable<Entity> entities) => await _db.Set<Entity>().AddRangeAsync(entities);
         public virtual async Task<IEnumerable<Entity>> GetAllAsync(Expression<Func<Entity, bool>> criteria = null, string[] includes = null, int pageNumber = 0, int pageSize = 0)
         {
             var query = _db.Set<Entity>().AsQueryable();
@@ -31,7 +41,6 @@ namespace ELearning.EF.Repositories
 
             return await query.ToListAsync();
         }
-
         public Task<Entity> GetItemAsync(Expression<Func<Entity, bool>> criteria, string[] includes = null)
         {
             var query = _db.Set<Entity>().AsQueryable();
@@ -41,15 +50,6 @@ namespace ELearning.EF.Repositories
                     query = query.Include(item);
 
             return query.FirstOrDefaultAsync(criteria);
-        }
-        public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null)
-        {
-            var query = _db.Set<Entity>().AsQueryable();
-
-            if (criteria != null)
-                query = query.Where(criteria);
-
-            return await query.CountAsync();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace ELearning.Core.Interfaces.Repositories
 		public Task<IEnumerable<Entity>> GetAllAsync(Expression<Func<Entity, bool>> criteria = null, string[] includes = null, int pageNumber = 0, int pageSize = 0);
 		public Task<Entity> GetItemAsync(Expression<Func<Entity, bool>> criteria, string[] includes = null);
 		public Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null);
+		public Task AddRangeAsync(IEnumerable<Entity> entities);
     }
 }
