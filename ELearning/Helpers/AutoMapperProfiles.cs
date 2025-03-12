@@ -8,7 +8,9 @@ namespace ELearning.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AppUser, Account_ViewModel>();
+            CreateMap<AppUser, UserProfile_ViewModel>();
+            CreateMap<EditUserProfile_ViewModel, AppUser>();
+            CreateMap<EditUserProfile_ViewModel, UserProfile_ViewModel>();
         }
     }
 }

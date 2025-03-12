@@ -1,10 +1,10 @@
-﻿@model Account_ViewModel
+﻿@model UserProfile_ViewModel
 @{
-	ViewBag.Title = "Account";
+	ViewBag.Title = "User Profile";
 }
 
 <div class="setting-topic container mt-16 py-4 font-extrabold text-2xl tracking-wide capitalize text-black/80 ">
-    <h3>Profile & settings</h3>
+    <h3>User Profile</h3>
 
 </div>
 <div class="setting-links py-4  container w-full relative ">
@@ -15,7 +15,7 @@
 
 </div>
 <div class="edu-profile container block py-4 ">
-    <form action="">
+    <form asp-action="Edit" asp-controller="User">
         <div class="profile-content capitalize font-bold text-black/80 text-sm lg:flex  lg:gap-8">
             <div class="part-one lg:w-1/2">
                 <div class="f-name flex flex-col">
@@ -86,6 +86,7 @@
 </div>
 
 @section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="/assets/js/all.min.js"></script>
     <script src="/assets/js/profile_setting.js"></script>
 }

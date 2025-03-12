@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
-using ELearning.Extensions;
 using ELearning.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -13,14 +12,10 @@ namespace ELearning.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult SignUp() => View();
@@ -77,12 +72,6 @@ namespace ELearning.Controllers
             if (Request.Cookies.ContainsKey(".AspNetCore.Identity.Application"))
                 Response.Cookies.Delete(".AspNetCore.Identity.Application");
             return RedirectToAction("Index", "Home");
-        }
-        [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var user = await _unitOfWork.Users.GetItemAsync(u => u.Id == User.GetUserId(), ["Image"]);
-            return View(_mapper.Map<Account_ViewModel>(user));
         }
     }
 }
