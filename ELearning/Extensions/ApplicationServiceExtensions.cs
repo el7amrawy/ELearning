@@ -1,7 +1,5 @@
-﻿using ELearning.Core.Interfaces.Repositories;
-using ELearning.Core.Interfaces;
+﻿using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
-using ELearning.EF.Repositories;
 using ELearning.EF;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +12,7 @@ namespace ELearning.Extensions
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer("name=ConnectionStrings:dev");
+                options.UseSqlServer("name=ConnectionStrings:default");
             });
 
             services.AddControllersWithViews();
@@ -24,8 +22,6 @@ namespace ELearning.Extensions
             {
                 options.LoginPath = "/Account/SignIn";
             });
-
-            services.AddScoped<ICoursesRepository, CoursesRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

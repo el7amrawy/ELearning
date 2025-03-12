@@ -484,3 +484,4 @@ $RECYCLE.BIN/
 *.swp
 /ELearning/wwwroot/assets/css/output.css
 /ELearning/appsettings.json
+ELearning/appsettings.Production.json
