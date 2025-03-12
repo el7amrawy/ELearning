@@ -12,7 +12,8 @@ namespace ELearning.ViewModels
         public string Username {  get; set; }
         [Required,DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required,DataType(DataType.Password)]
+        [Required, DataType(DataType.Password), RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+                ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")]
         public string Password { get; set; }
     }
 }

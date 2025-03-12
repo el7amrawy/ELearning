@@ -6,7 +6,6 @@ let search_icon = document.querySelector(".search_icon");
 let search_input = document.querySelector(".search_input");
 let other_search = document.querySelector(".other-search");
 
-
 /* ===============>>> btn Open Menu <<<=============== */
 if(icon_menu){
     icon_menu.addEventListener('click',function(){

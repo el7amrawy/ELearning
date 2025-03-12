@@ -11,6 +11,7 @@ namespace ELearning.Core.Models
 		public string LastName { get; set; }
 		[Required]
 		public DateTime CreatedAt { get; set; }
+		public string? Bio {  get; set; }
 		public virtual Cart? Cart { get; set; }
 		public virtual Image? Image { get; set; }
 	}

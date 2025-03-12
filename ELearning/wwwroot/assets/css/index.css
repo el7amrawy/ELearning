@@ -6,6 +6,12 @@
 .container{
     @apply mx-auto max-w-7xl px-2 sm:px-6 lg:px-8
 }
+.active_btn{
+    @apply border-blue-500
+}
+.non_active_btn{
+    @apply text-gray-500 
+}
 :root{
     --font-header : "Playfair Display", serif;
     --font-main : "Mona Sans", sans-serif;
@@ -193,3 +199,25 @@ section .screen{
 }
 /* start sign */
 /* end sign */
+.scroll{
+    animation: animation_scroll 1s linear 0s forwards;
+    -webkit-animation: animation_scroll 1s linear 0s forwards;
+}
+@keyframes animation_scroll {
+    from{
+        transform: translateY(50px);
+        -webkit-transform: translateY(50px);
+        -moz-transform: translateY(50px);
+        -ms-transform: translateY(50px);
+        -o-transform: translateY(50px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0px);
+        -webkit-transform: translateY(0px);
+        -moz-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+        -o-transform: translateY(0px);
+        opacity: 1;
+    }
+}

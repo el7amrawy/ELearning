@@ -65,5 +65,10 @@ namespace ELearning.Controllers
                 Response.Cookies.Delete(".AspNetCore.Identity.Application");
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

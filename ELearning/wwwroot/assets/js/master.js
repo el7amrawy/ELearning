@@ -32,7 +32,6 @@ const password = document.getElementById('password');
 form.addEventListener('submit', e => {
     if(!validateInputs())
         e.preventDefault();
-
 });
 
 const setError = (element, message) => {
