@@ -1,4 +1,7 @@
-﻿using ELearning.Core.Models;
+﻿using AutoMapper;
+using ELearning.Core.Interfaces;
+using ELearning.Core.Models;
+using ELearning.Extensions;
 using ELearning.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -6,17 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Controllers
 {
-    public class AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : Controller
+    public class AccountController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager = signInManager;
-        private readonly UserManager<AppUser> _userManager = userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
         [HttpGet]
         public IActionResult SignUp() => View();
-        [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp(SignUp_ViewModel model) {
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUp(SignUp_ViewModel model)
+        {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName,UserName=model.Username ,Email = model.Email ,CreatedAt=DateTime.Now};
+                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
                 var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
@@ -46,14 +59,14 @@ namespace ELearning.Controllers
                     if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
                         throw new Exception("Wrong email or password!!");
 
-                    await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent=true, ExpiresUtc=DateTime.Now.AddDays(10)});
+                    await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddDays(10) });
 
                     TempData["Success"] = $"User {user.UserName} signed in successfully";
                     return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {
-                    TempData["Error"]=ex.Message;
+                    TempData["Error"] = ex.Message;
                 }
             }
             return View(model);
@@ -66,9 +79,10 @@ namespace ELearning.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _unitOfWork.Users.GetItemAsync(u => u.Id == User.GetUserId(), ["Image"]);
+            return View(_mapper.Map<Account_ViewModel>(user));
         }
     }
 }

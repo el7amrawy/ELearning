@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ELearning.Core.Models;
 
 namespace ELearning.ViewModels
 {
@@ -12,8 +13,9 @@ namespace ELearning.ViewModels
         public string Username { get; set; }
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Phone Number"),Phone]
         public string PhoneNumber { get; set; }
         public string? Bio { get; set; }
+        public Image? Image { get; set; }
     }
 }
