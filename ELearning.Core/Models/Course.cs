@@ -1,23 +1,35 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELearning.Core.Models
 {
-	public class Course
+    public class Course
 	{
 		[Key]
 		public int Id { get; set; }
 		[Required]
-		public string Name { get; set; } = null!;
-		[Required]
-		public string Description { get; set; } = null!;
+		public string Name { get; set; }
+        [Required]
+        public string Description { get; set; }
 		[Required]
 		public decimal Price { get; set; }
-		[Required]
-		public string Cover { get; set; } = null!;
-		[Required]
-		public DateTime CreatedAt { get; set; }
-		public virtual ICollection<Instructor> Instructors { get; set; } = new List<Instructor>();
-		public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
-		public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+		public string? Time { get; set; }
+		[ForeignKey(nameof(Image))]
+		public int ImageId { get; set; }
+		[ForeignKey(nameof(Language)),Required]
+		public int LanguageId { get; set; }
+		[Required,ForeignKey(nameof(Level))]
+		public int LevelId { get; set; }
+		[Required,ForeignKey(nameof(Status))]
+		public int StatusId { get; set; }
+        [Required]
+        public DateTime CreatedAt {  get; set; }
+        public virtual ICollection<Instructor> Instructors { get; set; } = [];
+		public virtual ICollection<Section> Sections { get; set; } = [];
+		public virtual ICollection<Student> Students { get; set; } = [];
+		public virtual Image Image { get; set; }
+		public virtual Language Language { get; set; }
+		public virtual Level Level { get; set; }
+		public virtual CourseStatus Status { get; set; }
 	}
 }
