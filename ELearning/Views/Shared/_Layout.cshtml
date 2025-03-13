@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    @* <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> *@
-    @* <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> *@
+    <script type="module" src="/assets/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="/assets/ionicons/ionicons.js"></script>
     <link href="/assets/css/index.css" rel="stylesheet" />
     <link href="/assets/css/output.css" rel="stylesheet" />
     @await RenderSectionAsync("Styles",false)
@@ -18,8 +18,7 @@
     </div>
     <partial name="_FooterPartial" />
 
-<script type="module" src="/assets/ionicons/ionicons.esm.js"></script>
-<script nomodule src="/assets/ionicons/ionicons.js"></script>
+
 <script src="/assets/js/index.js" type="module"></script>
 @await RenderSectionAsync("Scripts",false)
 </body>
