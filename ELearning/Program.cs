@@ -1,6 +1,7 @@
 using ELearning.Core.Interfaces;
 using ELearning.EF;
 using ELearning.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace ELearning
 {
@@ -34,8 +35,9 @@ namespace ELearning
 
             var scope = app.Services.CreateScope();
             var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
+            var rm = scope.ServiceProvider.GetService<RoleManager<IdentityRole<int>>>();
 
-            var seed = new Seed(uow);
+            var seed = new Seed(uow, rm);
             await seed.SeedAsync();
 
             app.Run();

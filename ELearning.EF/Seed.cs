@@ -1,14 +1,18 @@
 ﻿using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.EF
 {
     public class Seed
     {
         private readonly IUnitOfWork _unitOfOfWork;
-        public Seed(IUnitOfWork unitOfWork)
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
+        public Seed(IUnitOfWork unitOfWork, RoleManager<IdentityRole<int>> roleManager)
         {
-            _unitOfOfWork = unitOfWork;   
+            _unitOfOfWork = unitOfWork;
+            _roleManager = roleManager;
         }
         private async Task SeedLanguages()
         {
@@ -52,6 +56,18 @@ namespace ELearning.EF
             await SeedLevels();
 
             await _unitOfOfWork.CompleteAsync();
+
+            await SeedRoles();
+        }
+        private async Task SeedRoles()
+        {
+            if (await _roleManager.Roles.AnyAsync()) return;
+
+            await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Admin", ConcurrencyStamp = Guid.NewGuid().ToString() });
+
+            await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Instructor", ConcurrencyStamp = Guid.NewGuid().ToString() });
+
+            await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Student", ConcurrencyStamp = Guid.NewGuid().ToString() });
         }
     }
 }
