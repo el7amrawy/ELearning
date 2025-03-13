@@ -17,6 +17,7 @@ namespace ELearning.EF
 		public DbSet<Section> Sections { get; set; }
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<CartItem> CartItems { get; set; }
+		public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

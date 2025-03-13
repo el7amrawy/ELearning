@@ -17,6 +17,8 @@ namespace ELearning.EF
 
         public IUsersRepository Users {  get; }
 
+        public IImagesRepository Images {  get; }
+
         public UnitOfWork(AppDbContext db)
 		{
 			_db = db;
@@ -25,7 +27,8 @@ namespace ELearning.EF
 			Languages = new LanguagesRepository(db);
 			Levels = new LevelsRepository(db);
 			Users = new UsersRepository(db);
-		}
+			Images = new ImagesRepository(db);
+        }
 		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
 	}

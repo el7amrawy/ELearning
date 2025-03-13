@@ -12,10 +12,12 @@ namespace ELearning.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
         public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
         }
         [HttpGet]
         public IActionResult SignUp() => View();
@@ -50,11 +52,18 @@ namespace ELearning.Controllers
             {
                 try
                 {
-                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    //var user = await _userManager.FindByEmailAsync(model.Email);
+                    var user = await _unitOfWork.Users.
+                        GetItemAsync(u => u.NormalizedEmail == model.Email.ToUpper(), ["Image"]);
+
                     if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
                         throw new Exception("Wrong email or password!!");
 
                     await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddDays(10) });
+                    //await _signInManager.SignInWithClaimsAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddDays(10) }, [new Claim("ProfileImage", user.Image?.URL)]);
+
+                    if (user.Image != null)
+                        Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.Now.AddDays(10) });
 
                     TempData["Success"] = $"User {user.UserName} signed in successfully";
                     return RedirectToAction("Index", "Home");
@@ -69,8 +78,10 @@ namespace ELearning.Controllers
         [HttpGet]
         public IActionResult LogOut()
         {
-            if (Request.Cookies.ContainsKey(".AspNetCore.Identity.Application"))
-                Response.Cookies.Delete(".AspNetCore.Identity.Application");
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
             return RedirectToAction("Index", "Home");
         }
     }
