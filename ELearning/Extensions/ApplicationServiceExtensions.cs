@@ -1,5 +1,7 @@
-﻿using ELearning.Core.Interfaces;
+﻿using ELearning.Core.Helpers;
+using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
+using ELearning.Core.Services;
 using ELearning.EF;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,9 @@ namespace ELearning.Extensions
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
+            services.AddScoped<IPhotoService, PhotoService>();
 
             return services;
         }
