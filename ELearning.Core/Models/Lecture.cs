@@ -13,6 +13,7 @@ namespace ELearning.Core.Models
 		public string VideoURL {  get; set; } = null!;
 		[Required,ForeignKey(nameof(Section))]
 		public int SectionId { get; set; }
+		public DateTime CreatedAt { get; set; }
 		public Section? Section { get; set; }
 		public virtual Material? Material { get; set; }
 	}
