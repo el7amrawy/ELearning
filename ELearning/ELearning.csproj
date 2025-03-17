@@ -6,12 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <Compile Remove="wwwroot\js\**" />
-    <Content Remove="wwwroot\js\**" />
-    <EmbeddedResource Remove="wwwroot\js\**" />
-    <None Remove="wwwroot\js\**" />
-  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
@@ -34,4 +28,8 @@
   <Target Name="Tailwind" BeforeTargets="Build">
     <Exec Command="npm run css:build" />
   </Target>
+
+	<Target Name="DashboardCss" BeforeTargets="Build">
+		<Exec Command="npm run dashboardcss:build" />
+	</Target>
 </Project>

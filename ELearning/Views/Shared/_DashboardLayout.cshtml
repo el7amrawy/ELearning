@@ -1,0 +1,19 @@
+﻿<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/assets/dashboard/css/output.css" />
+        <title>Dashboard - @ViewBag.Title</title>
+    </head>
+    <body>
+    <div id="app">
+        <partial name="_NavDashboardPartial" />
+        <partial name="_AsideDashboardPartial" />
+        @RenderBody()
+    </div>
+    <script type="text/javascript" src="/assets/dashboard/js/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css" />
+    @await RenderSectionAsync("Scripts",false);
+    </body>
+</html>
