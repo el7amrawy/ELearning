@@ -27,6 +27,10 @@ namespace ELearning
        
             app.MapStaticAssets();
 
+            app.MapControllerRoute(
+            name: "Dashboard",
+            pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+
             app.MapControllerRoute("home", "{action=index}", new { controller = "home" });
 
             app.MapControllerRoute(

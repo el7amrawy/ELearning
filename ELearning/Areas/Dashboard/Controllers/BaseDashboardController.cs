@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ELearning.Controllers
+namespace ELearning.Areas.Dashboard.Controllers
 {
     //[Authorize(Roles ="Admin")]
-    [Route("dashboard/{controller=dashboard}/{action=index}/{id?}")]
+    [Authorize]
+    [Area("Dashboard")]
     public class BaseDashboardController : Controller
     {
     }

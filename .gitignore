@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 /ELearning/wwwroot/assets/css/output.css
 /ELearning/appsettings.json
 ELearning/appsettings.Production.json
+/ELearning/wwwroot/assets/dashboard/css/output.css

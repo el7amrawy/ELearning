@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ELearning.Controllers.Dashboard
+namespace ELearning.Areas.Dashboard.Controllers
 {
-    public class DashboardController : BaseDashboardController
+    public class CoursesController : BaseDashboardController
     {
         public IActionResult Index()
         {

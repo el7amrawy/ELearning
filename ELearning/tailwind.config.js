@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./Views/**/*.cshtml", "./Views/*.cshtml"],
+  content: ["./Views/**/*.cshtml", "./Views/*.cshtml","./Areas/**/Views/**"],
   theme: {
       extend: {
           zIndex: {

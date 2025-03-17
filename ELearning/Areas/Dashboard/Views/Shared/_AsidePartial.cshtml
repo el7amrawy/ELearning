@@ -1,18 +1,21 @@
-﻿<aside class="aside is-placed-left is-expanded">
+﻿@{
+    var tab = (AsideTabs)ViewData["Active"];
+}
+<aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">
         <div>ELearning <b class="font-black">Admin</b></div>
     </div>
     <div class="menu is-menu-main">
         <p class="menu-label">General</p>
         <ul class="menu-list">
-            <li>
-                <a href="index.html">
+            <li class="@(tab==AsideTabs.Dashboard?"active":string.Empty)">
+                <a asp-controller="Home" asp-action="Index">
                     <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
                     <span class="menu-item-label">Dashboard</span>
                 </a>
             </li>
-            <li class="active">
-                <a href="courses.html">
+            <li class="@(tab==AsideTabs.Courses?"active":string.Empty)">
+                <a asp-controller="Courses" asp-action="Index">
                     <span class="icon"><i class="mdi mdi-bookshelf"></i></span>
                     <span class="menu-item-label">Courses</span>
                 </a>

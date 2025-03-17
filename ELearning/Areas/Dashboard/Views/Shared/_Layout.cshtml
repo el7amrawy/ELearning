@@ -8,12 +8,12 @@
     </head>
     <body>
     <div id="app">
-        <partial name="_NavDashboardPartial" />
-        <partial name="_AsideDashboardPartial" />
+        <partial name="_NavPartial" />
+        <partial name="_AsidePartial" />
         @RenderBody()
     </div>
     <script type="text/javascript" src="/assets/dashboard/js/main.min.js"></script>
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css" />
-    @await RenderSectionAsync("Scripts",false);
+    @await RenderSectionAsync("Scripts",false)
     </body>
 </html>
