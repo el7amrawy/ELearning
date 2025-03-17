@@ -10,5 +10,8 @@ namespace ELearning.Extensions
         //public static string GetProfileImage(this ClaimsPrincipal claimsPrincipal) {
         //    return claimsPrincipal.FindFirst("ProfileImage")?.Value;
         //}
+        public static string GetUsername(this ClaimsPrincipal claimsPrincipal) {
+            return claimsPrincipal.FindFirstValue(ClaimTypes.Name);
+        }
     }
 }
