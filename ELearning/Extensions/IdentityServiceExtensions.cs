@@ -18,7 +18,7 @@ namespace ELearning.Extensions
 
                     if (area == "Dashboard")
                     {
-                        var loginUrl = $"/{area}/Login";
+                        var loginUrl = $"/{area}/SignIn";
                         //var returnUrl = context.Request.Path + context.Request.QueryString;
 
                         //context.Response.Redirect($"{loginUrl}?ReturnUrl={Uri.EscapeDataString(returnUrl)}");

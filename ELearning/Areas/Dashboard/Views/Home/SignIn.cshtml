@@ -1,0 +1,79 @@
+﻿@model SignIn_ViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" class="form-screen">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Login</title>
+    <link rel="stylesheet" href="/assets/dashboard/css/output.css" />
+</head>
+
+<body>
+    <div id="app">
+        <section class="section main-section">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-lock"></i></span>
+                        Admin Login
+                    </p>
+                </header>
+                <div class="card-content">
+                    <form asp-action="SignIn">
+
+                        <div class="field spaced">
+                            <label class="label" asp-for="Email"></label>
+                            <div class="control icons-left">
+                                <input class="input" asp-for="Email" placeholder="user@example.com">
+                                <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
+                            </div>
+                            <span asp-validation-for="Email" class="text-red-500"></span>
+                        </div>
+
+                        <div class="field spaced">
+                            <label class="label" asp-for="Password"></label>
+                            <p class="control icons-left">
+                                <input class="input" asp-for="Password" placeholder="Password">
+                                <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
+                            </p>
+                            <span asp-validation-for="Password" class="text-red-500"></span>
+                        </div>
+
+                        <div class="field spaced">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input asp-for="RememberMe">
+                                    <span class="check"></span>
+                                    <span class="control-label">Remember</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="field grouped">
+                            <div class="control">
+                                <button type="submit" class="button blue">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</body>
+
+</html>
