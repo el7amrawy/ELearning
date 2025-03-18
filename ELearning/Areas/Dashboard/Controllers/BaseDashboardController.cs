@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Dashboard.Controllers
 {
-    //[Authorize(Roles ="Admin")]
-    [Authorize]
-    [Area("Dashboard")]
+    [Area("Dashboard"), Authorize(Roles = "Admin")]
     public class BaseDashboardController : Controller
     {
     }
