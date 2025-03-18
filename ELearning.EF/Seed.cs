@@ -9,10 +9,12 @@ namespace ELearning.EF
     {
         private readonly IUnitOfWork _unitOfOfWork;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
-        public Seed(IUnitOfWork unitOfWork, RoleManager<IdentityRole<int>> roleManager)
+        private readonly UserManager<AppUser> _userManager;
+        public Seed(IUnitOfWork unitOfWork, RoleManager<IdentityRole<int>> roleManager, UserManager<AppUser> userManager)
         {
             _unitOfOfWork = unitOfWork;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
         private async Task SeedLanguages()
         {
@@ -58,6 +60,7 @@ namespace ELearning.EF
             await _unitOfOfWork.CompleteAsync();
 
             await SeedRoles();
+            await SeedAdmins();
         }
         private async Task SeedRoles()
         {
@@ -68,6 +71,21 @@ namespace ELearning.EF
             await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Instructor", ConcurrencyStamp = Guid.NewGuid().ToString() });
 
             await _roleManager.CreateAsync(new IdentityRole<int> { Name = "Student", ConcurrencyStamp = Guid.NewGuid().ToString() });
+        }
+        private async Task SeedAdmins()
+        {
+            if ((await _userManager.GetUsersInRoleAsync("Admin")).Count > 0)
+                return;
+
+            var admin = new AppUser
+            {
+                FirstName = "Admin",
+                LastName = "Jr",
+                UserName = "admin",
+                Email = "admin@mail.com",
+            };
+            await _userManager.CreateAsync(admin, "Pas$w0rd");
+            await _userManager.AddToRoleAsync(admin, "Admin");
         }
     }
 }
