@@ -83,6 +83,7 @@ namespace ELearning.EF
                 LastName = "Jr",
                 UserName = "admin",
                 Email = "admin@mail.com",
+                CreatedAt = DateTime.UtcNow,
             };
             await _userManager.CreateAsync(admin, "Pas$w0rd");
             await _userManager.AddToRoleAsync(admin, "Admin");
