@@ -65,6 +65,28 @@ namespace ELearning.Areas.Dashboard.Controllers
         }
         [HttpGet]
         public IActionResult Settings() => View();
+        [HttpPost]
+        public async Task<IActionResult> Settings(ResetPassword_ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
+
+                if(!await _userManager.CheckPasswordAsync(user, model.OldPassword))
+                {
+                    ModelState.AddModelError("OldPassword", "wrong password");
+                    return View(model);
+                }
+
+                var res = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+                if (!res.Succeeded)
+                    ModelState.AddModelError("NewPassword", "Couldn't update password");
+                else
+                    RedirectToAction("Settings");
+            }
+            return View(model);
+        }
         [HttpGet, AllowAnonymous]
         public IActionResult SignIn() => View();
         [HttpPost, AllowAnonymous]
