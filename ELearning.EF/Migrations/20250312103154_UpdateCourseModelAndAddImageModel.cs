@@ -463,6 +463,7 @@ namespace ELearning.EF.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ImageId",
                 table: "AspNetUsers",
+                unique: true,
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
