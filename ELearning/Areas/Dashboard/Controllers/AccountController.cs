@@ -16,18 +16,52 @@ namespace ELearning.Areas.Dashboard.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly IPhotoService _photoService;
+        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IMapper mapper, IUnitOfWork unitOfWork, IPhotoService photoService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _photoService = photoService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var user = await _unitOfWork.Users.GetItemAsync(u => u.Id == User.GetUserId(), ["Image"]);
             return View(_mapper.Map<AdminProfile_ViewModel>(user));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(AdminProfile_ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _unitOfWork.Users.GetItemAsync(u => u.Id == User.GetUserId(), ["Image"]);
+                _mapper.Map(model,user);
+
+                if (model.Photo != null)
+                {
+                    if(user.Image != null)
+                    {
+                        await _photoService.DeletePhotoAsync(user.Image.PublicId);
+                        _unitOfWork.Images.Delete(user.Image);
+                    }
+
+                    var res = await _photoService.AddPhotoAsync(model.Photo, 1024, 1024);
+
+                    if (res.Error == null)
+                        user.Image = new Image
+                        {
+                            CreatedAt = DateTime.UtcNow,
+                            PublicId = res.PublicId,
+                            URL = res.SecureUrl.AbsoluteUri
+                        };
+
+                    await _unitOfWork.CompleteAsync();
+                }
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
         [HttpGet]
         public IActionResult Settings() => View();
