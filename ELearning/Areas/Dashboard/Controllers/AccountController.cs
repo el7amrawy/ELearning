@@ -58,6 +58,9 @@ namespace ELearning.Areas.Dashboard.Controllers
                         };
 
                     await _unitOfWork.CompleteAsync();
+
+                    if (user.Image != null)
+                        Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.Now.AddDays(7) });
                 }
                 return RedirectToAction("Index");
             }
@@ -94,7 +97,8 @@ namespace ELearning.Areas.Dashboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user = await _unitOfWork.Users.
+                       GetItemAsync(u => u.NormalizedEmail == model.Email.ToUpper(), ["Image"]);
 
                 if (user == null)
                 {
@@ -121,6 +125,9 @@ namespace ELearning.Areas.Dashboard.Controllers
                 };
 
                 await _signInManager.SignInAsync(user, properties);
+
+                if (user.Image != null)
+                    Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.Now.AddDays(7) });
 
                 return RedirectToAction("Index", "Home");
             }
