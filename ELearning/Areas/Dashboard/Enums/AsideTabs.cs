@@ -2,6 +2,7 @@
 {
     internal enum AsideTabs
     {
+        None,
         Dashboard,
         Courses
     }

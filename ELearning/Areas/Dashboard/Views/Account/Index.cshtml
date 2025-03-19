@@ -1,0 +1,73 @@
+﻿@model AdminProfile_ViewModel
+@{
+    ViewBag.Title = "Admin Profile";
+}
+
+<section class="section main-section">
+    <form class="border-2 rounded-lg" asp-action="Index">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    <span class="icon"><i class="mdi mdi-account"></i></span>
+                    Admin Profile
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="mx-auto w-fit">
+                    <div class="shadow pic-container h-52  w-52 border-2 border-black/10 rounded-full overflow-hidden flex justify-center items-center ">
+                        <img id="profile-img" class="h-full" src=@(Model.Image?.URL??"/assets/dashboard/imgs/user_Placeholder.png") alt="user image">
+                    </div>
+                </div>
+                <div class="field mt-6">
+                    <div class="control">
+                        <input id="profile-img-inp" asp-for="Photo"
+                        class="cursor-pointer mt-2 block w-full text-sm file:mr-4 rounded-md  file:border-0 border-2 border-gray-300 file:bg-blue-600 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60" />
+                        <span class="text-red-500" asp-validation-for="Photo"></span>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <label class="label" asp-for="FirstName"></label>
+                        <div class="control">
+                            <input asp-for="FirstName" class="input is-static">
+                            <span class="text-red-500" asp-validation-for="FirstName"></span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" asp-for="LastName"></label>
+                        <div class="control">
+                            <input asp-for="LastName" class="input is-static">
+                            <span class="text-red-500" asp-validation-for="LastName"></span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" asp-for="Email"></label>
+                        <div class="control">
+                            <input asp-for="Email" class="input is-static
+                            <span class="text-red-500" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" asp-for="Username"></label>
+                        <div class="control">
+                            <input asp-for="Username" class="input is-static">
+                            <span class="text-red-500" asp-validation-for="Username"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field">
+                        <div class="control">
+                            <button type="submit" class="button green">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" src="/assets/dashboard/js/profile.js"></script>
+}
