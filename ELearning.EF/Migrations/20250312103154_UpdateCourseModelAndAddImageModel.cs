@@ -458,13 +458,15 @@ namespace ELearning.EF.Migrations
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
+                unique: true,
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ImageId",
                 table: "AspNetUsers",
+                column: "ImageId", 
                 unique: true,
-                column: "ImageId");
+                filter: "[ImageId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
