@@ -1,0 +1,87 @@
+﻿@{
+	ViewBag.Title = "Create Course";
+    ViewBag.Active = AsideTabs.Courses;
+}
+
+<section class="section main-section ">
+    <div class="bg-transparent p-6 rounded-lg max-w-7xl w-full  mx-auto relative">
+        <h2 class="text-2xl font-bold mb-4">Add New Course</h2>
+        <form id="createForm" class="grid grid-cols-1 md:grid-cols-2 gap-7">
+            <!-- Left Column -->
+            <div class="space-y-7">
+                <div class="mx-auto rounded-lg mt-5">
+                    <div id="preview-container"
+                         class="border-2 border-gray-300 rounded-lg mb-4 p-1 h-52 flex items-center justify-center">
+                        <div id="default-preview" class="bg-white w-full h-full rounded flex items-center justify-center">
+                            <img id="image-preview" class="max-h-full max-w-full object-contain" alt=""
+                                 src="/assets/dashboard/imgs/image_placeholder.webp" />
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <input id="example1" type="file"
+                               class="mt-2 block w-full text-sm file:mr-4 rounded-md  file:border-0 border-2 border-gray-300 file:bg-blue-600 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Course Name</label>
+                    <input type="text" class="mt-1 border-2 border-gray-300 block w-full  rounded-md p-2" required />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea name="" id=""
+                              class="mt-1 resize-none border-2 border-gray-300 block w-full  rounded-md p-2 field-sizing-content max-h-[200px]"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
+                        <option value="Available">Available</option>
+                        <option value="Rented">Not Available</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-12 ">
+                <div class="mt-5">
+                    <label class="block text-sm font-medium text-gray-700">Year</label>
+                    <input type="number" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Level</label>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Mid Level">Mid Level</option>
+                        <option value="Beginner">Beginner</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Language</label>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
+                        <option value="Advanced">English</option>
+                        <option value="Mid Level">Arabic</option>
+                        <option value="Beginner">Russian</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Instructor</label>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
+                        <option value="Advanced">Ali hamdy</option>
+                        <option value="Mid Level">zema</option>
+                        <option value="Beginner">mohamed</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Price</label>
+                    <input type="number" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required />
+                </div>
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="col-span-2 flex justify-start space-x-3 mt-4">
+                <button class="button green">Create</button>
+                <a class="button text-blue-600 hover:border-blue-600">Back to list</a>
+            </div>
+        </form>
+    </div>
+</section>

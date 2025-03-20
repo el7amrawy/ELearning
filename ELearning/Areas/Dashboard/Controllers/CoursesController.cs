@@ -8,5 +8,6 @@ namespace ELearning.Areas.Dashboard.Controllers
         {
             return View();
         }
+        public IActionResult Create() => View();
     }
 }
