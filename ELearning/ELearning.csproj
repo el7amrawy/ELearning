@@ -25,6 +25,13 @@
 	<UpToDateCheckBuilt Include="wwwroot/css/tailwind.css" Set="Css" />
 	<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Dashboard\Views\Shared\_NotificationPartial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 	
   <Target Name="Tailwind" BeforeTargets="Build">
     <Exec Command="npm run css:build" />

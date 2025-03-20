@@ -62,6 +62,7 @@ namespace ELearning.Areas.Dashboard.Controllers
                     if (user.Image != null)
                         Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.Now.AddDays(7) });
                 }
+                TempData["Success"] = "Profile was updated successfully";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -86,7 +87,10 @@ namespace ELearning.Areas.Dashboard.Controllers
                 if (!res.Succeeded)
                     ModelState.AddModelError("NewPassword", "Couldn't update password");
                 else
+                {
+                    TempData["Success"] = "Password was updated successfully";
                     RedirectToAction("Settings");
+                }
             }
             return View(model);
         }

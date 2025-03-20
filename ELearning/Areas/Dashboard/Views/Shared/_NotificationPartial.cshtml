@@ -1,0 +1,39 @@
+﻿@if (TempData["Error"] != null)
+{
+    <div class="notification red m-5">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+                <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                @TempData["Error"]
+                this is an error
+            </div>
+            <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+        </div>
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="notification green m-5">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+                <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                @TempData["Success"]
+            </div>
+            <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+        </div>
+    </div>
+}
+
+@if (TempData["Info"] != null)
+{
+    <div class="notification blue m-5">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+                <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                @TempData["Info"]
+            </div>
+            <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+        </div>
+    </div>
+}
