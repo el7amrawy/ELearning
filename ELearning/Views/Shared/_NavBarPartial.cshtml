@@ -23,7 +23,6 @@
                         <div class="flex items-center w-full space-x-4 ">
                             <a asp-action="Index" asp-controller="courses" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">Explore</a>
                             <a asp-controller="home" asp-action="about" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">About us</a>
-                            <a asp-controller="home" asp-action="instructors" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">Teach on Elearning</a>
                             <form action="" class="hidden lg:block w-full">
                                 <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search..." autocomplete="off" type="text" name="search" />
                             </form>
@@ -51,8 +50,8 @@
                         <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             @if(User.Identity.IsAuthenticated){
                                 <a asp-controller="user" asp-action="index" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                <a asp-controller="account" asp-action="LogOut" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Log out</a>
-
+                                <a asp-controller="user" asp-action="BecomeInstructor" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">Teach on Elearning</a>
+                                <a asp-controller="account" asp-action="logout" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Log out</a>
                             }else{
                                 <a asp-controller="account" asp-action="signin" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign in</a>
                                 <a asp-controller="account" asp-action="signup" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-top-left-radius: 0;border-top-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign Up</a>

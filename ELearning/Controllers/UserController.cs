@@ -3,11 +3,13 @@ using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using ELearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Controllers
 {
+    [Authorize(Roles ="Student")]
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -87,6 +89,24 @@ namespace ELearning.Controllers
                 TempData["Error"] = "Invalid Input";
             }
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult BecomeInstructor() => View();
+        [HttpPost] 
+        public async Task<IActionResult> BecomeInstructor(int id)
+        {
+            var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
+
+            if(await _userManager.IsInRoleAsync(user, "Instructor"))
+            {
+                TempData["Error"] = "You are already an instructor";
+                return this.RedirectToPrevious();
+            }
+
+            await _userManager.AddToRoleAsync(user, "Instructor");
+
+            TempData["Success"] = "You are now an instructor";
+            return this.RedirectToPrevious();
         }
     }
 }
