@@ -26,16 +26,19 @@ namespace ELearning.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
+                var newUser = new Student { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
                 var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByEmailAsync(model.Email);
-                    await _signInManager.SignInAsync(user, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
+                    await _userManager.AddToRoleAsync(newUser, "Student");
+                    await _signInManager.SignInAsync(newUser, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
                     TempData["Success"] = "User Created Successfully";
                     return RedirectToAction("Index", "Home");
                 }
-                TempData["Error"] = "Couldn't create user";
+                foreach (var item in result.Errors)
+                {
+                    TempData["Error"] += item.Description + " ";
+                }
             }
             else
             {

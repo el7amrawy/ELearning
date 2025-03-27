@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
@@ -16,13 +17,15 @@ namespace ELearning.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly IPhotoService _photoService;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public UserController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService)
+        public UserController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager, IPhotoService photoService, SignInManager<AppUser> signInManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userManager = userManager;
             _photoService = photoService;
+            _signInManager = signInManager;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -95,15 +98,16 @@ namespace ELearning.Controllers
         [HttpPost] 
         public async Task<IActionResult> BecomeInstructor(int id)
         {
-            var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
-
-            if(await _userManager.IsInRoleAsync(user, "Instructor"))
+            if (User.IsInRole("Instructor"))
             {
                 TempData["Error"] = "You are already an instructor";
                 return this.RedirectToPrevious();
             }
 
+            var user = await _userManager.FindByIdAsync(User.GetUserId().ToString());
+
             await _userManager.AddToRoleAsync(user, "Instructor");
+            await _signInManager.RefreshSignInAsync(user);
 
             TempData["Success"] = "You are now an instructor";
             return this.RedirectToPrevious();
