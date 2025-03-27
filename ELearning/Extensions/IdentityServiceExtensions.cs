@@ -30,6 +30,7 @@ namespace ELearning.Extensions
                     }
                     return Task.CompletedTask;
                 };
+                options.AccessDeniedPath = "/Error/AccessDenied";
             });
 
             return services;

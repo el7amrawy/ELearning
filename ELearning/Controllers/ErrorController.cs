@@ -4,9 +4,7 @@ namespace ELearning.Controllers
 {
     public class ErrorController : Controller
     {
-        public IActionResult Handle404()
-        {
-            return View("NotFound");
-        }
+        public IActionResult Handle404() => View("NotFound");
+        public IActionResult AccessDenied() => View();
     }
 }
