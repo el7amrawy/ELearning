@@ -40,6 +40,8 @@ namespace ELearning
                 name: "default",
                 pattern: "{controller}/{action=Index}/{id?}");
 
+            app.MapFallbackToController("Handle404", "Error");
+
             var scope = app.Services.CreateScope();
             var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
             var rm = scope.ServiceProvider.GetService<RoleManager<IdentityRole<int>>>();
