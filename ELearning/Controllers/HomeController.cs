@@ -9,6 +9,5 @@ namespace ELearning.Controllers
             return View();
         }
         public IActionResult About() => View();
-        public IActionResult Instructors() => View();
     }
 }

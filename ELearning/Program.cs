@@ -22,8 +22,10 @@ namespace ELearning
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/ServerError");
+                app.MapFallbackToController("Handle404", "Error");
             }
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -39,8 +41,6 @@ namespace ELearning
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller}/{action=Index}/{id?}");
-
-            app.MapFallbackToController("Handle404", "Error");
 
             var scope = app.Services.CreateScope();
             var uow = scope.ServiceProvider.GetService<IUnitOfWork>();
