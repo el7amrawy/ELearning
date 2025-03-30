@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
