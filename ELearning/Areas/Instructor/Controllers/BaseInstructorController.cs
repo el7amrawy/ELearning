@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ELearning.Controllers
+namespace ELearning.Areas.Instructor.Controllers
 {
-    [Authorize(Roles ="Instructor"),Route("Instructor/[Controller]/{Action=Index}/{Id?}")]
+    [Authorize(Roles = "Instructor"), Area("Instructor")]
     public class BaseInstructorController : Controller
     {
     }
