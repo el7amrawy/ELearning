@@ -1,1 +1,331 @@
-﻿test
+﻿@{
+    ViewBag.Title = "Courses";
+    ViewBag.ActiveTab = NavTabsEnum.Courses;
+}
+
+<!-- Main Content -->
+<div class="pb-20 sm:pb-10 pt-4 sm:pt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    <i class="fas fa-book mr-2"></i> My Courses
+                </h2>
+                <p class="mt-1 text-gray-500">Manage all your courses in one place</p>
+            </div>
+            <button type="button" class="mt-4 sm:mt-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-plus-circle mr-2"></i> Create New Course
+            </button>
+        </div>
+
+        <!-- Filter/Search Bar -->
+        <div class="mb-6 bg-white p-4 rounded-lg shadow">
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <div class="flex-1">
+                    <label for="search" class="sr-only">Search courses</label>
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" name="search" id="search" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md" placeholder="Search courses...">
+                    </div>
+                </div>
+                <div class="w-full sm:w-48">
+                    <label for="status" class="sr-only">Status</label>
+                    <select id="status" name="status" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option>All Status</option>
+                        <option>Published</option>
+                        <option>Draft</option>
+                        <option>Archived</option>
+                    </select>
+                </div>
+                <div class="w-full sm:w-48">
+                    <label for="sort" class="sr-only">Sort by</label>
+                    <select id="sort" name="sort" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option>Newest First</option>
+                        <option>Oldest First</option>
+                        <option>Most Students</option>
+                        <option>Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Course Card 1 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+                <div class="h-40 bg-gradient-to-r from-indigo-600 to-indigo-700 flex items-center justify-center relative">
+                    <span class="text-white text-xl font-bold">Advanced JavaScript</span>
+                    <div class="absolute top-2 right-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Published
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            245 students
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-1"></i>
+                            89.99
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Advanced JavaScript Concepts</h3>
+                    <p class="text-sm text-gray-500 mb-4">Master advanced JavaScript patterns, frameworks, and performance optimization.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-sm font-medium text-gray-700">4.9</span>
+                            <span class="mx-1 text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">32 reviews</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+                <div class="h-40 bg-gradient-to-r from-purple-600 to-purple-700 flex items-center justify-center relative">
+                    <span class="text-white text-xl font-bold">React Mastery</span>
+                    <div class="absolute top-2 right-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Published
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            189 students
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-1"></i>
+                            79.99
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">React Mastery: From Basics to Advanced</h3>
+                    <p class="text-sm text-gray-500 mb-4">Comprehensive React course covering hooks, context, and performance tuning.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-sm font-medium text-gray-700">4.7</span>
+                            <span class="mx-1 text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">28 reviews</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+                <div class="h-40 bg-gradient-to-r from-teal-600 to-teal-500 flex items-center justify-center relative">
+                    <span class="text-white text-xl font-bold">Node.js</span>
+                    <div class="absolute top-2 right-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            Draft
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            0 students
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-1"></i>
+                            0.00
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Node.js Backend Development</h3>
+                    <p class="text-sm text-gray-500 mb-4">Build scalable backend services with Node.js, Express, and MongoDB.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="far fa-star text-gray-300 mr-1"></i>
+                            <span class="text-sm font-medium text-gray-700">-</span>
+                            <span class="mx-1 text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">0 reviews</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 4 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+                <div class="h-40 bg-gradient-to-r from-red-600 to-pink-600 flex items-center justify-center relative">
+                    <span class="text-white text-xl font-bold">UI/UX Design</span>
+                    <div class="absolute top-2 right-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Published
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            156 students
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-1"></i>
+                            69.99
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Modern UI/UX Design Principles</h3>
+                    <p class="text-sm text-gray-500 mb-4">Learn the latest design trends and create stunning user interfaces.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-sm font-medium text-gray-700">4.8</span>
+                            <span class="mx-1 text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">24 reviews</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Card 5 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+                <div class="h-40 bg-gradient-to-r from-amber-500 to-orange-500 flex items-center justify-center relative">
+                    <span class="text-white text-xl font-bold">Python</span>
+                    <div class="absolute top-2 right-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Published
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-1"></i>
+                            312 students
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-1"></i>
+                            59.99
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Python for Data Science</h3>
+                    <p class="text-sm text-gray-500 mb-4">Master Python programming for data analysis and visualization.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span class="text-sm font-medium text-gray-700">4.9</span>
+                            <span class="mx-1 text-gray-300">•</span>
+                            <span class="text-sm text-gray-500">45 reviews</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Course Card -->
+            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300 border-2 border-dashed border-gray-300 flex items-center justify-center">
+                <button class="text-center p-6 w-full h-full">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
+                        <i class="fas fa-plus text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">Add new course</h3>
+                    <p class="mt-1 text-sm text-gray-500">Click to create a new course</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-b-lg shadow">
+            <div class="flex-1 flex justify-between sm:hidden">
+                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Previous
+                </a>
+                <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Next
+                </a>
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-700">
+                        Showing
+                        <span class="font-medium">1</span>
+                        to
+                        <span class="font-medium">5</span>
+                        of
+                        <span class="font-medium">12</span>
+                        courses
+                    </p>
+                </div>
+                <div>
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <span class="sr-only">Previous</span>
+                            <i class="fas fa-chevron-left h-5 w-5"></i>
+                        </a>
+                        <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            1
+                        </a>
+                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            2
+                        </a>
+                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            3
+                        </a>
+                        <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                            ...
+                        </span>
+                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                            8
+                        </a>
+                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <span class="sr-only">Next</span>
+                            <i class="fas fa-chevron-right h-5 w-5"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

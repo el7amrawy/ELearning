@@ -52,7 +52,7 @@
                                 <a asp-controller="user" asp-action="index" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
                                 <hr />
                                 @if(User.IsInRole("Instructor")){
-                                    <a asp-area="Instructor" asp-action="Index" asp-controller="Courses" class="block px-4 py-2 text-sm text-gray-700 links">Courses</a>
+                                    <a asp-area="Instructor" asp-action="Index" asp-controller="Home" class="block px-4 py-2 text-sm text-gray-700 links">Instructor - Dashboard</a>
                                     <hr />
                                 }else{
                                     <a asp-controller="user" asp-action="BecomeInstructor" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">Teach on Elearning</a>
