@@ -70,7 +70,7 @@
                 <p class="text-sm font-thin ">Minimum 200x200 pixels, Maximum 6000x6000 pixels</p>
             </div>
             <div class="pic-container h-52  w-1/2 border-2 border-black/10 p-3  flex justify-center items-center ">
-                <img class="h-full image-place" src="@Model.Image?.URL" alt="">
+                <img class="h-full image-place" src="@(Model.Image?.URL??"/assets/dashboard/imgs/user_Placeholder.png")" alt="user profile photo">
             </div>
             <div class="src-path w-1/2">
                 <input name="ImageFile" id="file" class="img-src border-2 border-black/30 hidden rounded-md cursor-pointer" type="file">
