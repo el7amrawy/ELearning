@@ -31,42 +31,26 @@
                     <textarea name="" id=""
                               class="mt-1 resize-none border-2 border-gray-300 block w-full  rounded-md p-2 field-sizing-content max-h-[200px]"></textarea>
                 </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Status</label>
-                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
-                        <option value="Available">Available</option>
-                        <option value="Rented">Not Available</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Right Column -->
-            <div class="space-y-12 ">
-                <div class="mt-5">
-                    <label class="block text-sm font-medium text-gray-700">Year</label>
-                    <input type="number" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required />
+            <div class="space-y-10 ">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" asp-items="ViewBag.Status"></select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Level</label>
-                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Mid Level">Mid Level</option>
-                        <option value="Beginner">Beginner</option>
-                    </select>
+                    <select asp-items="ViewBag.Levels" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2"></select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Language</label>
-                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
-                        <option value="Advanced">English</option>
-                        <option value="Mid Level">Arabic</option>
-                        <option value="Beginner">Russian</option>
+                    <select asp-items="ViewBag.Languages" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2">
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Instructor</label>
-                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required>
-                        <option value="Advanced">Ali hamdy</option>
+                    <select class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2">
                         <option value="Mid Level">zema</option>
                         <option value="Beginner">mohamed</option>
                     </select>
@@ -76,12 +60,12 @@
                     <input type="number" class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2" required />
                 </div>
             </div>
-
             <!-- Form Buttons -->
             <div class="col-span-2 flex justify-start space-x-3 mt-4">
                 <button class="button green">Create</button>
-                <a class="button text-blue-600 hover:border-blue-600">Back to list</a>
+                <a asp-action="Index" class="button text-blue-600 hover:border-blue-600">Back to list</a>
             </div>
+
         </form>
     </div>
 </section>
