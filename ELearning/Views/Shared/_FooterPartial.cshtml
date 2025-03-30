@@ -1,76 +1,71 @@
-﻿<footer class="bg-[#f9f9fb] dark:bg-gray-900">
-    <div class="mx-auto w-full max-w-screen-xl">
-        <img src="/assets/images/dark-logo.png" alt="" class="w-[170px] pt-3">
-        <div class="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
+﻿<footer class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Logo and description -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold flex items-center">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    LearnHub
+                </h2>
+                <p class="text-gray-400 text-sm">
+                    Empowering educators to create and share knowledge with the world.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
             <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Company</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a asp-action="about" asp-controller="home">About</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Careers</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Brand Center</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Blog</a>
-                    </li>
+                <h3 class="text-sm font-semibold uppercase tracking-wider">Quick Links</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Home</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Courses</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Pricing</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">About Us</a></li>
                 </ul>
             </div>
+
+            <!-- Support -->
             <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Help center</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Discord Server</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Twitter</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Facebook</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Contact Us</a>
-                    </li>
+                <h3 class="text-sm font-semibold uppercase tracking-wider">Support</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Help Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contact Us</a></li>
                 </ul>
             </div>
+
+            <!-- Newsletter -->
             <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Privacy Policy</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Licensing</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Download</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">iOS</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Android</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">Windows</a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#" class="hover:underline">MacOS</a>
-                    </li>
-                </ul>
+                <h3 class="text-sm font-semibold uppercase tracking-wider">Newsletter</h3>
+                <p class="mt-4 text-gray-400 text-sm">
+                    Subscribe to get updates on new courses and features.
+                </p>
+                <div class="mt-4 flex">
+                    <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900">
+                    <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-r-md">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <hr>
-        <div class="text-center pt-6 pb-6">
-            <p>© 2025 EduMall</p>
+
+        <!-- Copyright -->
+        <div class="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400 text-center">
+            <p>© 2025 LearnHub. All rights reserved.</p>
         </div>
     </div>
 </footer>
