@@ -8,16 +8,12 @@ namespace ELearning.EF
 	{
         private readonly AppDbContext _db;
 		public ICoursesRepository Courses {  get; }
-
         public ICourseStatusRepository CoursesStatus { get; }
-
         public ILanguagesRepository Languages { get; }
-
         public ILevelsRepository Levels { get; }
-
         public IUsersRepository Users {  get; }
-
         public IImagesRepository Images {  get; }
+        public ICategoriesRepository Categories { get; }
 
         public UnitOfWork(AppDbContext db)
 		{
@@ -28,6 +24,7 @@ namespace ELearning.EF
 			Levels = new LevelsRepository(db);
 			Users = new UsersRepository(db);
 			Images = new ImagesRepository(db);
+			Categories = new CategoriesRepository(db);
         }
 		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();

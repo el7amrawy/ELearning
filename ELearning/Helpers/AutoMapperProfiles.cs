@@ -16,6 +16,8 @@ namespace ELearning.Helpers
             /* Dashboard Area */
             CreateMap<AppUser, AdminProfile_ViewModel>();
             CreateMap<AdminProfile_ViewModel, AppUser>().ForMember(dest => dest.Image, opt => opt.Ignore());
+            CreateMap<Category_ViewModel, Category>()
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
         }
     }
 }

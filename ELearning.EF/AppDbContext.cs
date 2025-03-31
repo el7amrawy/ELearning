@@ -18,7 +18,7 @@ namespace ELearning.EF
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<CartItem> CartItems { get; set; }
 		public DbSet<Image> Images { get; set; }
-
+		public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 			builder.Entity<Student>().HasMany(s => s.Courses).WithMany(c =>c.Students).UsingEntity<Enrollment>();
