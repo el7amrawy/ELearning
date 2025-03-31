@@ -18,6 +18,7 @@ namespace ELearning.Helpers
             CreateMap<AdminProfile_ViewModel, AppUser>().ForMember(dest => dest.Image, opt => opt.Ignore());
             CreateMap<Category_ViewModel, Category>()
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
+            CreateMap<EditCategory_ViewModel, Category>().ReverseMap();
         }
     }
 }

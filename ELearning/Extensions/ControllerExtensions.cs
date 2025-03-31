@@ -7,7 +7,7 @@ namespace ELearning.Extensions
         public static IActionResult RedirectToPrevious(this Controller controller)
         {
             var referer = controller.HttpContext.Request.Headers.Referer.ToString();
-            if (referer.Length < 1)
+            if (!string.IsNullOrEmpty(referer))
                 return controller.Redirect(referer);
             else 
                 return controller.RedirectToAction("", "Home");

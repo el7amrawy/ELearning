@@ -1,6 +1,6 @@
 ﻿namespace ELearning.Areas.Dashboard.ViewModels
 {
-    public class Category_ViewModel
+    public class EditCategory_ViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
