@@ -8,7 +8,7 @@ namespace ELearning.Core.Models
 		[Key]
 		public int Id { get; set; }
 		[Required]
-		public string Name { get; set; }
+		public string Title { get; set; }
         [Required]
         public string Description { get; set; }
 		[Required]
@@ -22,6 +22,8 @@ namespace ELearning.Core.Models
 		public int LevelId { get; set; }
 		[Required,ForeignKey(nameof(Status))]
 		public int StatusId { get; set; }
+		[ForeignKey("Category")]
+		public int CategoryId { get; set; }
         [Required]
         public DateTime CreatedAt {  get; set; }
         public virtual ICollection<Instructor> Instructors { get; set; } = [];
@@ -31,5 +33,6 @@ namespace ELearning.Core.Models
 		public virtual Language Language { get; set; }
 		public virtual Level Level { get; set; }
 		public virtual CourseStatus Status { get; set; }
+		public virtual Category? Category { get; set; }
 	}
 }
