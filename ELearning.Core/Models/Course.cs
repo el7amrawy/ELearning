@@ -29,10 +29,10 @@ namespace ELearning.Core.Models
         public virtual ICollection<Instructor> Instructors { get; set; } = [];
 		public virtual ICollection<Section> Sections { get; set; } = [];
 		public virtual ICollection<Student> Students { get; set; } = [];
-		public virtual Image Image { get; set; }
-		public virtual Language Language { get; set; }
-		public virtual Level Level { get; set; }
-		public virtual CourseStatus Status { get; set; }
+		public virtual Image? Image { get; set; }
+		public virtual Language? Language { get; set; }
+		public virtual Level? Level { get; set; }
+		public virtual CourseStatus? Status { get; set; }
 		public virtual Category? Category { get; set; }
 	}
 }
