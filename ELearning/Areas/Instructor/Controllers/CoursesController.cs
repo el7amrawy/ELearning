@@ -4,9 +4,9 @@ namespace ELearning.Areas.Instructor.Controllers
 {
     public class CoursesController : BaseInstructorController
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet]
+        public IActionResult Index() => View();
+        [HttpGet]
+        public IActionResult Create() => View();
     }
 }

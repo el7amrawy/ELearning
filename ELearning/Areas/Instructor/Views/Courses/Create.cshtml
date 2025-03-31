@@ -1,0 +1,108 @@
+﻿@{
+	ViewBag.Title = "Create Course";
+	ViewBag.ActiveTab = NavTabsEnum.Courses;
+}
+
+<div class="mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+            <i class="fas fa-plus-circle text-indigo-500 mr-2"></i> Create New Course
+        </h1>
+        <a href="add_section.html" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg transition">
+            <i class="fas fa-arrow-right mr-2"></i> Next: Add Sections
+        </a>
+    </div>
+
+    <!-- Course Form -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        <form>
+            <!-- Course Title -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">
+                    <i class="fas fa-heading mr-2 text-indigo-500"></i> Course Title
+                </label>
+                <input type="text" placeholder="e.g., Python for Beginners"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            </div>
+
+            <!-- Description -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">
+                    <i class="fas fa-align-left mr-2 text-indigo-500"></i> Description
+                </label>
+                <textarea rows="4" placeholder="What will students learn?"
+                          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">
+                    <i class="fas fa-align-left mr-2 text-indigo-500"></i> Price
+                </label>
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input type="number" min="0" step="0.01" placeholder="0.00" required
+                           class="w-full pl-8 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
+                </div>
+                <p class="text-sm text-gray-500 mt-1">Set to 0 for free courses</p>
+            </div>
+
+            <!-- Thumbnail Upload -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">
+                    <i class="fas fa-image mr-2 text-indigo-500"></i> Thumbnail
+                </label>
+                <div class="mt-1 relative group h-80">
+                    <!-- Fixed height container -->
+                    <!-- Preview image (hidden by default) -->
+                    <div id="image-preview" class="hidden absolute inset-0 bg-cover bg-center rounded-lg border border-gray-200"></div>
+
+                    <!-- Upload placeholder (shown by default) -->
+                    <div id="upload-placeholder" class="absolute inset-0 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center transition-all duration-200 group-hover:border-indigo-400 cursor-pointer bg-gray-50">
+                        <div class="text-center p-6">
+                            <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 mb-4 transition-colors group-hover:text-indigo-500"></i>
+                            <p class="text-lg font-medium text-gray-700 mb-1">Upload your course image</p>
+                            <p class="text-sm text-gray-500">Drag & drop or click to browse</p>
+                            <p class="text-xs text-gray-400 mt-4">Recommended: 1600×900px (16:9 ratio)</p>
+                        </div>
+                    </div>
+
+                    <!-- Hover overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="bg-black bg-opacity-40 rounded-lg w-full h-full flex items-center justify-center">
+                            <span class="bg-white px-4 py-2 rounded-md text-sm font-medium text-gray-700 shadow-sm flex items-center">
+                                <i class="fas fa-camera mr-2"></i> Change Image
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Actual file input -->
+                    <input id="file-upload" type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">
+                    <i class="fas fa-tag mr-2 text-indigo-500"></i> Category
+                </label>
+                <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <option>Programming</option>
+                    <option>Design</option>
+                    <option>Business</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg font-semibold transition">
+                <i class="fas fa-save mr-2"></i> Save Course
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="/assets/Instructor/js/CreateCourse.js"></script>
+}
