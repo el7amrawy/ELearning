@@ -4,6 +4,8 @@
     {
         None,
         Dashboard,
-        Courses
+        Courses,
+        Categories,
+        Languages
     }
 }

@@ -21,5 +21,20 @@
                 </a>
             </li>
         </ul>
+        <p class="menu-label">Course</p>
+        <ul class="menu-list">
+            <li class="@(tab==AsideTabs.Categories?"active":string.Empty)">
+                <a asp-controller="Categories" asp-action="Index">
+                    <span class="icon"><i class="mdi mdi-tag"></i></span>
+                    <span class="menu-item-label">Categories</span>
+                </a>
+            </li>
+            <li class="@(tab==AsideTabs.Languages?"active":string.Empty)">
+                <a asp-controller="Languages" asp-action="Index">
+                    <span class="icon"><i class="mdi mdi-translate"></i></span>
+                    <span class="menu-item-label">Languages</span>
+                </a>
+            </li>
+        </ul>
     </div>
 </aside>
