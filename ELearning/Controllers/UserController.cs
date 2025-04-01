@@ -109,7 +109,7 @@ namespace ELearning.Controllers
             await _signInManager.RefreshSignInAsync(user);
 
             TempData["Success"] = "You are now an instructor";
-            return this.RedirectToPrevious();
+            return RedirectToAction("Index", "Home", new { area = "Instructor" });
         }
     }
 }
