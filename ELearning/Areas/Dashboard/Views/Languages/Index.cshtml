@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Language>
+@{
+	ViewBag.Title = "Languages";
+	ViewBag.Active = AsideTabs.Languages;
+}
+
+<main class="bg-gray-50 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">
+                <i class="mdi mdi-translate text-blue-500 mr-2"></i>
+                Languages
+            </h1>
+            <a asp-action="create" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                <i class="mdi mdi-plus mr-2"></i> Add New
+            </a>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                @Html.DisplayNameFor(c => c.Id)
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                @Html.DisplayNameFor(c => c.Name)
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    @item.Id
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @item.Name
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <a asp-action="edit" asp-route-id="@item.Id" class="text-yellow-500 hover:text-yellow-700" title="Edit">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <button onclick="confirmDelete(@item.Id, '@item.Name', '/dashboard/Languages/delete/@item.Id')" class="text-red-500 hover:text-red-700" title="Delete">
+                                            <i class="mdi mdi-delete"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_DeleteItemAlertPartial");
+    }
+}

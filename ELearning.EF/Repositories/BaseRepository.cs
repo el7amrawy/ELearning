@@ -50,6 +50,7 @@ namespace ELearning.EF.Repositories
 
             return await query.ToListAsync();
         }
+        public async Task<IEnumerable<Entity>> GetAllAsync() => await _db.Set<Entity>().ToListAsync();
         public Task<Entity> GetItemAsync(Expression<Func<Entity, bool>> criteria, string[] includes = null)
         {
             var query = _db.Set<Entity>().AsQueryable();
