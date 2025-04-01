@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CreateCourse_ViewModel
+@{
 	ViewBag.Title = "Create Course";
 	ViewBag.ActiveTab = NavTabsEnum.Courses;
 }
@@ -16,14 +17,15 @@
 
     <!-- Course Form -->
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-        <form>
+        <form asp-action="create" enctype="multipart/form-data">
             <!-- Course Title -->
             <div class="mb-6">
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-heading mr-2 text-indigo-500"></i> Course Title
                 </label>
-                <input type="text" placeholder="e.g., Python for Beginners"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                <input asp-for="Title" placeholder="e.g., Python for Beginners"
+                       class="w-full p-3 border focus:outline-none border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                <span asp-validation-for="Title" class="text-red-500"></span>
             </div>
 
             <!-- Thumbnail Upload -->
@@ -56,7 +58,8 @@
                     </div>
 
                     <!-- Actual file input -->
-                    <input id="file-upload" type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    <input asp-for="ImageFile" id="file-upload" class="absolute inset-0 focus:outline-none w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                    <span asp-validation-for="ImageFile" class="text-red-500"></span>
                 </div>
             </div>
 
@@ -65,8 +68,10 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-align-left mr-2 text-indigo-500"></i> Description
                 </label>
-                <textarea rows="4" placeholder="What will students learn?"
-                          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+                <textarea asp-for="Description" placeholder="What will students learn?"
+                          class="w-full field-sizing-content focus:outline-none p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+                <span asp-validation-for="Description" class="text-red-500"></span>
+
             </div>
 
             <!-- Category -->
@@ -74,11 +79,10 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-tag mr-2 text-indigo-500"></i> Category
                 </label>
-                <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <option>Programming</option>
-                    <option>Design</option>
-                    <option>Business</option>
+                <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="w-full focus:outline-none p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </select>
+                <span asp-validation-for="CategoryId" class="text-red-500"></span>
+
             </div>
 
             <!-- Language Selection -->
@@ -86,16 +90,9 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-language mr-2 text-indigo-500"></i> Language
                 </label>
-                <select required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
-                    <option value="">Select language</option>
-                    <option value="en">English</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    <option value="de">German</option>
-                    <option value="zh">Chinese</option>
-                    <option value="ja">Japanese</option>
-                    <option value="other">Other</option>
+                <select asp-for="LanguageId" asp-items="ViewBag.Languages" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
                 </select>
+                <span asp-validation-for="LanguageId" class="text-red-500"></span>
             </div>
 
             <!-- Difficulty Level -->
@@ -103,20 +100,9 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-signal mr-2 text-indigo-500"></i> Difficulty Level
                 </label>
-                <div class="grid grid-cols-3 gap-3">
-                    <label class="flex items-center p-3 border border-gray-300 rounded-lg hover:border-primary cursor-pointer">
-                        <input type="radio" name="level" value="beginner" class="mr-2 text-primary focus:ring-primary" required>
-                        <span>Beginner</span>
-                    </label>
-                    <label class="flex items-center p-3 border border-gray-300 rounded-lg hover:border-primary cursor-pointer">
-                        <input type="radio" name="level" value="intermediate" class="mr-2 text-primary focus:ring-primary">
-                        <span>Intermediate</span>
-                    </label>
-                    <label class="flex items-center p-3 border border-gray-300 rounded-lg hover:border-primary cursor-pointer">
-                        <input type="radio" name="level" value="advanced" class="mr-2 text-primary focus:ring-primary">
-                        <span>Advanced</span>
-                    </label>
-                </div>
+                <select asp-for="LevelId" asp-items="ViewBag.Levels" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
+                </select>
+                <span asp-validation-for="LevelId" class="text-red-500"></span>
             </div>
 
             <!-- Price -->
@@ -126,10 +112,11 @@
                 </label>
                 <div class="relative">
                     <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
-                    <input type="number" min="0" step="0.01" placeholder="0.00" required
-                           class="w-full pl-8 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary">
+                    <input asp-for="Price" type="number" min="0" step="0.01" placeholder="0.00"
+                           class="w-full pl-8 p-3 border border-gray-300 focus:outline-none rounded-lg focus:ring-2 focus:ring-primary">
                 </div>
                 <p class="text-sm text-gray-500 mt-1">Set to 0 for free courses</p>
+                <span asp-validation-for="Price" class="text-red-500"></span>
             </div>
 
             <!-- Submit Button -->
@@ -143,4 +130,5 @@
 
 @section Scripts{
     <script src="/assets/Instructor/js/CreateCourse.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
