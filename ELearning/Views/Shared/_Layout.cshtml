@@ -12,14 +12,15 @@
 </head>
 <body>
     <partial name="_NavBarPartial" />
-    <partial name="_NotificationPartial" />
     <div class="pt-16">
         @RenderBody()
     </div>
     <partial name="_FooterPartial" />
 
 
-<script src="/assets/js/index.js" type="module"></script>
-@await RenderSectionAsync("Scripts",false)
+    <script src="/assets/js/index.js" type="module"></script>
+    <script src="~/assets/toastify/toastify-js.js"></script>
+    <partial name="_NotificationPartial" />
+    @await RenderSectionAsync("Scripts",false)
 </body>
 </html>
