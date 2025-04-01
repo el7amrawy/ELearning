@@ -7,6 +7,7 @@
     <script nomodule src="/assets/ionicons/ionicons.js"></script>
     <link href="/assets/css/index.css" rel="stylesheet" />
     <link href="/assets/css/output.css" rel="stylesheet" />
+    <link href="/assets/toastify/toastify.min.css" rel="stylesheet" />
     @await RenderSectionAsync("Styles",false)
     <title>@ViewBag.Title</title>
 </head>
@@ -16,7 +17,6 @@
         @RenderBody()
     </div>
     <partial name="_FooterPartial" />
-
 
     <script src="/assets/js/index.js" type="module"></script>
     <script src="~/assets/toastify/toastify-js.js"></script>
