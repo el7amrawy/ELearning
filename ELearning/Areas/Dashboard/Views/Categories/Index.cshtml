@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Category>
 @{
-	ViewBag.Title = "Categories";
-	ViewBag.Active = AsideTabs.Categories;
+    ViewBag.Title = "Categories";
+    ViewBag.Active = AsideTabs.Categories;
+    var pagination = (Pagination)ViewBag.Pagination;
 }
 
 <main class="bg-gray-50 min-h-screen p-6">
@@ -44,62 +45,60 @@
                         @foreach (var item in Model)
                         {
                             <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                @item.Id
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                @item.Name
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                @Html.DisplayFor(_=>item.Description)
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                @Html.DisplayFor(_ => item.CreatedAt)
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-2">
-                                    @* <a asp-action="details" asp-route-id="@item.Id" class="text-blue-500 hover:text-blue-700" title="View"> *@
-                                    @*     <i class="mdi mdi-eye"></i> *@
-                                    @* </a> *@
-                                    <a asp-action="edit" asp-route-id="@item.Id" class="text-yellow-500 hover:text-yellow-700" title="Edit">
-                                        <i class="mdi mdi-pencil"></i>
-                                    </a>
-                                    <button onclick="confirmDelete(@item.Id, '@item.Name', '/dashboard/categories/delete/@item.Id')" class="text-red-500 hover:text-red-700" title="Delete">
-                                        <i class="mdi mdi-delete"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    @item.Id
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @item.Name
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-500">
+                                    @Html.DisplayFor(_=>item.Description)
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @Html.DisplayFor(_ => item.CreatedAt)
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        @* <a asp-action="details" asp-route-id="@item.Id" class="text-blue-500 hover:text-blue-700" title="View"> *@
+                                        @*     <i class="mdi mdi-eye"></i> *@
+                                        @* </a> *@
+                                        <a asp-action="edit" asp-route-id="@item.Id" class="text-yellow-500 hover:text-yellow-700" title="Edit">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <button onclick="confirmDelete(@item.Id, '@item.Name', '/dashboard/categories/delete/@item.Id')" class="text-red-500 hover:text-red-700" title="Delete">
+                                            <i class="mdi mdi-delete"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
             </div>
         </div>
-
         <!-- Pagination -->
+        @if (pagination.Count > pagination.PageSize)
+        {
         <div class="flex items-center justify-between mt-4 px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm text-gray-700">
-                        Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span class="font-medium">3</span> results
+                        Page <span class="font-medium">@pagination.PageNumber</span> of <span class="font-medium">@pagination.Pages</span>
                     </p>
                 </div>
                 <div>
                     <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <a asp-action="Index" asp-route-pagenumber="@(pagination.PageNumber-1)" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                             <span class="sr-only">Previous</span>
                             <i class="mdi mdi-chevron-left"></i>
                         </a>
-                        <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            1
-                        </a>
-                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            2
-                        </a>
-                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            3
-                        </a>
-                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        @for (int i = 1; i <= pagination.Pages; i++)
+                            {
+                                <a asp-action="Index" asp-route-pagenumber="@i" aria-current="page" class="hover:bg-gray-100 relative inline-flex items-center px-4 py-2 border text-sm font-medium @(i==pagination.PageNumber?"z-10 bg-blue-50 border-blue-500 text-blue-600":"border-gray-300 text-gray-500")">
+                                    @i
+                                </a>
+                            }
+                            <a asp-action="Index" asp-route-pagenumber="@(pagination.PageNumber+1)" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                             <span class="sr-only">Next</span>
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
@@ -107,6 +106,7 @@
                 </div>
             </div>
         </div>
+        }
     </div>
 </main>
 

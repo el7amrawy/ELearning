@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ELearning.Areas.Dashboard.ViewModels;
+using ELearning.Core.Consts;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
+using ELearning.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Dashboard.Controllers
@@ -18,9 +20,13 @@ namespace ELearning.Areas.Dashboard.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber,int pageSize)
         {
-            return View(await _unitOfWork.Categories.GetAllAsync());
+            var pagination = new Pagination(pageNumber > 0 ? pageNumber : 1, pageSize > 0 ? pageSize : 10, await _unitOfWork.Categories.CountAsync());
+            ViewBag.Pagination = pagination;
+
+            return View(await _unitOfWork.Categories
+                .GetAllAsync(pageNumber: pagination.PageNumber, pageSize: pagination.PageSize, orderBy: c => c.CreatedAt, orderByDirection: OrderBy.Descending));
         }
         [HttpGet]
         public IActionResult Create() => View();

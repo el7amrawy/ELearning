@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using ELearning.Core.Consts;
 using ELearning.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,7 @@ namespace ELearning.EF.Repositories
             return await query.CountAsync();
         }
         public async Task AddRangeAsync(IEnumerable<Entity> entities) => await _db.Set<Entity>().AddRangeAsync(entities);
-        public virtual async Task<IEnumerable<Entity>> GetAllAsync(Expression<Func<Entity, bool>> criteria = null, string[] includes = null, int pageNumber = 0, int pageSize = 0)
+        public virtual async Task<IEnumerable<Entity>> GetAllAsync(Expression<Func<Entity, bool>> criteria = null, string[] includes = null, int pageNumber = 0, int pageSize = 0, Expression<Func<Entity, object>> orderBy = null, string orderByDirection = OrderBy.Ascending)
         {
             var query = _db.Set<Entity>().AsQueryable();
 
@@ -32,6 +33,14 @@ namespace ELearning.EF.Repositories
             if (includes != null)
                 foreach (var item in includes)
                     query = query.Include(item);
+
+            if (orderBy != null)
+            {
+                if (orderByDirection == OrderBy.Ascending)
+                    query = query.OrderBy(orderBy);
+
+                else query = query.OrderByDescending(orderBy);
+            }
 
             if (pageNumber > 0)
                 query = query.Skip((pageNumber - 1) * pageSize);
