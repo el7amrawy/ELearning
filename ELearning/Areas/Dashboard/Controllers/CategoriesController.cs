@@ -59,6 +59,7 @@ namespace ELearning.Areas.Dashboard.Controllers
 
             return View(_mapper.Map<EditCategory_ViewModel>(category));
         }
+        [HttpPost]
         public async Task<IActionResult> Edit(EditCategory_ViewModel model)
         {
             if (ModelState.IsValid)
@@ -82,6 +83,26 @@ namespace ELearning.Areas.Dashboard.Controllers
                 TempData["Error"] = "Problem editing category";
             }
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id) {
+            var category = await _unitOfWork.Categories.GetByIdAsync(id);
+
+            if (category == null) {
+                TempData["Error"] = "Category doesn't exist";
+                return this.RedirectToPrevious();
+            }
+
+            _unitOfWork.Categories.Delete(category);
+
+            if (await _unitOfWork.CompleteAsync() < 1) {
+                TempData["Error"] = "problem deleting category";
+                return this.RedirectToPrevious();
+            }
+
+            TempData["Success"] = "category deleted successfully";
+
+            return RedirectToAction("Index");
         }
     }
 }
