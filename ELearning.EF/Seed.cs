@@ -35,7 +35,7 @@ namespace ELearning.EF
             await _unitOfOfWork.Levels.AddRangeAsync(new List<Level>
             {
                 new Level{Name="Beginner"},
-                new Level{Name="Mid Level"},
+                new Level{Name="Intermediate"},
                 new Level{Name="Advanced"}
             });
         }
