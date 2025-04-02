@@ -32,10 +32,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Instructor\ViewModels\" />
-  </ItemGroup>
 	
   <Target Name="Tailwind" BeforeTargets="Build">
     <Exec Command="npm run css:build" />
