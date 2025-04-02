@@ -10,7 +10,7 @@ namespace ELearning.EF.Repositories
 		private readonly AppDbContext _db;
         public BaseRepository(AppDbContext db) => _db = db;
         public async Task<Entity> GetByIdAsync(int id) => await _db.Set<Entity>().FindAsync(id);
-        public void Add(Entity entity) => _db.Entry(entity).State = EntityState.Added;
+        public void Add(Entity entity) => _db.Add(entity);
         public void Update(Entity entity) => _db.Entry(entity).State = EntityState.Modified;
         public void Delete(Entity entity) => _db.Entry(entity).State = EntityState.Deleted;
         public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null)
