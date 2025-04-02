@@ -46,8 +46,9 @@ namespace ELearning.EF
 
             await _unitOfOfWork.CoursesStatus.AddRangeAsync(
             [
-                new CourseStatus{Name="Available"},
-                new CourseStatus{Name="Unavailable"},
+                new CourseStatus{Name="Published"},
+                new CourseStatus{Name="Draft"},
+                new CourseStatus{Name="Canceled"},
             ]);
         }
         public async Task SeedAsync()

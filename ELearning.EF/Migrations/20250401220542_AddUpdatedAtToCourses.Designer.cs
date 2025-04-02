@@ -4,6 +4,7 @@ using ELearning.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELearning.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401220542_AddUpdatedAtToCourses")]
+    partial class AddUpdatedAtToCourses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("InstructorsId");
 
-                    b.ToTable("CourseInstructor", (string)null);
+                    b.ToTable("CourseInstructor");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.AppUser", b =>
@@ -158,7 +161,7 @@ namespace ELearning.EF.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.CartItem", b =>
@@ -181,7 +184,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Category", b =>
@@ -204,7 +207,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
@@ -262,7 +265,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Courses", (string)null);
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.CourseStatus", b =>
@@ -279,7 +282,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseStatus", (string)null);
+                    b.ToTable("CourseStatus");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Enrollment", b =>
@@ -299,7 +302,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Enrollments", (string)null);
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Image", b =>
@@ -323,7 +326,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Language", b =>
@@ -340,7 +343,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Lecture", b =>
@@ -372,7 +375,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("Lectures", (string)null);
+                    b.ToTable("Lectures");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Level", b =>
@@ -389,7 +392,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Levels", (string)null);
+                    b.ToTable("Levels");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Material", b =>
@@ -416,7 +419,7 @@ namespace ELearning.EF.Migrations
                     b.HasIndex("LectureId")
                         .IsUnique();
 
-                    b.ToTable("Materials", (string)null);
+                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Section", b =>
@@ -438,7 +441,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Sections", (string)null);
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
