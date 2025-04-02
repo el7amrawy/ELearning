@@ -1,4 +1,6 @@
-﻿using ELearning.Core.Interfaces.Repositories;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ELearning.Core.Interfaces.Repositories;
 using ELearning.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,21 +9,21 @@ namespace ELearning.EF.Repositories
 	public class CoursesRepository : BaseRepository<Course> ,ICoursesRepository
 	{
         private readonly AppDbContext _context;
-        public CoursesRepository(AppDbContext db) : base(db)
+        private readonly IMapper _mapper;
+        public CoursesRepository(AppDbContext db, IMapper mapper) : base(db)
         {
             _context = db;
+            _mapper = mapper;
         }
-        public async Task<IEnumerable<Course>> GetInstructorCourses(int instructorId, string[] includes = null)
+        public async Task<IEnumerable<Model>> GetInstructorCourses<Model>(int instructorId, string[] includes = null)
         {
-            var istructor = _context.Users.Where(i => i.Id == instructorId);
-
-            var query = istructor.SelectMany(i => i.Courses);
+            var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
 
             if (includes != null)
                 foreach (var item in includes)
                     query = query.Include(item);
 
-            return await query.ToListAsync();
+            return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
         }
     }
 }

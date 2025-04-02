@@ -1,4 +1,5 @@
-﻿using ELearning.Core.Interfaces;
+﻿using AutoMapper;
+using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Repositories;
 using ELearning.EF.Repositories;
 
@@ -7,25 +8,19 @@ namespace ELearning.EF
     public class UnitOfWork : IUnitOfWork
 	{
         private readonly AppDbContext _db;
-		public ICoursesRepository Courses {  get; }
-        public ICourseStatusRepository CoursesStatus { get; }
-        public ILanguagesRepository Languages { get; }
-        public ILevelsRepository Levels { get; }
-        public IUsersRepository Users {  get; }
-        public IImagesRepository Images {  get; }
-        public ICategoriesRepository Categories { get; }
-
-        public UnitOfWork(AppDbContext db)
-		{
-			_db = db;
-			Courses = new CoursesRepository(db);
-			CoursesStatus = new CourseStatusRepository(db);
-			Languages = new LanguagesRepository(db);
-			Levels = new LevelsRepository(db);
-			Users = new UsersRepository(db);
-			Images = new ImagesRepository(db);
-			Categories = new CategoriesRepository(db);
+		private readonly IMapper _mapper;
+        public UnitOfWork(AppDbContext db, IMapper mapper)
+        {
+            _db = db;
+            _mapper = mapper;
         }
+        public ICoursesRepository Courses => new CoursesRepository(_db, _mapper);
+        public ICourseStatusRepository CoursesStatus => new CourseStatusRepository(_db);
+        public ILanguagesRepository Languages => new LanguagesRepository(_db);
+        public ILevelsRepository Levels => new LevelsRepository(_db);
+        public IUsersRepository Users => new UsersRepository(_db);
+        public IImagesRepository Images => new ImagesRepository(_db);
+        public ICategoriesRepository Categories => new CategoriesRepository(_db);
 		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
 	}

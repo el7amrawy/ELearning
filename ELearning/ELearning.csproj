@@ -8,7 +8,6 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,18 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ELearning.Core\ELearning.Core.csproj" />
     <ProjectReference Include="..\ELearning.EF\ELearning.EF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-	<UpToDateCheckBuilt Include="wwwroot/css/tailwind.css" Set="Css" />
-	<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Areas\Dashboard\Views\Shared\_NotificationPartial.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 	
   <Target Name="Tailwind" BeforeTargets="Build">

@@ -22,9 +22,9 @@ namespace ELearning.Areas.Instructor.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var courses = await _unitOfWork.Courses.GetInstructorCourses(User.GetUserId());
+            var courses = await _unitOfWork.Courses.GetInstructorCourses<Course_ViewModel>(User.GetUserId(), ["Image"]);
 
-            return View(_mapper.Map<IEnumerable<Course_ViewModel>>(courses));
+            return View(courses);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -40,6 +40,8 @@ namespace ELearning.Areas.Instructor.Controllers
         {
             if (ModelState.IsValid)
             {
+                var instructor = await _unitOfWork.Users.GetByIdAsync(User.GetUserId());
+
                 var course = _mapper.Map<Course>(model);
 
                 var res = await _photoService.AddPhotoAsync(model.ImageFile, 900, 1600);
@@ -50,12 +52,9 @@ namespace ELearning.Areas.Instructor.Controllers
                     return View(model);
                 }
 
-                var image = new Image { CreatedAt = DateTime.Now, PublicId = res.PublicId, URL = res.SecureUrl.AbsoluteUri };
+                course.Image = new Image { CreatedAt = DateTime.Now, PublicId = res.PublicId, URL = res.SecureUrl.AbsoluteUri };
 
-
-                course.Image = image;
-
-                _unitOfWork.Courses.Add(course);
+                instructor.Courses.Add(course);
 
                 if (await _unitOfWork.CompleteAsync() < 1)
                     TempData["Error"] += ",problem creating course";

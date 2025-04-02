@@ -1,8 +1,8 @@
 ﻿@model Course_ViewModel
 
 <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
-    <div class="h-40 bg-[url(@Model.Image?.URL)] from-indigo-600 to-indigo-700 flex items-center justify-center relative">
-        @* <span class="text-white text-xl font-bold">Advanced JavaScript</span> *@
+    <div class="relative w-full aspect-[16/9]">
+        <img src="@Model.Image?.URL" alt="Course Image" class="w-full h-full object-cover">
         <div class="absolute top-2 right-2">
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium @(Model.StatusId==CourseStatusEnum.Published?"bg-green-100 text-green-800":Model.StatusId==CourseStatusEnum.Draft?"bg-yellow-100 text-yellow-800":"bg-red-100 text-red-800")">
                 @Model.StatusName
