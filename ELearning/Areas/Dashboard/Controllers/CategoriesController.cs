@@ -72,7 +72,7 @@ namespace ELearning.Areas.Dashboard.Controllers
                 }
                 _mapper.Map(model, category);
                 
-                _unitOfWork.Categories.Update(category);
+                //_unitOfWork.Categories.Update(category);
 
                 if (await _unitOfWork.CompleteAsync() > 0)
                 {

@@ -2,6 +2,7 @@
 using ELearning.Core.Models;
 using ELearning.ViewModels;
 using ELearning.Areas.Dashboard.ViewModels;
+using ELearning.Core.Enums;
 
 namespace ELearning.Helpers
 {
@@ -19,6 +20,12 @@ namespace ELearning.Helpers
             CreateMap<Category_ViewModel, Category>()
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
             CreateMap<EditCategory_ViewModel, Category>().ReverseMap();
+
+            /* Instructor Area */
+            CreateMap<CreateCourse_ViewModel, Course>()
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
+                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(_ => CourseStatusEnum.Draft));
         }
     }
 }
