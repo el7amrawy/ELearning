@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using ELearning.Core.Interfaces.Repositories;
 using ELearning.Core.Models;
@@ -15,9 +16,12 @@ namespace ELearning.EF.Repositories
             _context = db;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Model>> GetInstructorCourses<Model>(int instructorId, string[] includes = null)
+        public async Task<IEnumerable<Model>> GetInstructorCourses<Model>(int instructorId, string[] includes = null, Expression<Func<Course, bool>> criteria = null)
         {
             var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
+
+            if (criteria != null)
+                query = query.Where(criteria);
 
             if (includes != null)
                 foreach (var item in includes)
