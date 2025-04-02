@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
-using ELearning.ViewModels;
+using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,7 +20,12 @@ namespace ELearning.Areas.Instructor.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index()
+        {
+            var courses = await _unitOfWork.Courses.GetInstructorCourses(User.GetUserId());
+
+            return View(_mapper.Map<IEnumerable<Course_ViewModel>>(courses));
+        }
         [HttpGet]
         public async Task<IActionResult> Create()
         {

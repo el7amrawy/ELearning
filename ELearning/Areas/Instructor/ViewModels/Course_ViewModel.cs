@@ -1,10 +1,10 @@
 ﻿using ELearning.Core.Models;
 using ELearning.Core.Enums;
 
-namespace ELearning.ViewModels
+namespace ELearning.Areas.Instructor.ViewModels
 {
     public class Course_ViewModel
-    {      
+    {
         public int Id { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
@@ -16,8 +16,8 @@ namespace ELearning.ViewModels
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public Image Image { get; set; }
-        public Language Language { get; set; }
-        public Level Level { get; set; }
-        public Category Category { get; set; }
+        //public Language Language { get; set; }
+        //public Level Level { get; set; }
+        //public Category Category { get; set; }
     }
 }
