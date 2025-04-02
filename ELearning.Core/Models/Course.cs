@@ -14,9 +14,6 @@ namespace ELearning.Core.Models
 		[Required]
 		public decimal Price { get; set; }
 		public string? Time { get; set; }
-		[ForeignKey(nameof(Image))]
-		public int ImageId { get; set; }
-		[ForeignKey(nameof(Language)),Required]
 		public int LanguageId { get; set; }
 		[Required,ForeignKey(nameof(Level))]
 		public int LevelId { get; set; }
@@ -26,10 +23,11 @@ namespace ELearning.Core.Models
 		public int CategoryId { get; set; }
         [Required]
         public DateTime CreatedAt {  get; set; }
+		public DateTime UpdatedAt { get; set; }
         public virtual ICollection<Instructor> Instructors { get; set; } = [];
 		public virtual ICollection<Section> Sections { get; set; } = [];
 		public virtual ICollection<Student> Students { get; set; } = [];
-		public virtual Image? Image { get; set; }
+		public Image Image { get; set; }
 		public virtual Language? Language { get; set; }
 		public virtual Level? Level { get; set; }
 		public virtual CourseStatus? Status { get; set; }
