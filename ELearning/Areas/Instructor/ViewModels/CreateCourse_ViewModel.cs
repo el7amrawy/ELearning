@@ -1,8 +1,9 @@
-﻿namespace ELearning.ViewModels
+﻿namespace ELearning.Areas.Instructor.ViewModels
 {
     public class CreateCourse_ViewModel
     {
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int LanguageId { get; set; }

@@ -3,6 +3,7 @@ using ELearning.Core.Models;
 using ELearning.ViewModels;
 using ELearning.Areas.Dashboard.ViewModels;
 using ELearning.Core.Enums;
+using ELearning.Areas.Instructor.ViewModels;
 
 namespace ELearning.Helpers
 {
