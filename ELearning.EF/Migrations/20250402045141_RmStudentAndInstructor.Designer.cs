@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELearning.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250312103154_UpdateCourseModelAndAddImageModel")]
-    partial class UpdateCourseModelAndAddImageModel
+    [Migration("20250402045141_RmStudentAndInstructor")]
+    partial class RmStudentAndInstructor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ELearning.EF.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CourseInstructor", b =>
+            modelBuilder.Entity("AppUserCourse", b =>
                 {
                     b.Property<int>("CoursesId")
                         .HasColumnType("int");
@@ -37,7 +37,7 @@ namespace ELearning.EF.Migrations
 
                     b.HasIndex("InstructorsId");
 
-                    b.ToTable("CourseInstructor");
+                    b.ToTable("AppUserCourse");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.AppUser", b =>
@@ -51,17 +51,15 @@ namespace ELearning.EF.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -116,7 +114,9 @@ namespace ELearning.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId");
+                    b.HasIndex("ImageId")
+                        .IsUnique()
+                        .HasFilter("[ImageId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -127,10 +127,6 @@ namespace ELearning.EF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator().HasValue("AppUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
@@ -184,6 +180,29 @@ namespace ELearning.EF.Migrations
                     b.ToTable("CartItems");
                 });
 
+            modelBuilder.Entity("ELearning.Core.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -191,6 +210,9 @@ namespace ELearning.EF.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -208,20 +230,29 @@ namespace ELearning.EF.Migrations
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
+                    b.Property<string>("SubTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Time")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ImageId");
 
@@ -303,9 +334,6 @@ namespace ELearning.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -322,6 +350,9 @@ namespace ELearning.EF.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -543,21 +574,7 @@ namespace ELearning.EF.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ELearning.Core.Models.Instructor", b =>
-                {
-                    b.HasBaseType("ELearning.Core.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Instructor");
-                });
-
-            modelBuilder.Entity("ELearning.Core.Models.Student", b =>
-                {
-                    b.HasBaseType("ELearning.Core.Models.AppUser");
-
-                    b.HasDiscriminator().HasValue("Student");
-                });
-
-            modelBuilder.Entity("CourseInstructor", b =>
+            modelBuilder.Entity("AppUserCourse", b =>
                 {
                     b.HasOne("ELearning.Core.Models.Course", null)
                         .WithMany()
@@ -565,7 +582,7 @@ namespace ELearning.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ELearning.Core.Models.Instructor", null)
+                    b.HasOne("ELearning.Core.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("InstructorsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -613,6 +630,12 @@ namespace ELearning.EF.Migrations
 
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
+                    b.HasOne("ELearning.Core.Models.Category", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ELearning.Core.Models.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId")
@@ -637,6 +660,8 @@ namespace ELearning.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Category");
+
                     b.Navigation("Image");
 
                     b.Navigation("Language");
@@ -649,12 +674,12 @@ namespace ELearning.EF.Migrations
             modelBuilder.Entity("ELearning.Core.Models.Enrollment", b =>
                 {
                     b.HasOne("ELearning.Core.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("Enrollments")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ELearning.Core.Models.Student", "Student")
+                    b.HasOne("ELearning.Core.Models.AppUser", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -752,6 +777,8 @@ namespace ELearning.EF.Migrations
             modelBuilder.Entity("ELearning.Core.Models.AppUser", b =>
                 {
                     b.Navigation("Cart");
+
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
@@ -759,8 +786,15 @@ namespace ELearning.EF.Migrations
                     b.Navigation("CartItems");
                 });
 
+            modelBuilder.Entity("ELearning.Core.Models.Category", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
+                    b.Navigation("Enrollments");
+
                     b.Navigation("Sections");
                 });
 
@@ -772,11 +806,6 @@ namespace ELearning.EF.Migrations
             modelBuilder.Entity("ELearning.Core.Models.Section", b =>
                 {
                     b.Navigation("Lectures");
-                });
-
-            modelBuilder.Entity("ELearning.Core.Models.Student", b =>
-                {
-                    b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618
         }

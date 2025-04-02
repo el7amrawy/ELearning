@@ -8,8 +8,6 @@ namespace ELearning.EF
 	public class AppDbContext : IdentityDbContext<AppUser,IdentityRole<int>,int>
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
-		public DbSet<Student> Students { get; set; }
-		public DbSet<Instructor> Instructors { get; set; }
 		public DbSet<Enrollment> Enrollments { get; set; }
 		public DbSet<Course> Courses { get; set; }
 		public DbSet<Lecture> Lectures { get; set; }
@@ -21,7 +19,9 @@ namespace ELearning.EF
 		public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-			builder.Entity<Student>().HasMany(s => s.Courses).WithMany(c =>c.Students).UsingEntity<Enrollment>();
+
+			//builder.Entity<AppUser>().HasMany(s => s.Courses).WithMany(c =>c.Students).UsingEntity<Enrollment>();
+			builder.Entity<AppUser>().HasIndex(u => u.ImageId).IsUnique().HasFilter("[ImageId] IS NOT NULL");
 			base.OnModelCreating(builder);
 		}
     }

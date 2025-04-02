@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ELearning.EF.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateCourseModelAndAddImageModel : Migration
+    public partial class RmStudentAndInstructor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,6 +24,21 @@ namespace ELearning.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,8 +75,7 @@ namespace ELearning.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,8 +125,8 @@ namespace ELearning.EF.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageId = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -144,19 +158,28 @@ namespace ELearning.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SubTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageId = table.Column<int>(type: "int", nullable: false),
                     LanguageId = table.Column<int>(type: "int", nullable: false),
                     LevelId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ImageId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Courses_CourseStatus_StatusId",
                         column: x => x.StatusId,
@@ -291,7 +314,7 @@ namespace ELearning.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseInstructor",
+                name: "AppUserCourse",
                 columns: table => new
                 {
                     CoursesId = table.Column<int>(type: "int", nullable: false),
@@ -299,15 +322,15 @@ namespace ELearning.EF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseInstructor", x => new { x.CoursesId, x.InstructorsId });
+                    table.PrimaryKey("PK_AppUserCourse", x => new { x.CoursesId, x.InstructorsId });
                     table.ForeignKey(
-                        name: "FK_CourseInstructor_AspNetUsers_InstructorsId",
+                        name: "FK_AppUserCourse_AspNetUsers_InstructorsId",
                         column: x => x.InstructorsId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseInstructor_Courses_CoursesId",
+                        name: "FK_AppUserCourse_Courses_CoursesId",
                         column: x => x.CoursesId,
                         principalTable: "Courses",
                         principalColumn: "Id",
@@ -394,7 +417,8 @@ namespace ELearning.EF.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VideoURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SectionId = table.Column<int>(type: "int", nullable: false)
+                    SectionId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -429,6 +453,11 @@ namespace ELearning.EF.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppUserCourse_InstructorsId",
+                table: "AppUserCourse",
+                column: "InstructorsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -458,13 +487,12 @@ namespace ELearning.EF.Migrations
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
-                unique: true,
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ImageId",
                 table: "AspNetUsers",
-                column: "ImageId", 
+                column: "ImageId",
                 unique: true,
                 filter: "[ImageId] IS NOT NULL");
 
@@ -487,9 +515,9 @@ namespace ELearning.EF.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseInstructor_InstructorsId",
-                table: "CourseInstructor",
-                column: "InstructorsId");
+                name: "IX_Courses_CategoryId",
+                table: "Courses",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ImageId",
@@ -537,6 +565,9 @@ namespace ELearning.EF.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppUserCourse");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -553,9 +584,6 @@ namespace ELearning.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "CartItems");
-
-            migrationBuilder.DropTable(
-                name: "CourseInstructor");
 
             migrationBuilder.DropTable(
                 name: "Enrollments");
@@ -580,6 +608,9 @@ namespace ELearning.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "CourseStatus");

@@ -13,7 +13,7 @@ namespace ELearning.EF.Repositories
         }
         public async Task<IEnumerable<Course>> GetInstructorCourses(int instructorId, string[] includes = null)
         {
-            var istructor = _context.Instructors.Where(i => i.Id == instructorId);
+            var istructor = _context.Users.Where(i => i.Id == instructorId);
 
             var query = istructor.SelectMany(i => i.Courses);
 

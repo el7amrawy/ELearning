@@ -13,7 +13,7 @@ namespace ELearning.Core.Models
 		public int CourseId { get; set; }
 		[Required]
 		public DateTime EnrollmentDate {  get; set; }
-		public Student? Student { get; set; }
+		public AppUser? Student { get; set; }
 		public Course? Course { get; set; }
 	}
 }

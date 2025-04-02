@@ -26,7 +26,7 @@ namespace ELearning.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new Student { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
+                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
                 var result = await _userManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {

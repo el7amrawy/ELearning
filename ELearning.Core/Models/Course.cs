@@ -25,9 +25,9 @@ namespace ELearning.Core.Models
         [Required]
         public DateTime CreatedAt {  get; set; }
 		public DateTime UpdatedAt { get; set; }
-        public virtual ICollection<Instructor> Instructors { get; set; } = [];
+        public virtual ICollection<AppUser> Instructors { get; set; } = [];
 		public virtual ICollection<Section> Sections { get; set; } = [];
-		public virtual ICollection<Student> Students { get; set; } = [];
+		public virtual ICollection<Enrollment> Enrollments { get; set; } = [];
 		public Image Image { get; set; }
 		public virtual Language? Language { get; set; }
 		public virtual Level? Level { get; set; }
