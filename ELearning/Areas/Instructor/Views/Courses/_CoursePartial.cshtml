@@ -1,6 +1,6 @@
 ﻿@model Course_ViewModel
 
-<div class="bg-white overflow-visible shadow rounded-lg hover:shadow-md transition-shadow duration-300">
+<div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
     <div class="relative w-full aspect-[16/9]">
         <img src="@Model.Image?.URL" alt="Course Image" class="w-full h-full object-cover">
         <div class="absolute top-2 right-2">
@@ -30,24 +30,10 @@
                 <span class="text-sm text-gray-500">32 reviews</span>
             </div>
             <div class="flex space-x-2 relative">
-                <a asp-action="edit" class="text-indigo-600 hover:text-indigo-900">
-                    <i class="fas fa-edit"></i>
+                <!-- Manage Button -->
+                <a asp-action="manage" asp-route-id="@Model.Id" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                    <i class="fas fa-cog mr-2"></i> Manage Course
                 </a>
-                <button id="menu-button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                    <i class="fas fa-ellipsis-v"></i>
-                </button>
-                <div id="dropdown-menu"
-                     class="absolute right-4 top-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-10">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        <i class="fas fa-edit mr-2"></i>Edit
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        <i class="fas fa-plus mr-2"></i>Add Sections
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                        <i class="fas fa-trash-alt mr-2"></i>Delete
-                    </a>
-                </div>
             </div>
         </div>
     </div>

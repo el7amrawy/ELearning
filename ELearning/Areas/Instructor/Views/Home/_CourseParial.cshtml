@@ -1,0 +1,24 @@
+﻿@model Course_ViewModel
+
+<div class="bg-white overflow-hidden shadow rounded-lg">
+    <div class="relative w-full aspect-[16/9]">
+        <img src="@Model.Image?.URL" alt="Course Image" class="w-full h-full object-cover">
+    </div>
+    <div class="px-4 py-5 sm:p-6">
+        <div class="flex items-center justify-between mb-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium @(Model.StatusId==CourseStatusEnum.Published?"bg-green-100 text-green-800":Model.StatusId==CourseStatusEnum.Draft?"bg-yellow-100 text-yellow-800":"bg-red-100 text-red-800")">
+                @Model.StatusName
+            </span>
+            <div class="text-sm text-gray-500">245 students</div>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">@Model.Title</h3>
+        <p class="text-sm text-gray-500 mb-4">@Model.SubTitle</p>
+        <div class="flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400 mr-1"></i>
+                <span class="text-sm font-medium text-gray-700">4.9</span>
+            </div>
+            <a href="#" class="text-indigo-600 hover:text-indigo-500 text-sm font-medium">Manage Course</a>
+        </div>
+    </div>
+</div>

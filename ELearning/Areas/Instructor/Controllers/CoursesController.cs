@@ -13,16 +13,18 @@ namespace ELearning.Areas.Instructor.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoService _photoService;
         private readonly IMapper _mapper;
-        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper)
+        private readonly IInstructorService _instructorService;
+        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper, IInstructorService instructorService)
         {
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
+            _instructorService = instructorService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var courses = await _unitOfWork.Courses.GetInstructorCourses<Course_ViewModel>(User.GetUserId(), ["Image"]);
+            var courses = await _unitOfWork.Courses.GetInstructorCoursesAsync<Course_ViewModel>(User.GetUserId(), ["Image"]);
 
             return View(courses);
         }
@@ -63,6 +65,35 @@ namespace ELearning.Areas.Instructor.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), id);
+            if (!result.IsSuccess)
+            {
+                TempData["Error"] = result.ErrorMessage;
+                return this.RedirectToPrevious();
+            }
+
+            var course = await _unitOfWork.Courses.GetItemAsync<EditCourse_ViewModel>(c => c.Id == id, ["Image"]);
+
+            return View(course);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Manage(int id)
+        {
+            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), id);
+            if (!result.IsSuccess)
+            {
+                TempData["Error"] = result.ErrorMessage;
+                return this.RedirectToPrevious();
+            }
+
+            var course = await _unitOfWork.Courses.GetItemAsync<Course_ViewModel>(c => c.Id == id);
+            var instructor = await _unitOfWork.Users.GetItemAsync<Instructor_ViewModel>(c => c.Id == User.GetUserId());
+
+            return View(new ManageCourse_ViewModel { Course = course, Instructor = instructor });
         }
     }
 }

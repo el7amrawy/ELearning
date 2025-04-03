@@ -10,14 +10,10 @@ namespace ELearning.Areas.Instructor.ViewModels
         public string SubTitle { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public string? Time { get; set; }
         public CourseStatusEnum StatusId { get; set; }
         public string StatusName { get => StatusId.ToString(); }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public Image Image { get; set; }
-        //public Language Language { get; set; }
-        //public Level Level { get; set; }
-        //public Category Category { get; set; }
     }
 }
