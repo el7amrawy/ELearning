@@ -22,6 +22,7 @@ namespace ELearning.Extensions
 
             services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IInstructorService, InstructorService>();
 
             return services;
         }
