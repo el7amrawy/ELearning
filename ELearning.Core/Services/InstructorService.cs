@@ -14,7 +14,7 @@ namespace ELearning.Core.Services
 
         public async Task<ServiceResult> ValidateCourseAsync(int instructorId, int courseId)
         {
-            if (courseId == 0) return ServiceResult.Failure($"course does not exist");
+            if (courseId == 0) return ServiceResult.Failure("course does not exist");
 
             var ids = await _unitOfWork.Courses.GetInstructorCoursesIdsAsync(instructorId);
 
