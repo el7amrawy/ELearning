@@ -21,7 +21,7 @@ namespace ELearning.Core.Services
             if (ids.Contains(courseId))
                 return ServiceResult.Success();
 
-            return ServiceResult.Failure("You are not allowed access to this course");
+            return ServiceResult.Failure("You are not allowed to access this course");
         }
     }
 }
