@@ -48,7 +48,7 @@
                                     <a asp-action="edit" asp-route-id="@item.Id" class="text-yellow-500 hover:text-yellow-700" title="Edit">
                                         <i class="mdi mdi-pencil"></i>
                                     </a>
-                                    <button onclick="confirmDelete(@item.Id, '@item.Name', '/dashboard/Languages/delete/@item.Id')" class="text-red-500 hover:text-red-700" title="Delete">
+                                    <button onclick="confirmDelete('/dashboard/Languages/delete/@item.Id','Warning: Deleting a language will also delete its courses.')" class="text-red-500 hover:text-red-700" title="Delete">
                                         <i class="mdi mdi-delete"></i>
                                     </button>
                                 </div>

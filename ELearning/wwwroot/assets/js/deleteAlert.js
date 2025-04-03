@@ -1,7 +1,7 @@
-﻿function confirmDelete(id, name,url) {
+﻿function confirmDelete(url, message = null) {
     Swal.fire({
         title: 'Are you sure?',
-        text: `You are about to delete "${name}" with Id: "${id}". This action cannot be undone.`,
+        text: message,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
