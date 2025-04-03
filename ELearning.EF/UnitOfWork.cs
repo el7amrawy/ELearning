@@ -15,12 +15,12 @@ namespace ELearning.EF
             _mapper = mapper;
         }
         public ICoursesRepository Courses => new CoursesRepository(_db, _mapper);
-        public ICourseStatusRepository CoursesStatus => new CourseStatusRepository(_db);
-        public ILanguagesRepository Languages => new LanguagesRepository(_db);
-        public ILevelsRepository Levels => new LevelsRepository(_db);
-        public IUsersRepository Users => new UsersRepository(_db);
-        public IImagesRepository Images => new ImagesRepository(_db);
-        public ICategoriesRepository Categories => new CategoriesRepository(_db);
+        public ICourseStatusRepository CoursesStatus => new CourseStatusRepository(_db, _mapper);
+        public ILanguagesRepository Languages => new LanguagesRepository(_db, _mapper);
+        public ILevelsRepository Levels => new LevelsRepository(_db, _mapper);
+        public IUsersRepository Users => new UsersRepository(_db, _mapper);
+        public IImagesRepository Images => new ImagesRepository(_db, _mapper);
+        public ICategoriesRepository Categories => new CategoriesRepository(_db, _mapper);
 		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
 	}

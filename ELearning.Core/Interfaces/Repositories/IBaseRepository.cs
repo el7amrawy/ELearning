@@ -3,7 +3,7 @@ using ELearning.Core.Consts;
 
 namespace ELearning.Core.Interfaces.Repositories
 {
-	public interface IBaseRepository<Entity> where Entity : class
+    public interface IBaseRepository<Entity> where Entity : class
 	{
 		public Task<Entity> GetByIdAsync(int id);
         public void Add(Entity entity);
@@ -14,5 +14,6 @@ namespace ELearning.Core.Interfaces.Repositories
         public Task<Entity> GetItemAsync(Expression<Func<Entity, bool>> criteria, string[] includes = null);
 		public Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null);
 		public Task AddRangeAsync(IEnumerable<Entity> entities);
+        public Task<Model> GetItemAsync<Model>(Expression<Func<Entity, bool>> criteria, string[] includes = null);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using ELearning.Core.Consts;
 using ELearning.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +9,13 @@ namespace ELearning.EF.Repositories
 {
 	public class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : class
 	{
-		private readonly AppDbContext _db;
-        public BaseRepository(AppDbContext db) => _db = db;
+        private readonly AppDbContext _db;
+        private readonly IMapper _mapper;
+        public BaseRepository(AppDbContext db, IMapper mapper)
+        {
+            _db = db;
+            _mapper = mapper;
+        }
         public async Task<Entity> GetByIdAsync(int id) => await _db.Set<Entity>().FindAsync(id);
         public void Add(Entity entity) => _db.Add(entity);
         public void Update(Entity entity) => _db.Entry(entity).State = EntityState.Modified;
@@ -60,6 +67,16 @@ namespace ELearning.EF.Repositories
                     query = query.Include(item);
 
             return query.FirstOrDefaultAsync(criteria);
+        }
+        public Task<Model> GetItemAsync<Model>(Expression<Func<Entity, bool>> criteria, string[] includes = null)
+        {
+            var query = _db.Set<Entity>().Where(criteria);
+
+            if (includes != null)
+                foreach (var item in includes)
+                    query = query.Include(item);
+
+            return query.ProjectTo<Model>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
         }
     }
 }
