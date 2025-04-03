@@ -28,7 +28,9 @@ namespace ELearning.Helpers
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(_ => CourseStatusEnum.Draft));
             CreateMap<Course, Course_ViewModel>();
-            CreateMap<Course, EditCourse_ViewModel>();
+            CreateMap<EditCourse_ViewModel, Course>()
+                .ForMember(dest => dest.Image, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<AppUser, Instructor_ViewModel>();
         }
     }

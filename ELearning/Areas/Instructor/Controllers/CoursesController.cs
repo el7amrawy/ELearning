@@ -29,14 +29,7 @@ namespace ELearning.Areas.Instructor.Controllers
             return View(courses);
         }
         [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            ViewBag.Categories = new SelectList(await _unitOfWork.Categories.GetAllAsync(), "Id", "Name");
-            ViewBag.Languages = new SelectList(await _unitOfWork.Languages.GetAllAsync(), "Id", "Name");
-            ViewBag.Levels = new SelectList(await _unitOfWork.Levels.GetAllAsync(), "Id", "Name");
-
-            return View();
-        }
+        public IActionResult Create() => View();
         [HttpPost]
         public async Task<IActionResult> Create(CreateCourse_ViewModel model)
         {
@@ -79,6 +72,48 @@ namespace ELearning.Areas.Instructor.Controllers
             var course = await _unitOfWork.Courses.GetItemAsync<EditCourse_ViewModel>(c => c.Id == id, ["Image"]);
 
             return View(course);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditCourse_ViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), model.Id);
+            if (!result.IsSuccess)
+            {
+                TempData["Error"] = result.ErrorMessage;
+                return this.RedirectToPrevious();
+            }
+
+            var course = await _unitOfWork.Courses.GetItemAsync(c => c.Id == model.Id, ["Image"]);
+
+            _mapper.Map(model, course);
+
+            if (model.ImageFile != null) {
+                var res = await _photoService.AddPhotoAsync(model.ImageFile, 900, 1600);
+
+                if (res.Error != null)
+                {
+                    TempData["Error"] = res.Error.Message;
+                    return View(model);
+                }
+
+                await _photoService.DeletePhotoAsync(course.Image.PublicId);
+                
+                var oldImage = course.Image;
+
+                course.Image = new Image { CreatedAt = DateTime.Now, PublicId = res.PublicId, URL = res.SecureUrl.AbsoluteUri };
+
+                _unitOfWork.Images.Delete(oldImage);
+            }
+
+            course.UpdatedAt = DateTime.UtcNow;
+
+            if (await _unitOfWork.CompleteAsync() < 1)
+                TempData["Error"] += ",problem updating course";
+
+            TempData["Success"] = "updated course successfully";
+            return RedirectToAction("Manage", new { id = model.Id });
         }
         [HttpGet]
         public async Task<IActionResult> Manage(int id)

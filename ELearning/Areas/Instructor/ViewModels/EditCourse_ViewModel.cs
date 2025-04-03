@@ -12,7 +12,7 @@ namespace ELearning.Areas.Instructor.ViewModels
         public int LanguageId { get; set; }
         public int LevelId { get; set; }
         public int CategoryId { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public Image? Image { get; set; }
     }
 }

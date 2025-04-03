@@ -1,7 +1,12 @@
 ﻿@model CreateCourse_ViewModel
+@inject ELearning.Core.Interfaces.IUnitOfWork _unitOfWork
 @{
 	ViewBag.Title = "Create Course";
 	ViewBag.ActiveTab = NavTabsEnum.Courses;
+
+    var Categories = new SelectList(await _unitOfWork.Categories.GetAllAsync(), "Id", "Name");
+    var Languages = new SelectList(await _unitOfWork.Languages.GetAllAsync(), "Id", "Name");
+    var Levels = new SelectList(await _unitOfWork.Levels.GetAllAsync(), "Id", "Name");
 }
 
 <div class="mx-auto px-4 py-8 max-w-4xl">
@@ -92,7 +97,7 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-tag mr-2 text-indigo-500"></i> Category
                 </label>
-                <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="w-full focus:outline-none p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <select asp-for="CategoryId" asp-items="Categories" class="w-full focus:outline-none p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </select>
                 <span asp-validation-for="CategoryId" class="text-red-500"></span>
 
@@ -103,7 +108,7 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-language mr-2 text-indigo-500"></i> Language
                 </label>
-                <select asp-for="LanguageId" asp-items="ViewBag.Languages" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <select asp-for="LanguageId" asp-items="Languages" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </select>
                 <span asp-validation-for="LanguageId" class="text-red-500"></span>
             </div>
@@ -113,7 +118,7 @@
                 <label class="block text-gray-700 font-medium mb-2">
                     <i class="fas fa-signal mr-2 text-indigo-500"></i> Difficulty Level
                 </label>
-                <select asp-for="LevelId" asp-items="ViewBag.Levels" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <select asp-for="LevelId" asp-items="Levels" class="w-full p-3 focus:outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </select>
                 <span asp-validation-for="LevelId" class="text-red-500"></span>
             </div>
