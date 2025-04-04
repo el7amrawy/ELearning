@@ -3,16 +3,16 @@ using ELearning.Core.Interfaces;
 
 namespace ELearning.Core.Services
 {
-    public class InstructorService : IInstructorService
+    public class CourseAccessService : ICourseAccessService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public InstructorService(IUnitOfWork unitOfWork)
+        public CourseAccessService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ServiceResult> ValidateCourseAsync(int instructorId, int courseId)
+        public async Task<ServiceResult> ValidateCourseOwnerAsync(int instructorId, int courseId)
         {
             if (courseId == 0) return ServiceResult.Failure("course does not exist");
 

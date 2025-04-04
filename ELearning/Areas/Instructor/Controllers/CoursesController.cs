@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using ELearning.Areas.Instructor.ViewModels;
+using ELearning.Attributes;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ELearning.Areas.Instructor.Controllers
 {
@@ -13,13 +13,11 @@ namespace ELearning.Areas.Instructor.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoService _photoService;
         private readonly IMapper _mapper;
-        private readonly IInstructorService _instructorService;
-        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper, IInstructorService instructorService)
+        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
-            _instructorService = instructorService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -59,31 +57,17 @@ namespace ELearning.Areas.Instructor.Controllers
             }
             return View(model);
         }
-        [HttpGet]
+        [HttpGet,CourseOwner]
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), id);
-            if (!result.IsSuccess)
-            {
-                TempData["Error"] = result.ErrorMessage;
-                return this.RedirectToPrevious();
-            }
-
             var course = await _unitOfWork.Courses.GetItemAsync<EditCourse_ViewModel>(c => c.Id == id, ["Image"]);
 
             return View(course);
         }
-        [HttpPost]
+        [HttpPost,CourseOwner]
         public async Task<IActionResult> Edit(EditCourse_ViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
-            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), model.Id);
-            if (!result.IsSuccess)
-            {
-                TempData["Error"] = result.ErrorMessage;
-                return this.RedirectToPrevious();
-            }
 
             var course = await _unitOfWork.Courses.GetItemAsync(c => c.Id == model.Id, ["Image"]);
 
@@ -115,16 +99,9 @@ namespace ELearning.Areas.Instructor.Controllers
             TempData["Success"] = "updated course successfully";
             return RedirectToAction("Manage", new { id = model.Id });
         }
-        [HttpGet]
+        [HttpGet,CourseOwner]
         public async Task<IActionResult> Manage(int id)
         {
-            var result = await _instructorService.ValidateCourseAsync(User.GetUserId(), id);
-            if (!result.IsSuccess)
-            {
-                TempData["Error"] = result.ErrorMessage;
-                return this.RedirectToPrevious();
-            }
-
             var course = await _unitOfWork.Courses.GetItemAsync<Course_ViewModel>(c => c.Id == id);
             var instructor = await _unitOfWork.Users.GetItemAsync<Instructor_ViewModel>(c => c.Id == User.GetUserId());
 

@@ -2,6 +2,7 @@
 using ELearning.Core.Interfaces;
 using ELearning.Core.Services;
 using ELearning.EF;
+using ELearning.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.Extensions
@@ -22,7 +23,10 @@ namespace ELearning.Extensions
 
             services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<IInstructorService, InstructorService>();
+            services.AddScoped<ICourseAccessService, CourseAccessService>();
+
+            // Filters
+            services.AddScoped<CourseOwnerFilter>();
 
             return services;
         }
