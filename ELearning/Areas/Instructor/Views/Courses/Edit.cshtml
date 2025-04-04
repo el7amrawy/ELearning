@@ -18,7 +18,7 @@
             </h1>
         </div>
         <!-- Back Button -->
-        <a asp-action="manage" class="absolute left-0 top-1 bg-gray-100 hover:bg-gray-200 text-gray-600 px-4 py-2 rounded-lg transition">
+        <a asp-action="manage" asp-route-id="@Model.Id" class="absolute left-0 top-1 bg-gray-100 hover:bg-gray-200 text-gray-600 px-4 py-2 rounded-lg transition">
             <i class="fas fa-arrow-left mr-2"></i> Go Back
         </a>
     </div>
@@ -142,8 +142,8 @@
 
             <!-- Submit Button -->
             <button type="submit"
-                    class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg font-semibold transition">
-                <i class="fas fa-save mr-2"></i> Save Changes
+                    class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition">
+                <i class="fas fa-sync-alt mr-2"></i> Update Course
             </button>
         </form>
     </div>
