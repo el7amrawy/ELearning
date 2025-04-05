@@ -78,5 +78,33 @@ namespace ELearning.EF.Repositories
 
             return query.ProjectTo<Model>(_mapper.ConfigurationProvider).FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Model>> GetAllAsync<Model>(Expression<Func<Entity, bool>> criteria = null, string[] includes = null, int pageNumber = 0, int pageSize = 0, Expression<Func<Entity, object>> orderBy = null, string orderByDirection = "ASC")
+        {
+            var query = _db.Set<Entity>().AsQueryable();
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            if (includes != null)
+                foreach (var item in includes)
+                    query = query.Include(item);
+
+            if (orderBy != null)
+            {
+                if (orderByDirection == OrderBy.Ascending)
+                    query = query.OrderBy(orderBy);
+
+                else query = query.OrderByDescending(orderBy);
+            }
+
+            if (pageNumber > 0)
+                query = query.Skip((pageNumber - 1) * pageSize);
+
+            if (pageSize > 0)
+                query = query.Take(pageSize);
+
+            return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using ELearning.Core.Interfaces;
+﻿using ELearning.Core.Interfaces.Services;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -1,5 +1,6 @@
 ﻿using ELearning.Core.Common;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 
 namespace ELearning.Core.Services
 {

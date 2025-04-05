@@ -1,5 +1,6 @@
 ﻿using ELearning.Core.Helpers;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Services;
 using ELearning.EF;
 using ELearning.Filters;
@@ -24,6 +25,7 @@ namespace ELearning.Extensions
             services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ICourseAccessService, CourseAccessService>();
+            services.AddScoped<ISectionService, SectionService>();
 
             // Filters
             services.AddScoped<CourseOwnerFilter>();

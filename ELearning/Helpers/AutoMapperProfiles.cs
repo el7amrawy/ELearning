@@ -4,6 +4,7 @@ using ELearning.ViewModels;
 using ELearning.Areas.Dashboard.ViewModels;
 using ELearning.Core.Enums;
 using ELearning.Areas.Instructor.ViewModels;
+using ELearning.Core.DTOs;
 
 namespace ELearning.Helpers
 {
@@ -32,6 +33,10 @@ namespace ELearning.Helpers
                 .ForMember(dest => dest.Image, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AppUser, Instructor_ViewModel>();
+            CreateMap<Course, SectionCourse_ViewModel>();
+
+            /* DTOs & Views */
+            CreateMap<CreateSection_ViewModel,SectionDto>().ReverseMap();
         }
     }
 }

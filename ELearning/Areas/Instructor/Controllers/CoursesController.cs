@@ -2,6 +2,7 @@
 using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Attributes;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;

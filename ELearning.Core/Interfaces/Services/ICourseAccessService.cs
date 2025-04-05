@@ -1,6 +1,6 @@
 ﻿using ELearning.Core.Common;
 
-namespace ELearning.Core.Interfaces
+namespace ELearning.Core.Interfaces.Services
 {
     public interface ICourseAccessService
     {

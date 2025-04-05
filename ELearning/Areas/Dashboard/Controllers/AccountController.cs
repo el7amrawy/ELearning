@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ELearning.Areas.Dashboard.ViewModels;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Authentication;

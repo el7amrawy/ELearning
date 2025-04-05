@@ -3,15 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELearning.Core.Models
 {
-	public class Section
+    public class Section
 	{
 		[Key]
 		public int Id { get; set; }
 		[Required]
-		public string Name { get; set; } = null!;
+		public string Name { get; set; }
+		public int Order { get; set; }
 		[Required,ForeignKey(nameof(Course))]
 		public int CourseId { get; set; }
 		public Course? Course { get; set; }
-		public virtual ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
+		public virtual ICollection<Lecture> Lectures { get; set; } = [];
 	}
 }

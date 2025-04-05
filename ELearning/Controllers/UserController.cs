@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using ELearning.ViewModels;

@@ -1,9 +1,9 @@
 ﻿using CloudinaryDotNet.Actions;
 using CloudinaryDotNet;
-using ELearning.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using ELearning.Core.Helpers;
 using Microsoft.Extensions.Options;
+using ELearning.Core.Interfaces.Services;
 
 namespace ELearning.Core.Services
 {

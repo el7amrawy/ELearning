@@ -1,5 +1,8 @@
-﻿using ELearning.Attributes;
-using ELearning.Filters;
+﻿using AutoMapper;
+using ELearning.Areas.Instructor.ViewModels;
+using ELearning.Attributes;
+using ELearning.Core.DTOs;
+using ELearning.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
@@ -8,11 +11,32 @@ namespace ELearning.Areas.Instructor.Controllers
     [CourseOwner]
     public class SectionsController : BaseInstructorController
     {
+        private readonly ISectionService _sectionService;
+        private readonly IMapper _mapper;
         [FromRoute]
         public int CourseId {  get; set; }
-        public IActionResult Index()
+        public SectionsController(ISectionService sectionService, IMapper mapper)
         {
-            return View(model: CourseId);
+            _sectionService = sectionService;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public IActionResult Index() => View();
+        public async Task<IActionResult> Index(CreateSection_ViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var result = await _sectionService.CreateAsync(_mapper.Map<SectionDto>(model));
+
+            if (!result.IsSuccess)
+            {
+                TempData["Error"] = result.ErrorMessage;
+                return View(model);
+            }
+
+            TempData["Success"] = "Created section sucessfully";
+
+            return RedirectToAction("Index", new { CourseId });
         }
     }
 }
