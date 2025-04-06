@@ -21,6 +21,7 @@ namespace ELearning.EF
         public IUsersRepository Users => new UsersRepository(_db, _mapper);
         public IImagesRepository Images => new ImagesRepository(_db, _mapper);
         public ICategoriesRepository Categories => new CategoriesRepository(_db, _mapper);
+        public ISectionsRepository Sections => new SectionsRepository(_db, _mapper);
 		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
 	}

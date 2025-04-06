@@ -1,7 +1,10 @@
-﻿@model ManageCourse_ViewModel;
+﻿@inject IUnitOfWork _uof
+@model ManageCourse_ViewModel;
 @{
-	ViewBag.Title = "Mangae Course";
-	ViewBag.ActiveTab = NavTabsEnum.Courses;
+    ViewBag.Title = "Mangae Course";
+    ViewBag.ActiveTab = NavTabsEnum.Courses;
+
+    var sections = (List<SectionWithLectureCount_ViewModel>)await _uof.Sections.GetAllAsync<SectionWithLectureCount_ViewModel>(s => s.CourseId == Model.Course.Id);
 }
 
 <div class="max-w-4xl mx-auto px-4 py-6 space-y-7">
@@ -115,84 +118,25 @@
         </div>
 
         <!-- Section List -->
-        <div class="divide-y divide-gray-100">
-            <!-- Section 1 -->
-            <div class="p-4 hover:bg-gray-50 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-medium text-gray-800 mb-1">JavaScript Fundamentals</h3>
-                        <div class="flex items-center text-xs text-gray-500 space-x-3">
-                            <span><i class="fas fa-clock mr-0.5"></i> 45 min</span>
-                            <span><i class="fas fa-play-circle mr-0.5"></i> 3 lessons</span>
+        <div>
+            @for (int i = 0; i < sections.Count(); i++)
+            {
+                <div class="p-4 odd:bg-gray-50 border-b hover:bg-indigo-50">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-gray-800 mb-1">@(i + 1). @sections[i].Name</h3>
+                            <div class="flex items-center text-xs text-gray-500 space-x-3">
+                                <span><i class="fas fa-play-circle mr-0.5"></i> @sections[i].LectureCount lessons</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex space-x-1 items-center">
-                        <a href="edit-section.html" class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <div class="flex flex-col space-y-1">
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
-                                <i class="fas fa-arrow-up"></i>
-                            </button>
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
-                                <i class="fas fa-arrow-down"></i>
-                            </button>
+                        <div class="flex space-x-1 items-center">
+                            <a href="edit-section.html" class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
+                                <i class="fas fa-cog mr-2"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Section 2 -->
-            <div class="p-4 hover:bg-gray-50 border-black border-2 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-medium text-gray-800 mb-1">Advanced Concepts</h3>
-                        <div class="flex items-center text-xs text-gray-500 space-x-3">
-                            <span><i class="fas fa-clock mr-0.5"></i> 1.5 hours</span>
-                            <span><i class="fas fa-play-circle mr-0.5"></i> 5 lessons</span>
-                        </div>
-                    </div>
-                    <div class="flex space-x-1 items-center">
-                        <a href="edit-section.html" class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <div class="flex flex-col space-y-1">
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
-                                <i class="fas fa-arrow-up"></i>
-                            </button>
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
-                                <i class="fas fa-arrow-down"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 3 -->
-            <div class="p-4 hover:bg-gray-50 group">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <h3 class="font-medium text-gray-800 mb-1">Modern Frameworks</h3>
-                        <div class="flex items-center text-xs text-gray-500 space-x-3">
-                            <span><i class="fas fa-clock mr-0.5"></i> 2 hours</span>
-                            <span><i class="fas fa-play-circle mr-0.5"></i> 4 lessons</span>
-                        </div>
-                    </div>
-                    <div class="flex space-x-1 items-center">
-                        <a href="edit-section.html" class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <div class="flex flex-col space-y-1">
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
-                                <i class="fas fa-arrow-up"></i>
-                            </button>
-                            <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
-                                <i class="fas fa-arrow-down"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 

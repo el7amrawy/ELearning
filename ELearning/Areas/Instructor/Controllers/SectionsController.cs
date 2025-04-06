@@ -21,7 +21,7 @@ namespace ELearning.Areas.Instructor.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult Index() => View();
+        public IActionResult Index() => View(new CreateSection_ViewModel { CourseId = CourseId });
         public async Task<IActionResult> Index(CreateSection_ViewModel model)
         {
             if (!ModelState.IsValid) return View(model);

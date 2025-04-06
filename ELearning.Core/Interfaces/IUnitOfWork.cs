@@ -11,6 +11,7 @@ namespace ELearning.Core.Interfaces
 		public IUsersRepository Users { get; }
 		public IImagesRepository Images { get; }
 		public ICategoriesRepository Categories { get; }
+		public ISectionsRepository Sections { get; }
 		public Task<int> CompleteAsync();
 	}
 }
