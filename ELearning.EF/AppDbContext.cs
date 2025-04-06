@@ -23,7 +23,7 @@ namespace ELearning.EF
 			//builder.Entity<AppUser>().HasMany(s => s.Courses).WithMany(c =>c.Students).UsingEntity<Enrollment>();
 			builder.Entity<AppUser>().HasIndex(u => u.ImageId).IsUnique().HasFilter("[ImageId] IS NOT NULL");
 			builder.Entity<Course>().HasIndex(u => u.ImageId).IsUnique().HasFilter("[ImageId] IS NOT NULL");
-			builder.Entity<Section>().HasIndex(u => u.Order).IsUnique();
+			builder.Entity<Section>().HasIndex(s => new { s.CourseId, s.Order }).IsUnique();
 
 			base.OnModelCreating(builder);
 		}

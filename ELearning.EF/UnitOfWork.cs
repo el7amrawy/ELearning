@@ -2,6 +2,7 @@
 using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Repositories;
 using ELearning.EF.Repositories;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ELearning.EF
 {
@@ -22,7 +23,8 @@ namespace ELearning.EF
         public IImagesRepository Images => new ImagesRepository(_db, _mapper);
         public ICategoriesRepository Categories => new CategoriesRepository(_db, _mapper);
         public ISectionsRepository Sections => new SectionsRepository(_db, _mapper);
-		public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
+        public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
-	}
+        public async Task<IDbContextTransaction> BeginTransactionAsync() => await _db.Database.BeginTransactionAsync();
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using ELearning.Core.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ELearning.Core.Interfaces
 {
@@ -13,5 +14,6 @@ namespace ELearning.Core.Interfaces
 		public ICategoriesRepository Categories { get; }
 		public ISectionsRepository Sections { get; }
 		public Task<int> CompleteAsync();
-	}
+		public Task<IDbContextTransaction> BeginTransactionAsync();
+    }
 }

@@ -3,6 +3,7 @@ using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Attributes;
 using ELearning.Core.DTOs;
 using ELearning.Core.Interfaces.Services;
+using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
@@ -22,6 +23,7 @@ namespace ELearning.Areas.Instructor.Controllers
         }
         [HttpGet]
         public IActionResult Index() => View(new CreateSection_ViewModel { CourseId = CourseId });
+        [HttpPost]
         public async Task<IActionResult> Index(CreateSection_ViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -37,6 +39,16 @@ namespace ELearning.Areas.Instructor.Controllers
             TempData["Success"] = "Created section sucessfully";
 
             return RedirectToAction("Index", new { CourseId });
+        }
+        [HttpGet]
+        public async Task<IActionResult> SwapOrder(int sectionId1,int sectionId2)
+        {
+            var result = await _sectionService.SwapOrder(CourseId, sectionId1, sectionId2);
+
+            if (!result.IsSuccess) TempData["Error"] = result.ErrorMessage;
+            else TempData["Success"] = "order changed successfully";
+
+            return this.RedirectToPrevious();
         }
     }
 }

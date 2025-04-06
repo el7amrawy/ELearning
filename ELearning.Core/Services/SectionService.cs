@@ -37,5 +37,43 @@ namespace ELearning.Core.Services
 
             return ServiceResult.Success();
         }
+        public async Task<ServiceResult> SwapOrder(int courseId, int sectionId1, int sectionId2)
+        {
+            using (var transaction = await _unitOfWork.BeginTransactionAsync())
+            {
+                try
+                {
+                    if (courseId == 0 || sectionId1 == 0 || sectionId2 == 0) return ServiceResult.Failure("invalid section");
+
+                    var section1 = await _unitOfWork.Sections.GetItemAsync(s => s.Id == sectionId1 && s.CourseId == courseId);
+
+                    if (section1 == null) return ServiceResult.Failure("first section not found");
+
+                    var section2 = await _unitOfWork.Sections.GetItemAsync(s => s.Id == sectionId2 && s.CourseId == courseId);
+
+                    if (section2 == null) return ServiceResult.Failure("second section not found");
+
+                    var tempOrder = section1.Order;
+
+                    section1.Order = -1;
+                    await _unitOfWork.CompleteAsync();
+
+                    section1.Order = section2.Order;
+                    section2.Order = tempOrder;
+
+                    await _unitOfWork.CompleteAsync();
+                    await transaction.CommitAsync();
+
+                    return ServiceResult.Success();
+                
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync();
+                    return ServiceResult.Failure("problem swapping order");
+                }
+            } 
+
+        }
     }
 }
