@@ -17,6 +17,15 @@ document.addEventListener('click', (event) => {
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 
+//console.log(mobileMenuButton.children)
 mobileMenuButton.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
+    Array.from(mobileMenuButton.children).forEach(ele => ele.classList.toggle("hidden"))
+});
+
+document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+        if (!mobileMenu.classList.contains("hidden")) Array.from(mobileMenuButton.children).forEach(ele => ele.classList.toggle("hidden"))
+        mobileMenu.classList.add('hidden');
+    }
 });
