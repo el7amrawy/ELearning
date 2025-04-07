@@ -1,88 +1,116 @@
-﻿<header class="shadow-lg fixed top-0 left-0 w-full z-30 bg-white" style="z-index: 30 !important;">
-    <nav>
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-            <div class="relative flex h-16 items-center justify-between">
-                <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
-                    <button type="button" class="relative menu-icon inline-flex items-center justify-center rounded-md p-2 text-gray-950 hover:text-black" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="absolute -inset-0.5"></span>
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-                        <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+﻿<nav class="header shadow-lg fixed shadow-md bg-white z-30 w-full">
+    <div class="mx-auto  max-w-7xl px-2 sm:px-6">
+        <div class="relative flex spa  h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
+                <button type="button"
+                        class="relative menu-icon inline-flex items-center justify-center rounded-md p-2 text-gray-950 hover:text-black"
+                        aria-controls="mobile-menu" id="mobile-menu-button" aria-expanded="false">
+                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch md:justify-start">
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <h1 class="text-xl font-bold text-blue-500">
+                        <a asp-action="index" asp-controller="home">
+                            <i class="fas fa-graduation-cap mr-2"></i> EmbedSkill
+                        </a>
+                    </h1>
                 </div>
-                <div class="flex flex-1 items-center justify-center sm:items-stretch md:justify-start">
-                    <a asp-action="index" asp-controller="home" class="flex shrink-0 items-center text-2xl font-bold -transparent logo  relative ">
-                        <!-- udemy -->
-                        <img class="w-[150px]" src="/assets/images/dark-logo.png" alt="Your Company">
-                    </a>
-                    <div class="hidden md:ml-6 md:block w-full">
-                        <div class="flex items-center w-full space-x-4 ">
-                            <a asp-action="Index" asp-controller="courses" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">Explore</a>
-                            <a asp-controller="home" asp-action="about" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">About us</a>
-                            <form action="" class="hidden lg:block w-full">
-                                <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search..." autocomplete="off" type="text" name="search" />
-                            </form>
-                        </div>
+                <div class="hidden md:ml-6 md:block w-full">
+                    <div class="flex items-center w-full space-x-4 ">
+                        <a asp-action="Index" asp-controller="courses" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">Explore</a>
+                        <a asp-controller="home" asp-action="about" class="rounded-md px-3 py-2 text-sm font-medium text-gray-800 transition-all duration-500 shrink-0 nav-link">About us</a>
+                        <form action="" class="hidden lg:block w-full">
+                            <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                                   placeholder="Search..." autocomplete="off" type="text" name="search" />
+                        </form>
                     </div>
                 </div>
-                <div class="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
-                    <button type="button" class="lg:hidden relative rounded-full  p-1 text-gray-800 hover:text-black focus:outline-none search_icon">
-                        <span></span>
-                        <ion-icon name="search-outline" style="font-size: 23px;margin-top: 5px;"></ion-icon>
-                    </button>
-                    <button type="button" class="relative rounded-full  p-1 text-gray-800 hover:text-black focus:outline-none">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">card</span>
-                        <ion-icon name="cart-outline" style="font-size: 23px;margin-top: 5px;"></ion-icon>
-                    </button>
-                    <div class="relative ml-3">
-                        <div>
-                            <button type="button" class="relative flex rounded-full bg-gray-800 text-sm " id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <span class="absolute -inset-1.5"></span>
-                                <span class="sr-only">Open user menu</span>
-                                <img class="size-8 rounded-full" src=@(Context.Request.Cookies["ProfileImage"]??"/assets/dashboard/imgs/user_Placeholder.png") alt="User Photo">
-                            </button>
-                        </div>
-                        <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            @if(User.Identity.IsAuthenticated){
-                                <a asp-controller="user" asp-action="index" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                <hr />
-                                @if(User.IsInRole("Instructor")){
-                                    <a asp-area="Instructor" asp-action="Index" asp-controller="Home" class="block px-4 py-2 text-sm text-gray-700 links">Instructor - Dashboard</a>
-                                    <hr />
-                                }else{
-                                    <a asp-controller="user" asp-action="BecomeInstructor" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;">Teach on Elearning</a>
-                                    <hr />
-                                }
-                                <a asp-controller="account" asp-action="logout" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Log out</a>
-                            }else{
-                                <a asp-controller="account" asp-action="signin" class="block px-4 py-2 text-sm text-gray-700 links" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign in</a>
-                                <a asp-controller="account" asp-action="signup" class="block px-4 py-2 text-sm text-gray-700 links rounded-md" style="border-top-left-radius: 0;border-top-right-radius: 0;" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign Up</a>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
+                <button class="lg:hidden relative rounded-full  p-1 text-gray-800 hover:text-black focus:outline-none search_icon">
+                    <span name="search-outline text-base text-gray-800 transition-all hover:text-sky-600">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </button>
+                <button type="button"
+                        class="relative rounded-full  p-1 text-gray-800 hover:text-black focus:outline-none">
+                    <span name="cart-outline" class="text-base text-gray-800 transition-all hover:text-sky-600">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </span>
+                </button>
+                <div class="relative ml-3">
+                    <div>
+                        <button type="button" class="relative flex rounded-full bg-gray-800 text-sm" id="user-menu-button">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="size-8 rounded-full" src=@(Context.Request.Cookies["ProfileImage"]??"/assets/dashboard/imgs/user_Placeholder.png") alt="User Photo">
+                        </button>
+                    </div>
+                    <div id="user-dropdown"
+                         class="hidden absolute right-0 z-10 mt-2 w-max origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none p-2">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="user" asp-action="index"
+                               class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                <i class="fa-solid fa-user mr-2"></i> Your Profile
+                           </a>
+                            @if (User.IsInRole("Instructor"))
+                            {
+                                <a asp-area="Instructor" asp-action="Index" asp-controller="Home" class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                    <i class="fas fa-tachometer-alt mr-1"></i> Instructor - Dashboard
+                                </a>
                             }
-                        </div>
+                            else
+                            {
+                                <a asp-controller="user" asp-action="BecomeInstructor" class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                    <i class="fa-solid fa-chalkboard-user"></i> Teach on EmbedSkill
+                                </a>
+                            }
+                            <a asp-controller="account" asp-action="logout" class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>  Log out
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="account" asp-action="signin" class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Sign In
+                            </a>
+                            <a asp-controller="account" asp-action="signup" class="block font-medium px-4 py-2 text-sm text-gray-700 links rounded-md">
+                                <i class="fa-solid fa-user-plus"></i>  Sign Up
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
         </div>
-        <div class="md:hidden hidden shadow-md bg-white" style="position: absolute;left: 50%;transform: translateX(-50%);width: 95%;z-index: -2 !important;" id="mobile-menu">
-            <span></span>
-            <div class="space-y-1 px-2 pb-3 pt-2 ">
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-slate-200 hover:text-black" aria-current="page">Home</a>
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-slate-200 hover:text-black">Explore</a>
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-slate-200 hover:text-black">Udemy Business</a>
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-slate-200 hover:text-black">Teach on Udemy</a>
-            </div>
+    </div>
+    <div class="md:hidden hidden shadow-md bg-white"
+         style="position: absolute;left: 50%;transform: translateX(-50%);width: 95%;z-index: -2 !important;"
+         id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2 ">
+            <a asp-action="index" asp-controller="home"
+               class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-sky-600">Home</a>
+            <a asp-action="Index" asp-controller="courses"
+               class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-sky-600">Explore</a>
+            <a asp-controller="home" asp-action="about"
+               class="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-sky-600">
+                About
+            </a>
         </div>
-        <div class="search_input mx-auto pb-3 hidden">
-            <span></span>
-            <form action="">
-                <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search..." autocomplete="off" type="text" name="search" />
-            </form>
-        </div>
-    </nav>
-</header>
-
+    </div>
+    <div class="search_input mx-auto pb-3 hidden">
+        <span></span>
+        <form action="">
+            <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                   placeholder="Search..." autocomplete="off" type="text" name="search" />
+        </form>
+    </div>
+</nav>
