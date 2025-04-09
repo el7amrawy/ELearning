@@ -31,6 +31,7 @@ namespace ELearning.Helpers
             CreateMap<Course, Course_ViewModel>();
             CreateMap<EditCourse_ViewModel, Course>()
                 .ForMember(dest => dest.Image, opt => opt.Ignore())
+                .ForMember(dest => dest.ImageId, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AppUser, Instructor_ViewModel>();
             CreateMap<Course, SectionCourse_ViewModel>();
