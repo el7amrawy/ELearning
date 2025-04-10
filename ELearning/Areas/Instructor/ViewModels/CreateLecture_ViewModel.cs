@@ -3,5 +3,6 @@
     public class CreateLecture_ViewModel
     {
         public int SectionId { get; set; }
+        public int CourseId { get; set; }
     }
 }

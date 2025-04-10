@@ -4,13 +4,16 @@
     ViewBag.Title = "Lectures";
     ViewBag.ActiveTab = NavTabsEnum.Courses;
 
-    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == Model.SectionId);
+    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == Model.SectionId && s.CourseId == Model.CourseId);
 }
 
 <div class="mx-auto px-4 py-8 max-w-4xl">
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
-        <a href="add_sections.html" class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+        <a asp-action="Index"
+        asp-controller="Sections"
+        asp-route-courseid="@Model.CourseId"
+        class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
             <i class="fas fa-arrow-left mr-2"></i> Back to Sections
         </a>
         <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">

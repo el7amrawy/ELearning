@@ -13,6 +13,6 @@ namespace ELearning.Areas.Instructor.Controllers
         public int CourseId { get; set; }
         [FromRoute]
         public int SectionId { get; set; }
-        public IActionResult Index() => View(new CreateLecture_ViewModel { SectionId = SectionId });
+        public IActionResult Index() => View(new CreateLecture_ViewModel { SectionId = SectionId, CourseId = CourseId });
     }
 }

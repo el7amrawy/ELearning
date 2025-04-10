@@ -27,8 +27,8 @@
             </h1>
         </div>
         <!-- Back Button -->
-        <a asp-action="Manage" asp-controller="Courses" asp-route-id="@Model.CourseId" class="absolute left-0 top-1 bg-gray-100 hover:bg-gray-200 text-gray-600 px-4 py-2 rounded-lg transition">
-            <i class="fas fa-arrow-left mr-2"></i> Go Back
+        <a asp-action="Manage" asp-controller="Courses" asp-route-id="@Model.CourseId" class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+            <i class="fas fa-arrow-left mr-2"></i> Back to the course
         </a>
     </div>
 
@@ -51,7 +51,11 @@
                         </div>
                     </div>
                     <div class="flex space-x-1 items-center">
-                        <a href="edit-section.html" class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
+                        <a asp-action="Index" 
+                        asp-controller="Lectures"
+                        asp-route-courseId="@Model.CourseId"
+                        asp-route-sectionId="@sections[i].Id"
+                        class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
                             <i class="fas fa-cog mr-2"></i>
                         </a>
                         <div class="flex flex-col space-y-1">
