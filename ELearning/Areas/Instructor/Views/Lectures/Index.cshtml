@@ -1,0 +1,129 @@
+﻿@model CreateLecture_ViewModel
+@inject IUnitOfWork _uof
+@{
+    ViewBag.Title = "Lectures";
+    ViewBag.ActiveTab = NavTabsEnum.Courses;
+
+    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == Model.SectionId);
+}
+
+<div class="mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <a href="add_sections.html" class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Sections
+        </a>
+        <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
+            <i class="fas fa-video text-indigo-500 mr-2"></i> Add Lectures
+        </h1>
+        <div class="w-[140px]"></div> <!-- Spacer to balance the layout -->
+    </div>
+
+    <!-- Section Info Banner with More Visible Course Name -->
+    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-6 rounded-lg">
+        <div class="flex items-center">
+            <i class="fas fa-info-circle text-indigo-500 text-xl mr-3"></i>
+            <div>
+                <h2 class="font-bold text-2xl text-indigo-700 mb-1">@courseSection.Course.Title</h2>
+                <h3 class="font-medium text-gray-700">@courseSection.Name</h3>
+                <p class="text-sm text-gray-600">Add lectures with videos and optional materials</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Lectures -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-6 border border-gray-200">
+        <h3 class="font-medium text-lg mb-4 flex items-center">
+            <i class="fas fa-list-ol text-indigo-500 mr-2"></i> Current Lectures
+        </h3>
+        <ul class="divide-y divide-gray-200" id="lecturesList">
+            <li class="py-3 block md:flex justify-between items-center hover:bg-gray-50 transition">
+                <div class="flex-1 mb-3 md:m-0">
+                    <span class="font-medium">Course Overview</span>
+                    <p class="text-sm text-gray-500">Video: overview.mp4 | Material: intro.pdf</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="flex flex-col space-y-1">
+                        <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm transition">
+                            <i class="fas fa-edit mr-1"></i> Edit
+                        </button>
+                        <button class="text-red-500 hover:text-red-700 p-1">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+            <!-- Static example of another lecture -->
+            <li class="py-3 block md:flex justify-between items-center hover:bg-gray-50 transition">
+                <div class="flex-1 mb-3 md:m-0">
+                    <span class="font-medium">Getting Started</span>
+                    <p class="text-sm text-gray-500">Video: intro.mp4 | Material: None</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="flex flex-col space-y-1">
+                        <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <button class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm transition">
+                            <i class="fas fa-edit mr-1"></i> Edit
+                        </button>
+                        <button class="text-red-500 hover:text-red-700 p-1">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Add New Lecture Form -->
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        <h3 class="font-medium text-lg mb-4 flex items-center">
+            <i class="fas fa-plus-circle text-green-500 mr-2"></i> New Lecture
+        </h3>
+        <form enctype="multipart/form-data">
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2">
+                    Lecture Title
+                </label>
+                <input type="text" placeholder="E.g., Variables Basics"
+                       class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2">
+                    Video File
+                </label>
+                <div class="relative border-2 border-dashed border-blue-300 rounded-lg p-6 text-center bg-gray-50">
+                    <i class="fas fa-cloud-upload-alt text-indigo-500 text-2xl mb-2 block"></i>
+                    <p class="text-sm text-gray-600">Click to upload a video</p>
+                    <p class="text-xs text-gray-400 mt-1">Accepted formats: MP4, AVI, MOV</p>
+                    <input type="file" accept="video/*" required
+                           class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2">
+                    Material File (Optional)
+                </label>
+                <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx"
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            </div>
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+                <i class="fas fa-save mr-2"></i> Add Lecture
+            </button>
+        </form>
+    </div>
+</div>

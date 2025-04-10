@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
 {
-    [Route("[area]/courses/{courseid:int}/[controller]/{action=index}/{id?}")]
+    [Route("[area]/Courses/{courseid:int}/[controller]/{action=index}/{id?}")]
     [CourseOwner]
     public class SectionsController : BaseInstructorController
     {
