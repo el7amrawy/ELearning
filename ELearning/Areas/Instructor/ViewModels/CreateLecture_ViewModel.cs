@@ -6,7 +6,6 @@ namespace ELearning.Areas.Instructor.ViewModels
     {
         public string Title { get; set; }
         public string? Notes { get; set; }
-        public int Order { get; set; }
         [Display(Name ="Video")]
         public IFormFile VideoFile {  get; set; }
     }

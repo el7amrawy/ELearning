@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.EF.Repositories
 {
-	public class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : class
+	public abstract class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : class
 	{
         private readonly AppDbContext _db;
         private readonly IMapper _mapper;

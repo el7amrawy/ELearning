@@ -33,6 +33,7 @@ namespace ELearning.Areas.Instructor.Helpers
 
             /* DTOs & Views */
             CreateMap<CreateSection_ViewModel, SectionDto>().ReverseMap();
+            CreateMap<CreateLecture_ViewModel, CreateLectureDto>();
         }
     }
 }

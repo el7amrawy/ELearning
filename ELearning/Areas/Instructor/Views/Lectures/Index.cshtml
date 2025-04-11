@@ -100,11 +100,13 @@
         <h3 class="font-medium text-lg mb-4 flex items-center">
             <i class="fas fa-plus-circle text-green-500 mr-2"></i> New Lecture
         </h3>
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data"
+              asp-action="index"
+              asp-route-courseid="@courseId">
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2" asp-for="Title"></label>
                 <input asp-for="Title" placeholder="E.g., Variables Basics"
-                       class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
+                    class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
                 <span class="text-red-500" asp-validation-for="Title"></span>
             </div>
             <div class="mb-4">
@@ -112,7 +114,7 @@
                     Notes (Optional)
                 </label>
                 <textarea asp-for="Notes" placeholder="E.g., Key points or additional info"
-                    class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y min-h-[100px]"></textarea>
+                    class="placeholder:text-slate-400 field-sizing-content block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y"></textarea>
                 <span class="text-red-500" asp-validation-for="Notes"></span>
             </div>
             <div class="mb-4">

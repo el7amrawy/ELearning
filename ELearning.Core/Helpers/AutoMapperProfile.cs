@@ -9,6 +9,8 @@ namespace ELearning.Core.Helpers
         public AutoMapperProfile() {
 
             CreateMap<SectionDto, Section>();
+            CreateMap<CreateLectureDto, Lecture>()
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
         }
     }
 }
