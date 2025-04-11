@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "Lectures";
     ViewBag.ActiveTab = NavTabsEnum.Courses;
+    
+    var sectionId = int.Parse(Context.Request.RouteValues["SectionId"].ToString());
+    var courseId = int.Parse(Context.Request.RouteValues["CourseId"].ToString());
 
-    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == Model.SectionId && s.CourseId == Model.CourseId);
+    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == sectionId && s.CourseId == courseId);
 }
 
 <div class="mx-auto px-4 py-8 max-w-4xl">
@@ -12,7 +15,7 @@
     <div class="flex justify-between items-center mb-8">
         <a asp-action="Index"
         asp-controller="Sections"
-        asp-route-courseid="@Model.CourseId"
+        asp-route-courseid="@courseId"
         class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
             <i class="fas fa-arrow-left mr-2"></i> Back to Sections
         </a>
@@ -99,23 +102,29 @@
         </h3>
         <form enctype="multipart/form-data">
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">
-                    Lecture Title
-                </label>
-                <input type="text" placeholder="E.g., Variables Basics"
+                <label class="block text-gray-700 font-medium mb-2" asp-for="Title"></label>
+                <input asp-for="Title" placeholder="E.g., Variables Basics"
                        class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
+                <span class="text-red-500" asp-validation-for="Title"></span>
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">
-                    Video File
+                <label asp-for="Notes" class="block text-gray-700 font-medium mb-2">
+                    Notes (Optional)
                 </label>
+                <textarea asp-for="Notes" placeholder="E.g., Key points or additional info"
+                    class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y min-h-[100px]"></textarea>
+                <span class="text-red-500" asp-validation-for="Notes"></span>
+            </div>
+            <div class="mb-4">
+                <label asp-for="VideoFile" class="block text-gray-700 font-medium mb-2"></label>
                 <div class="relative border-2 border-dashed border-blue-300 rounded-lg p-6 text-center bg-gray-50">
                     <i class="fas fa-cloud-upload-alt text-indigo-500 text-2xl mb-2 block"></i>
                     <p class="text-sm text-gray-600">Click to upload a video</p>
                     <p class="text-xs text-gray-400 mt-1">Accepted formats: MP4, AVI, MOV</p>
-                    <input type="file" accept="video/*" required
+                    <input asp-for="VideoFile" accept="video/*" required
                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                 </div>
+                <span class="text-red-500" asp-validation-for="VideoFile"></span>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2">
@@ -130,3 +139,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

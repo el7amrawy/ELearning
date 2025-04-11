@@ -1,20 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ELearning.Core.Models
+﻿namespace ELearning.Core.Models
 {
-	public class Lecture
+    public class Lecture
 	{
-		[Key]
 		public int Id { get; set; }
-		[Required]
-		public string Name { get; set; } = null!;
-		public string? Description { get; set; }
-		public string VideoURL {  get; set; } = null!;
-		[Required,ForeignKey(nameof(Section))]
+		public string Title { get; set; }
+		public string? Notes { get; set; }
+		public string VideoURL {  get; set; }
+		public int Order {  get; set; }
 		public int SectionId { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public Section? Section { get; set; }
-		public virtual Material? Material { get; set; }
+		public Material? Material { get; set; }
 	}
 }

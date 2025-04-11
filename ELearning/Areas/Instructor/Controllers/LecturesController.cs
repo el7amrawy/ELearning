@@ -1,5 +1,4 @@
-﻿using ELearning.Areas.Instructor.ViewModels;
-using ELearning.Attributes;
+﻿using ELearning.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
@@ -13,6 +12,6 @@ namespace ELearning.Areas.Instructor.Controllers
         public int CourseId { get; set; }
         [FromRoute]
         public int SectionId { get; set; }
-        public IActionResult Index() => View(new CreateLecture_ViewModel { SectionId = SectionId, CourseId = CourseId });
+        public IActionResult Index() => View();
     }
 }
