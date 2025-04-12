@@ -88,8 +88,6 @@ namespace ELearning.Core.Services
 
                 if (lec == null) return ServiceResult.Failure("lecture does not exist");
 
-                var video = lec.Video;
-
                 _unitOfWork.Lectures.Delete(lec);
 
                 if (lec.Video != null) { 

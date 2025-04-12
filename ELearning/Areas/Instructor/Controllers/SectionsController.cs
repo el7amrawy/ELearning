@@ -50,5 +50,15 @@ namespace ELearning.Areas.Instructor.Controllers
 
             return this.RedirectToPrevious();
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var res = await _sectionService.DeleteAsync(CourseId, id);
+
+            if (!res.IsSuccess) TempData["Error"] = res.ErrorMessage;
+            else TempData["Success"] = "Deleted section successfully";
+
+            return RedirectToAction("index");
+        }
     }
 }

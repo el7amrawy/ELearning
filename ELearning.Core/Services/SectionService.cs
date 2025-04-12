@@ -11,11 +11,13 @@ namespace ELearning.Core.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILectureService _lectureService;
 
-        public SectionService(IUnitOfWork unitOfWork, IMapper mapper)
+        public SectionService(IUnitOfWork unitOfWork, IMapper mapper, ILectureService lectureService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _lectureService = lectureService;
         }
 
         public async Task<ServiceResult> CreateAsync(SectionDto sectionDto)
@@ -74,6 +76,25 @@ namespace ELearning.Core.Services
                 }
             } 
 
+        }
+        public async Task<ServiceResult> DeleteAsync(int courseId, int sectionId)
+        {
+            var section = await _unitOfWork.Sections.GetItemAsync(s => s.CourseId == courseId && sectionId == s.Id, ["Lectures"]);
+
+            if (section == null) return ServiceResult.Failure("Section does not exist");
+
+            var lecIds = section.Lectures.Select(section => section.Id).ToList();
+
+            foreach (var id in lecIds)
+            {
+                await _lectureService.DeleteAsync(id, sectionId);
+            }
+
+            _unitOfWork.Sections.Delete(section);
+
+            if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure("problem deleting section");
+
+            return ServiceResult.Success();
         }
     }
 }
