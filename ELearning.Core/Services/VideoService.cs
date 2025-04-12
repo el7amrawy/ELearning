@@ -35,7 +35,7 @@ namespace ELearning.Core.Services
 
         public async Task<DeletionResult> DeleteVideoAsync(string publicId)
         {
-            return await _cloudinary.DestroyAsync(new DeletionParams(publicId));
+            return await _cloudinary.DestroyAsync(new DeletionParams(publicId) { ResourceType = ResourceType.Video });
         }
     }
 }

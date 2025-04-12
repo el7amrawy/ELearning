@@ -48,5 +48,71 @@ namespace ELearning.Core.Services
                 return ServiceResult.Failure(ex.Message);
             }
         }
+        public async Task<ServiceResult> SwapOrderAsync(int sectionId, int lectureId1, int lectureId2)
+        {
+            using var transaction = await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                var lec1 = await _unitOfWork.Lectures.GetItemAsync(l => l.SectionId == sectionId && l.Id == lectureId1);
+                var lec2 = await _unitOfWork.Lectures.GetItemAsync(l => l.SectionId == sectionId && l.Id == lectureId2);
+
+                if (lec1 == null || lec2 == null) return ServiceResult.Failure($"lecture does not exist");
+
+                var tempOrder = lec1.Order;
+
+                lec1.Order = -1;
+                await _unitOfWork.CompleteAsync();
+
+                lec1.Order = lec2.Order;
+                lec2.Order = tempOrder;
+
+                await _unitOfWork.CompleteAsync();
+                await transaction.CommitAsync();
+
+                return ServiceResult.Success();
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return ServiceResult.Failure("problem swapping lectures");
+            }            
+        }
+        public async Task<ServiceResult> DeleteAsync(int lectureId, int sectionId)
+        {
+            var transaction = await _unitOfWork.BeginTransactionAsync();
+            try
+            {
+                var lec = await _unitOfWork.Lectures
+               .GetItemAsync(l => l.SectionId == sectionId && l.Id == lectureId, ["Video", "Material"]);
+
+                if (lec == null) return ServiceResult.Failure("lecture does not exist");
+
+                var video = lec.Video;
+
+                _unitOfWork.Lectures.Delete(lec);
+
+                if (lec.Video != null) { 
+                    var vidRes = await _videoService.DeleteVideoAsync(lec.Video.PublicId);
+
+                    if (vidRes.Error != null) return ServiceResult.Failure(vidRes.Error.Message);
+
+                    _unitOfWork.Videos.Delete(lec.Video);
+                }
+
+                // material deletion logic
+
+                await _unitOfWork.CompleteAsync();
+                await transaction.CommitAsync();
+
+                return ServiceResult.Success();
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return ServiceResult.Failure("failed to delete lecture");
+            }
+           
+        }
     }
 }
