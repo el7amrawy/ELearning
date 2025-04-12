@@ -3,11 +3,6 @@
 <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300">
     <div class="relative w-full aspect-[16/9]">
         <img src="@Model.Image?.URL" alt="Course Image" class="w-full h-full object-cover">
-        <div class="absolute top-2 right-2">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium @(Model.StatusId==CourseStatusEnum.Published?"bg-green-100 text-green-800":Model.StatusId==CourseStatusEnum.Draft?"bg-yellow-100 text-yellow-800":"bg-red-100 text-red-800")">
-                @Model.StatusName
-            </span>
-        </div>
     </div>
     <div class="px-4 py-5 sm:p-6">
         <div class="flex items-center justify-between mb-3">
@@ -19,6 +14,9 @@
                 <i class="fas fa-dollar-sign mr-1"></i>
                 @Model.Price
             </div>
+            <span class="inline-flex text-sm items-center px-2.5 py-0.5 rounded-full font-medium @(Model.StatusId==CourseStatusEnum.Published?"bg-green-100 text-green-800":Model.StatusId==CourseStatusEnum.Draft?"bg-yellow-100 text-yellow-800":"bg-red-100 text-red-800")">
+                @Model.StatusName
+            </span>
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">@Model.Title</h3>
         <p class="text-sm text-gray-500 mb-4">@Model.SubTitle</p>
@@ -31,7 +29,7 @@
             </div>
             <div class="flex space-x-2 relative">
                 <!-- Manage Button -->
-                <a asp-action="manage" asp-route-id="@Model.Id" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                <a asp-action="Manage" asp-controller="Courses" asp-route-id="@Model.Id" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
                     <i class="fas fa-cog mr-2"></i> Manage Course
                 </a>
             </div>

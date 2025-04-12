@@ -14,11 +14,13 @@ namespace ELearning.Areas.Instructor.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoService _photoService;
         private readonly IMapper _mapper;
-        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper)
+        private readonly ISectionService _sectionService;
+        public CoursesController(IUnitOfWork unitOfWork, IPhotoService photoService, IMapper mapper, ISectionService sectionService)
         {
             _unitOfWork = unitOfWork;
             _photoService = photoService;
             _mapper = mapper;
+            _sectionService = sectionService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -107,6 +109,33 @@ namespace ELearning.Areas.Instructor.Controllers
             var instructor = await _unitOfWork.Users.GetItemAsync<Instructor_ViewModel>(c => c.Id == User.GetUserId());
 
             return View(new ManageCourse_ViewModel { Course = course, Instructor = instructor });
+        }
+        [HttpGet,CourseOwner]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var course = await _unitOfWork.Courses.GetItemAsync(c => c.Id == id, ["Sections", "Image"]);
+
+            if(course == null)
+            {
+                TempData["Error"] = "Course does not exist";
+                return this.RedirectToPrevious();
+            }
+
+            var sectionIds = course.Sections.Select(s => s.Id).ToList();
+
+            foreach (var item in sectionIds)
+            {
+                await _sectionService.DeleteAsync(id, item);
+            }
+
+            await _photoService.DeletePhotoAsync(course.Image.PublicId);
+
+            _unitOfWork.Images.Delete(course.Image);
+
+            if (await _unitOfWork.CompleteAsync() < 1) TempData["Error"] = "problem deleting course";
+            else TempData["Success"] = "Deleted course Successfully";
+
+            return RedirectToAction("Index");
         }
     }
 }
