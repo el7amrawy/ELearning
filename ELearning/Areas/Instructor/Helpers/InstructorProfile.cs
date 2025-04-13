@@ -17,7 +17,8 @@ namespace ELearning.Areas.Instructor.Helpers
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(_ => CourseStatusEnum.Draft));
-            CreateMap<Course, Course_ViewModel>();
+            CreateMap<Course, Course_ViewModel>()
+                .ForMember(dest => dest.StudentsNumber, opt => opt.MapFrom(src => src.Enrollments.Count));
             CreateMap<EditCourse_ViewModel, Course>()
                 .ForMember(dest => dest.Image, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageId, opt => opt.Ignore())

@@ -44,7 +44,7 @@
             <i class="fas fa-list-ol text-indigo-500 mr-2"></i> Current Lectures
         </h3>
         <ul class="divide-y divide-gray-200" id="lecturesList">
-            @for (int i=0; i<lectures.Count(); i++)
+            @for (int i=0; i<lectures.Count; i++)
             {
                 <li class="py-3 block md:flex justify-between items-center hover:bg-gray-50 transition">
                     <div class="flex-1 mb-3 md:m-0">
@@ -62,7 +62,7 @@
                                 <i class="fas fa-arrow-up"></i>
                             </a>
                             }
-                            @if (i + 1 != lectures.Count()){
+                            @if (i + 1 != lectures.Count){
                             <a asp-action="SwapOrder"
                                asp-route-lecid1="@lectures[i].Id"
                                asp-route-lecid2="@lectures[i+1].Id"
