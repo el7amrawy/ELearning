@@ -24,6 +24,9 @@ namespace ELearning.Areas.Instructor.Helpers
                 .ForMember(dest => dest.ImageId, opt => opt.Ignore())
                 .ReverseMap();
             CreateMap<AppUser, Instructor_ViewModel>();
+            CreateMap<AppUser, InstructorHomeIndex_ViewModel>()
+                .ForMember(dest => dest.CoursesCount, opt => opt.MapFrom(src => src.Courses.Count));
+
             CreateMap<Course, SectionCourse_ViewModel>();
 
             CreateMap<Section, Section_ViewModel>();

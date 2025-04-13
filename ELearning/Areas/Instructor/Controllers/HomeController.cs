@@ -15,10 +15,12 @@ namespace ELearning.Areas.Instructor.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var courses = await _unitOfWork.Courses
-            .GetInstructorCoursesAsync<Course_ViewModel>(User.GetUserId(), quantity: 3, orderBy: c => c.UpdatedAt, orderByDirection: OrderBy.Descending);
-            
-            return View(courses);
+            return View(new HomeIndex_ViewModel
+            {
+                Instructor = await _unitOfWork.Users.GetItemAsync<InstructorHomeIndex_ViewModel>(u => u.Id == User.GetUserId()),
+                Courses = await _unitOfWork.Courses
+                    .GetInstructorCoursesAsync<Course_ViewModel>(User.GetUserId(), pageSize: 3, orderBy: c => c.UpdatedAt, orderByDirection: OrderBy.Descending)
+            });
         }
     }
 }

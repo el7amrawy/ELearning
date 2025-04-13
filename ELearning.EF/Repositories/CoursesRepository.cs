@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.EF.Repositories
 {
-	public class CoursesRepository : BaseRepository<Course> ,ICoursesRepository
+    public class CoursesRepository : BaseRepository<Course>, ICoursesRepository
 	{
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace ELearning.EF.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Model>> GetInstructorCoursesAsync<Model>(int instructorId, string[] includes = null, Expression<Func<Course, bool>> criteria = null, int quantity = 0, Expression<Func<Course, object>> orderBy = null, string orderByDirection = OrderBy.Ascending)
+        public async Task<IEnumerable<Model>> GetInstructorCoursesAsync<Model>(int instructorId, string[] includes = null, Expression<Func<Course, bool>> criteria = null, Expression<Func<Course, object>> orderBy = null, string orderByDirection = OrderBy.Ascending, int pageNumber = 0, int pageSize = 0)
         {
             var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
 
@@ -37,8 +37,11 @@ namespace ELearning.EF.Repositories
                     query = query.OrderByDescending(orderBy);
             }
 
-            if (quantity != 0)
-                query = query.Take(quantity);
+            if (pageNumber > 0)
+                query = query.Skip((pageNumber - 1) * pageSize);
+
+            if (pageSize > 0)
+                query = query.Take(pageSize);
 
             return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
         }
@@ -61,6 +64,16 @@ namespace ELearning.EF.Repositories
             var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
 
             return await query.Select(u => u.Id).ToListAsync();
+        }
+
+        public async Task<int> GetInstructorCoursesCountAsync(int instructorId, Expression<Func<Course, bool>> criteria = null)
+        {
+            var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            return await query.CountAsync();
         }
     }
 }

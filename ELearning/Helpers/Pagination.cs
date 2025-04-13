@@ -1,18 +1,13 @@
 ﻿namespace ELearning.Helpers
 {
-    public class Pagination
+    public class Pagination(int pageNumber, int pageSize, int count)
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-        public int Count { get; set; }
-        public int Pages { get; set; }
-        public Pagination(int pageNumber, int pageSize, int count)
-        {
-            PageNumber = pageNumber;
-            PageSize = pageSize;
-            Count = count;
-            Pages = DivideAndRoundUp(count, pageSize);
-        }
+        public int PageNumber => pageNumber;
+        public int PageSize => pageSize;
+        public int Count => count;
+        public int Pages => DivideAndRoundUp(Count, PageSize);
+        public bool HasNext => PageNumber < Pages;
+        public bool HasPrevious => PageNumber > 1;
         private int DivideAndRoundUp(int a, int b) => (a + b - 1) / b;
     }
 }
