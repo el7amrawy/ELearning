@@ -1,4 +1,5 @@
 ﻿using ELearning.Areas.Instructor.ViewModels;
+using ELearning.Core.Consts;
 using ELearning.Core.Interfaces;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace ELearning.Areas.Instructor.Controllers
         public async Task<IActionResult> Index()
         {
             var courses = await _unitOfWork.Courses
-                .GetInstructorCoursesAsync<Course_ViewModel>(User.GetUserId(), includes: ["Image"]);
+            .GetInstructorCoursesAsync<Course_ViewModel>(User.GetUserId(), quantity: 3, orderBy: c => c.UpdatedAt, orderByDirection: OrderBy.Descending);
             
             return View(courses);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ELearning.Core.Consts;
 using ELearning.Core.Interfaces.Repositories;
 using ELearning.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,7 @@ namespace ELearning.EF.Repositories
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Model>> GetInstructorCoursesAsync<Model>(int instructorId, string[] includes = null, Expression<Func<Course, bool>> criteria = null)
+        public async Task<IEnumerable<Model>> GetInstructorCoursesAsync<Model>(int instructorId, string[] includes = null, Expression<Func<Course, bool>> criteria = null, int quantity = 0, Expression<Func<Course, object>> orderBy = null, string orderByDirection = OrderBy.Ascending)
         {
             var query = _context.Users.Where(i => i.Id == instructorId).SelectMany(i => i.Courses);
 
@@ -27,6 +28,17 @@ namespace ELearning.EF.Repositories
             if (includes != null)
                 foreach (var item in includes)
                     query = query.Include(item);
+
+            if(orderBy != null)
+            {
+                if (orderByDirection == OrderBy.Ascending)
+                    query = query.OrderBy(orderBy);
+                else
+                    query = query.OrderByDescending(orderBy);
+            }
+
+            if (quantity != 0)
+                query = query.Take(quantity);
 
             return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
         }
