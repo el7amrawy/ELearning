@@ -29,7 +29,7 @@
             }
 
             <!-- Add New Course Card -->
-            <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300 border-2 border-dashed border-gray-300">
+            @* <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow duration-300 border-2 border-dashed border-gray-300">
                 <a asp-action="Create" class="text-center p-6 w-full h-full  flex items-center justify-center">
                     <div>
                         <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
@@ -39,58 +39,66 @@
                         <p class="mt-1 text-sm text-gray-500">Click to create a new course</p>
                     </div>
                 </a>
-            </div>
+            </div> *@
         </div>
 
         <!-- Pagination -->
-        @if(Model.Pagination.HasNext)
+        @if(Model.Pagination.Count > Model.Pagination.PageSize)
         {
             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 rounded-b-lg shadow">
             <div class="flex-1 flex justify-between sm:hidden">
-                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                    Previous
-                </a>
-                <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                    Next
-                </a>
+                @if(Model.Pagination.HasPrevious){
+                    <a class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                        asp-route-pagenumder="@(Model.Pagination.PageNumber-1)"
+                        asp-route-pagesize="@Model.Pagination.PageSize">
+                        Previous
+                    </a>
+                }
+                @if(Model.Pagination.HasNext){
+                    <a class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                        asp-route-pagenumber="@(Model.Pagination.PageNumber+1)"
+                        asp-route-pagesize="@Model.Pagination.PageSize">
+                        Next
+                    </a>
+                }
             </div>
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm text-gray-700">
-                        Showing
-                        <span class="font-medium">1</span>
-                        to
-                        <span class="font-medium">5</span>
+                        Page
+                        <span class="font-medium">@Model.Pagination.PageNumber</span>
                         of
-                        <span class="font-medium">12</span>
-                        courses
+                        <span class="font-medium">@Model.Pagination.Pages</span>
+                        pages
                     </p>
                 </div>
                 <div>
                     <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                            <span class="sr-only">Previous</span>
-                            <i class="fas fa-chevron-left h-5 w-5"></i>
-                        </a>
-                        <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            1
-                        </a>
-                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            2
-                        </a>
-                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            3
-                        </a>
-                        <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                            ...
-                        </span>
-                        <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                            8
-                        </a>
-                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                            <span class="sr-only">Next</span>
-                            <i class="fas fa-chevron-right h-5 w-5"></i>
-                        </a>
+                        @if(Model.Pagination.HasPrevious){
+                            <a asp-route-pagenumber="@(Model.Pagination.PageNumber-1)"
+                                asp-route-pagesize="@Model.Pagination.PageSize"
+                                class="relative inline-flex items-center justify-center w-10 h-10 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        }            
+                            @foreach (var item in Model.Pagination.NearbyPages)
+                        {
+                            <a asp-route-pagenumber="@item"
+                                asp-route-pagesize="@Model.Pagination.PageSize"
+                                class="@(item == Model.Pagination.PageNumber ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600" : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50") relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                                >
+                                @item
+                            </a>
+                        }
+                        @if(Model.Pagination.HasNext){
+                            <a asp-route-pagenumber="@(Model.Pagination.PageNumber+1)"
+                                asp-route-pagesize="@Model.Pagination.PageSize"
+                                class="relative inline-flex items-center justify-center w-10 h-10 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        }
                     </nav>
                 </div>
             </div>
