@@ -1,6 +1,7 @@
 ﻿using ELearning.Core.Common;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.Core.Services
 {
@@ -25,11 +26,22 @@ namespace ELearning.Core.Services
         }
         public async Task<ServiceResult<double>> UpdateCourseDurationAsync(int courseId)
         {
-            var duration = await _unitOfWork.Courses.UpdateCourseDurationAsync(courseId);
+            try
+            {
+                var duration = await _unitOfWork.Courses.UpdateCourseDurationAsync(courseId);
 
-            if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure<double>("failed to update course duration");
+                return ServiceResult.Success(duration);
+            }
+            catch (DbUpdateException ex)
+            {
+                return ServiceResult.Failure<double>(ex.Message);
+            }
+            catch (Exception)
+            {
 
-            return ServiceResult.Success(duration);
+                return ServiceResult.Failure<double>("failed to update course duration");
+            }
+
         }
     }
 }

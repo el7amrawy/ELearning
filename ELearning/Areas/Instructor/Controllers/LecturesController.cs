@@ -19,10 +19,12 @@ namespace ELearning.Areas.Instructor.Controllers
         public int SectionId { get; set; }
         private readonly ILectureService _lectureService;
         private readonly IMapper _mapper;
-        public LecturesController(ILectureService lectureService, IMapper mapper)
+        private readonly ICourseService _courseService;
+        public LecturesController(ILectureService lectureService, IMapper mapper, ICourseService courseService)
         {
             _lectureService = lectureService;
             _mapper = mapper;
+            _courseService = courseService;
         }
         [HttpGet]
         public IActionResult Index() => View();
@@ -38,6 +40,11 @@ namespace ELearning.Areas.Instructor.Controllers
 
             if (res.IsSuccess) TempData["Success"] = "Created lecture successfully";
             else TempData["Error"] = res.ErrorMessage;
+
+            var courseRes = await _courseService.UpdateCourseDurationAsync(CourseId);
+
+            //if (courseRes.IsSuccess) TempData["Success"] += ",updated course count successfully";
+            //else TempData["Error"] += "," + res.ErrorMessage;
 
             return RedirectToAction("Index");
         }
@@ -58,6 +65,8 @@ namespace ELearning.Areas.Instructor.Controllers
 
             if (res.IsSuccess) TempData["Success"] = "Deleted lecture successfully";
             else TempData["Error"] = res.ErrorMessage;
+
+            await _courseService.UpdateCourseDurationAsync(CourseId);
 
             return RedirectToAction("Index");
         }
