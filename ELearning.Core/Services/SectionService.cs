@@ -28,9 +28,7 @@ namespace ELearning.Core.Services
 
             var section = _mapper.Map<Section>(sectionDto);
 
-            var sectionsCount = course.Sections.Count();
-
-            section.Order = sectionsCount + 1;
+            section.Order = course.Sections.Count > 0 ? course.Sections.Last().Order + 1 : 1;
 
             course.Sections.Add(section);
 

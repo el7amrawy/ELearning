@@ -14,12 +14,14 @@ namespace ELearning.Areas.Instructor.Controllers
     {
         private readonly ISectionService _sectionService;
         private readonly IMapper _mapper;
+        private readonly ICourseService _courseService;
         [FromRoute]
         public int CourseId {  get; set; }
-        public SectionsController(ISectionService sectionService, IMapper mapper)
+        public SectionsController(ISectionService sectionService, IMapper mapper, ICourseService courseService)
         {
             _sectionService = sectionService;
             _mapper = mapper;
+            _courseService = courseService;
         }
         [HttpGet]
         public IActionResult Index() => View(new CreateSection_ViewModel { CourseId = CourseId });
@@ -57,6 +59,8 @@ namespace ELearning.Areas.Instructor.Controllers
 
             if (!res.IsSuccess) TempData["Error"] = res.ErrorMessage;
             else TempData["Success"] = "Deleted section successfully";
+
+            await _courseService.UpdateCourseDurationAsync(CourseId);
 
             return RedirectToAction("index");
         }

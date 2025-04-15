@@ -23,11 +23,10 @@ namespace ELearning.Core.Services
         {
             try
             {
-                var lecturesCount = await _unitOfWork.Lectures.CountAsync(l => l.SectionId == lectureDto.SectionId);
-
+                var lastLecture = await _unitOfWork.Lectures.GetByMaxAsync(l => l.Order);
                 var lecture = _mapper.Map<Lecture>(lectureDto);
 
-                lecture.Order = lecturesCount + 1;
+                lecture.Order = lastLecture == null ? 1 : lastLecture.Order + 1;
 
                 var res = await _videoService.AddVideoAsync(lectureDto.VideoFile, instructorName, courseId);
 

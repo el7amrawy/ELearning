@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.EF.Repositories
 {
-	public abstract class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : class
+    public abstract class BaseRepository<Entity> : IBaseRepository<Entity> where Entity : class
 	{
         private readonly AppDbContext _db;
         private readonly IMapper _mapper;
@@ -105,6 +105,11 @@ namespace ELearning.EF.Repositories
                 query = query.Take(pageSize);
 
             return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
+        public async Task<Entity> GetByMaxAsync<Property>(Expression<Func<Entity, Property>> selector)
+        {
+            return await _db.Set<Entity>().OrderByDescending(selector).FirstOrDefaultAsync();
         }
     }
 }
