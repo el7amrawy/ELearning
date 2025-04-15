@@ -1,6 +1,4 @@
-﻿using ELearning.ViewModels;
-
-namespace ELearning.Areas.Instructor.ViewModels
+﻿namespace ELearning.Areas.Instructor.ViewModels
 {
     public class ManageCourse_ViewModel
     {

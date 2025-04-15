@@ -1,4 +1,4 @@
-﻿namespace ELearning.ViewModels
+﻿namespace ELearning.Areas.Instructor.ViewModels
 {
     public class SectionWithLectureCount_ViewModel
     {

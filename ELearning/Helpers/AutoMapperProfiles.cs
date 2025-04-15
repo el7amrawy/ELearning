@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ELearning.Core.Models;
 using ELearning.ViewModels;
-using ELearning.Areas.Dashboard.ViewModels;
 
 namespace ELearning.Helpers
 {
@@ -12,13 +11,11 @@ namespace ELearning.Helpers
             CreateMap<AppUser, UserProfile_ViewModel>();
             CreateMap<EditUserProfile_ViewModel, AppUser>();
             CreateMap<EditUserProfile_ViewModel, UserProfile_ViewModel>();
+            CreateMap<AppUser, CourseCardInstructor_ViewModel>();
 
-            /* Dashboard Area */
-            CreateMap<AppUser, AdminProfile_ViewModel>();
-            CreateMap<AdminProfile_ViewModel, AppUser>().ForMember(dest => dest.Image, opt => opt.Ignore());
-            CreateMap<Category_ViewModel, Category>()
-                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
-            CreateMap<EditCategory_ViewModel, Category>().ReverseMap();
+            CreateMap<Course, CourseCard_ViewModel>()
+                .ForMember(dest => dest.LevelName, opt => opt.MapFrom(dest => dest.Level.Name))
+                .ForMember(dest => dest.Instructor, opt => opt.MapFrom(dest => dest.Instructors.FirstOrDefault()));
         }
     }
 }

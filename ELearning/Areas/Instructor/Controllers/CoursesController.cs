@@ -7,7 +7,6 @@ using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using ELearning.Helpers;
-using ELearning.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
