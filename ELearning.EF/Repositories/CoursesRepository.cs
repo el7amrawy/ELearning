@@ -75,5 +75,24 @@ namespace ELearning.EF.Repositories
 
             return await query.CountAsync();
         }
+
+        public async Task<double> UpdateCourseDurationAsync(int courseId)
+        {
+            var sectionsDurations = await _context.Sections.Where(s => s.CourseId == courseId)
+                .Select(s => new { SectionId = s.Id, Duration = s.Lectures.Sum(l => l.Video.Duration) }).ToListAsync();
+
+            foreach (var section in sectionsDurations)
+            {
+                await _context.Sections.Where(s => s.Id == section.SectionId)
+                     .ExecuteUpdateAsync(setters => setters.SetProperty(s => s.Duration, section.Duration));
+            }
+
+            var courseTotalDuration = sectionsDurations.Sum(s => s.Duration);
+
+            await _context.Courses.Where(c => c.Id == courseId)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(c => c.Duration, courseTotalDuration));
+
+            return courseTotalDuration;
+        }
     }
 }

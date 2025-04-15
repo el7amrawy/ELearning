@@ -24,7 +24,7 @@ namespace ELearning.Extensions
 
             services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<ICourseAccessService, CourseAccessService>();
+            services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ILectureService, LectureService>();

@@ -33,13 +33,13 @@ namespace ELearning.Core.Services
 
                 if (res.Error != null) return ServiceResult.Failure(res.Error.Message);
 
-                var video = new Video { CreatedAt = DateTime.UtcNow, PublicId = res.PublicId, URL = res.SecureUrl.AbsoluteUri };
+                var video = new Video { CreatedAt = DateTime.UtcNow, PublicId = res.PublicId, URL = res.SecureUrl.AbsoluteUri, Duration = res.Duration };
 
                 lecture.Video = video;
 
                 _unitOfWork.Lectures.Add(lecture);
 
-                if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure("problem creating lecture");
+                if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure("problem creating lecture");                
 
                 return ServiceResult.Success();
             }

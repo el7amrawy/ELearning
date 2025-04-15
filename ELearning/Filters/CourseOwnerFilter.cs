@@ -7,8 +7,8 @@ namespace ELearning.Filters
 {
     public class CourseOwnerFilter : IAsyncAuthorizationFilter
     {
-        private readonly ICourseAccessService _courseAccessService;
-        public CourseOwnerFilter(ICourseAccessService courseAccessService)
+        private readonly ICourseService _courseAccessService;
+        public CourseOwnerFilter(ICourseService courseAccessService)
         {
             _courseAccessService = courseAccessService;
         }

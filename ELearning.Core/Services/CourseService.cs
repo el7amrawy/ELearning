@@ -4,15 +4,14 @@ using ELearning.Core.Interfaces.Services;
 
 namespace ELearning.Core.Services
 {
-    public class CourseAccessService : ICourseAccessService
+    public class CourseService : ICourseService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CourseAccessService(IUnitOfWork unitOfWork)
+        public CourseService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<ServiceResult> ValidateCourseOwnerAsync(int instructorId, int courseId)
         {
             if (courseId == 0) return ServiceResult.Failure("course does not exist");
@@ -23,6 +22,14 @@ namespace ELearning.Core.Services
                 return ServiceResult.Success();
 
             return ServiceResult.Failure("You are not allowed to access this course");
+        }
+        public async Task<ServiceResult<double>> UpdateCourseDurationAsync(int courseId)
+        {
+            var duration = await _unitOfWork.Courses.UpdateCourseDurationAsync(courseId);
+
+            if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure<double>("failed to update course duration");
+
+            return ServiceResult.Success(duration);
         }
     }
 }
