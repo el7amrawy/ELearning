@@ -4,6 +4,7 @@ using ELearning.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ELearning.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250415034752_AddDurationToVideo")]
+    partial class AddDurationToVideo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,9 +221,6 @@ namespace ELearning.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
-
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
 
@@ -238,6 +238,9 @@ namespace ELearning.EF.Migrations
 
                     b.Property<string>("SubTitle")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -434,9 +437,6 @@ namespace ELearning.EF.Migrations
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
-
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()

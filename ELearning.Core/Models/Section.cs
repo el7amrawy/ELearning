@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELearning.Core.Models
 {
@@ -10,7 +9,7 @@ namespace ELearning.Core.Models
 		[Required]
 		public string Name { get; set; }
 		public int Order { get; set; }
-		[Required,ForeignKey(nameof(Course))]
+		public double Duration { get; set; }
 		public int CourseId { get; set; }
 		public Course? Course { get; set; }
 		public virtual ICollection<Lecture> Lectures { get; set; } = [];
