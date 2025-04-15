@@ -1,5 +1,6 @@
 ﻿@model CreateLecture_ViewModel
 @inject IUnitOfWork _uof
+@using ELearning.Extensions
 @{
     ViewBag.Title = "Lectures";
     ViewBag.ActiveTab = NavTabsEnum.Courses;
@@ -49,7 +50,13 @@
                 <li class="py-3 block md:flex justify-between items-center hover:bg-gray-50 transition">
                     <div class="flex-1 mb-3 md:m-0">
                         <span class="font-medium">@(i+1). @lectures[i].Title</span>
-                        <p class="text-sm text-gray-500">Video: @(lectures[i].Video == null ? "None" : lectures[i].Video.Id + ".mp4") | Material: @(lectures[i].Material==null?"None":lectures[i].Material.Name+".pdf")</p>
+                        <p class="text-sm text-gray-500">
+                            @if (lectures[i].Video == null) {
+                                @("None")
+                            }else{
+                                <span><i class="fas fa-clock mr-0.5 text-xs"></i>@lectures[i].Video.Duration.FormatDuration()</span>
+                            }
+                            | Material: @(lectures[i].Material==null?"None":lectures[i].Material.Name+".pdf")</p>
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex flex-col space-y-1">
