@@ -18,11 +18,20 @@
         <div class="relative pb-[56.25%] bg-gray-200">
             <img src="@Model.Course.Image.URL"
                  alt="Course thumbnail" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute top-3 right-3 flex space-x-2">
+            <div class="absolute top-3 right-3 flex gap-2" bis_skin_checked="1">
                 <a asp-action="edit" asp-route-id="@Model.Course.Id"
                    class="inline-flex items-center px-3 py-1.5 bg-white text-blue-600 rounded-md shadow-xs text-sm hover:bg-blue-50">
                     <i class="fas fa-edit mr-1.5 text-sm"></i> Edit
                 </a>
+                @if(Model.Course.StatusId==CourseStatusEnum.Draft){
+                    <a asp-action="Publish" asp-route-id="@Model.Course.Id" class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md shadow-sm text-sm hover:bg-green-700">
+                    <i class="fas fa-cloud-upload-alt mr-1.5 text-sm"></i> Publish
+                </a>
+                }else{
+                    <a asp-action="Unpublish" asp-route-id="@Model.Course.Id" class="inline-flex items-center px-3 py-1.5 bg-yellow-500 text-white rounded-md shadow-sm text-sm hover:bg-yellow-600">
+                        <i class="fas fa-ban mr-1.5 text-sm"></i> Unpublish
+                    </a>
+                }
             </div>
         </div>
 

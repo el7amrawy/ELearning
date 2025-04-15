@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Attributes;
+using ELearning.Core.Enums;
 using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
@@ -131,6 +132,54 @@ namespace ELearning.Areas.Instructor.Controllers
             else TempData["Success"] = "Deleted course Successfully";
 
             return RedirectToAction("Index");
+        }
+        [HttpGet,CourseOwner]
+        public async Task<IActionResult> Publish(int id)
+        {
+            var course = await _unitOfWork.Courses.GetByIdAsync(id);
+
+            if(course == null)
+            {
+                TempData["Error"] = "course does not exist";
+                return this.RedirectToPrevious();
+            }
+
+            if (course.StatusId == (int)CourseStatusEnum.Published)
+            {
+                TempData["Error"] = "this course is already published";
+                return this.RedirectToPrevious();
+            }
+
+            course.StatusId = (int)CourseStatusEnum.Published;
+
+            if (await _unitOfWork.CompleteAsync() < 1) TempData["Error"] = "failed to publish this course";
+            else TempData["Success"] = "this course is now published";
+
+            return this.RedirectToPrevious();
+        }
+        [HttpGet, CourseOwner]
+        public async Task<IActionResult> Unpublish(int id)
+        {
+            var course = await _unitOfWork.Courses.GetByIdAsync(id);
+
+            if (course == null)
+            {
+                TempData["Error"] = "course does not exist";
+                return this.RedirectToPrevious();
+            }
+
+            if (course.StatusId == (int)CourseStatusEnum.Draft)
+            {
+                TempData["Error"] = "this course is already unpublished";
+                return this.RedirectToPrevious();
+            }
+
+            course.StatusId = (int)CourseStatusEnum.Draft;
+
+            if (await _unitOfWork.CompleteAsync() < 1) TempData["Error"] = "failed to unpublish this course";
+            else TempData["Info"] = "this course is now unpublished";
+
+            return this.RedirectToPrevious();
         }
     }
 }
