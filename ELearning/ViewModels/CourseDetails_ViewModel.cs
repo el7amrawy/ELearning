@@ -20,6 +20,7 @@ namespace ELearning.ViewModels
         public Language Language { get; set; }
         public Level Level { get; set; }
         public Category_ViewModel Category { get; set; }
+        public CourseDetailsInstructor_ViewModel Instructor { get; set; }
         public List<Section_ViewModel> Sections { get; set; }
     }
 }
