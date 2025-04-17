@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Course Details";
+}
+
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-12 md:py-20">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="w-full md:w-2/3">
+                <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">Complete Web Development Bootcamp</h1>
+                <h2 class="text-base sm:text-lg md:text-xl mb-4">Become a Full-Stack Developer in 12 Weeks</h2>
+                <p class="text-sm sm:text-base md:text-lg mb-6">Master web development with hands-on projects in HTML, CSS, JavaScript, React, Node.js, and more. Build a professional portfolio and launch your career in tech.</p>
+                <div class="flex items-center mb-6">
+                    <span class="text-yellow-500">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-white text-sm ml-2">(4.5 - 1,240 reviews)</span>
+                    </span>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <button class="w-full sm:w-auto px-6 py-3 bg-white text-blue-500 font-semibold rounded-md hover:bg-gray-100 transition duration-300 text-sm sm:text-base">
+                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart - $99.99
+                    </button>
+                    <button class="w-full sm:w-auto px-6 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:text-blue-500 transition duration-300 text-sm sm:text-base">Enroll Now</button>
+                </div>
+            </div>
+            <div class="w-full md:w-1/3 mt-6 md:mt-0">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Web Development" class="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto rounded-lg shadow-lg object-cover">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Overview -->
+<section class="py-12 md:py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Course Overview</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 md:mb-10">
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-blue-500 text-lg md:text-xl mr-3 mt-1"></i>
+                <p class="text-gray-600 text-sm md:text-base">Create responsive websites with HTML, CSS, and JavaScript.</p>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-blue-500 text-lg md:text-xl mr-3 mt-1"></i>
+                <p class="text-gray-600 text-sm md:text-base">Develop dynamic front-end applications using React.</p>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-blue-500 text-lg md:text-xl mr-3 mt-1"></i>
+                <p class="text-gray-600 text-sm md:text-base">Build server-side applications with Node.js and Express.</p>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-blue-500 text-lg md:text-xl mr-3 mt-1"></i>
+                <p class="text-gray-600 text-sm md:text-base">Deploy full-stack applications to cloud platforms.</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Details</h3>
+                <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                    <li><strong>Level:</strong> Beginner</li>
+                    <li><strong>Duration:</strong> 12 weeks</li>
+                    <li><strong>Language:</strong> English</li>
+                    <li><strong>Category:</strong> Web Development</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Pricing</h3>
+                <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                    <li><strong>Price:</strong> $99.99</li>
+                    <li><strong>Access:</strong> Lifetime access</li>
+                    <li><strong>Certificate:</strong> Included</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Enrollment</h3>
+                <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                    <li><strong>Students:</strong> 1,240 enrolled</li>
+                    <li><strong>Created:</strong> January 15, 2023</li>
+                    <li><strong>Updated:</strong> April 10, 2025</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Curriculum -->
+<section class="py-12 md:py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Course Curriculum</h2>
+        <div class="space-y-4">
+            <!-- Section 1 -->
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="section-toggle flex justify-between items-center cursor-pointer">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800">Section 1: HTML & CSS Fundamentals</h3>
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+                <div class="hidden mt-4">
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Learn the building blocks of web development with HTML and CSS.</p>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 1: Introduction to HTML (30 min)</li>
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 2: CSS Basics and Styling (45 min)</li>
+                        <li><i class="fas fa-file-alt text-blue-500 mr-2"></i>Lecture 3: Responsive Design with Flexbox (40 min)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section 2 -->
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="section-toggle flex justify-between items-center cursor-pointer">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800">Section 2: JavaScript Essentials</h3>
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+                <div class="hidden mt-4">
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Add interactivity to your websites with JavaScript.</p>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 1: JavaScript Syntax and Variables (35 min)</li>
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 2: DOM Manipulation (50 min)</li>
+                        <li><i class="fas fa-file-alt text-blue-500 mr-2"></i>Lecture 3: Event Handling (30 min)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section 3 -->
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="section-toggle flex justify-between items-center cursor-pointer">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800">Section 3: Front-End Frameworks</h3>
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+                <div class="hidden mt-4">
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Build dynamic user interfaces with React.</p>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 1: Introduction to React (40 min)</li>
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 2: Components and Props (45 min)</li>
+                        <li><i class="fas fa-file-alt text-blue-500 mr-2"></i>Lecture 3: State and Lifecycle (35 min)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section 4 -->
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="section-toggle flex justify-between items-center cursor-pointer">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800">Section 4: Back-End Development</h3>
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+                <div class="hidden mt-4">
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Create server-side applications with Node.js and Express.</p>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 1: Node.js Basics (35 min)</li>
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 2: Building APIs with Express (50 min)</li>
+                        <li><i class="fas fa-file-alt text-blue-500 mr-2"></i>Lecture 3: Database Integration (40 min)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section 5 -->
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="section-toggle flex justify-between items-center cursor-pointer">
+                    <h3 class="text-lg md:text-xl font-semibold text-gray-800">Section 5: Deployment & Projects</h3>
+                    <i class="fas fa-chevron-down text-gray-500"></i>
+                </div>
+                <div class="hidden mt-4">
+                    <p class="text-gray-600 mb-4 text-sm md:text-base">Deploy your projects and build a portfolio.</p>
+                    <ul class="text-gray-600 space-y-2 text-sm md:text-base">
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 1: Cloud Deployment with Heroku (30 min)</li>
+                        <li><i class="fas fa-video text-blue-500 mr-2"></i>Lecture 2: Building a Portfolio Project (60 min)</li>
+                        <li><i class="fas fa-file-alt text-blue-500 mr-2"></i>Lecture 3: Final Project Review (45 min)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instructor -->
+<section class="py-12 md:py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Meet Your Instructor</h2>
+        <div class="flex flex-col sm:flex-row items-center bg-gray-50 p-4 sm:p-6 rounded-lg shadow-md">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover mb-4 sm:mb-0 sm:mr-6">
+            <div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-800">John Doe</h3>
+                <p class="text-gray-600 mb-2 text-sm md:text-base">Senior Web Developer</p>
+                <p class="text-gray-600 text-sm md:text-base">John has 10+ years of experience in web development and has taught thousands of students.</p>
+                <div class="flex space-x-4 mt-2">
+                    <a href="#" class="text-blue-500 hover:text-blue-600"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-blue-500 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews -->
+<section class="py-12 md:py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-8">Student Reviews</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Mark Wilson" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-4">
+                        <h4 class="font-semibold text-gray-800 text-sm md:text-base">Mark Wilson</h4>
+                        <p class="text-gray-600 text-xs md:text-sm">Web Developer</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm md:text-base">"This course gave me the confidence to switch careers. The projects were practical and the instructor was fantastic."</p>
+                <div class="mt-4 text-yellow-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="flex items-center mb-4">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" class="w-12 h-12 rounded-full object-cover">
+                    <div class="ml-4">
+                        <h4 class="font-semibold text-gray-800 text-sm md:text-base">Emma Rodriguez</h4>
+                        <p class="text-gray-600 text-xs md:text-sm">Front-End Developer</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm md:text-base">"The step-by-step approach made complex topics easy to understand. I built my first app by Week 7!"</p>
+                <div class="mt-4 text-yellow-500">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-12 md:py-16 bg-blue-500 text-white">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Ready to Become a Web Developer?</h2>
+        <p class="text-base md:text-xl mb-8 max-w-2xl mx-auto">Join 1,240+ students and start building your career with LearnHub.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button class="w-full sm:w-auto px-6 py-3 bg-white text-blue-500 font-semibold rounded-md hover:bg-gray-100 transition duration-300 text-sm sm:text-base">
+                <i class="fas fa-shopping-cart mr-2"></i> Add to Cart - $99.99
+            </button>
+            <button class="w-full sm:w-auto px-6 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:text-blue-500 transition duration-300 text-sm sm:text-base">Enroll Now</button>
+        </div>
+    </div>
+</section>

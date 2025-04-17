@@ -8,5 +8,6 @@ namespace ELearning.Controllers
         {
             return View();
         }
+        public IActionResult Details(int id) => View();
     }
 }

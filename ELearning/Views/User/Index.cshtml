@@ -3,87 +3,90 @@
 	ViewBag.Title = "User Profile";
 }
 
-<div class="setting-topic container mt-16 py-4 font-extrabold text-2xl tracking-wide capitalize text-black/80 ">
-    <h3>User Profile</h3>
+<main class="px-4 md:px-5 lg:px-8 flex flex-col items-center">
+    <div class="setting-topic container py-4 font-extrabold text-2xl tracking-wide capitalize text-black/80 ">
+        <h3>User Profile</h3>
 
-</div>
-<div class="setting-links py-4  container w-full relative ">
-    <ul class="flex items-center gap-8 capitalize font-semibold cursor-pointer border-b-2 py-4 text-black/70 border-black/20">
-        <li><a class="duration-1000 hover:text-black/80 py-4 border-b-2 border-black font-extrabold" id="edu-profile">User profile</a></li>
-        <li><a class="duration-1000 hover:text-black/80 py-4" id="profile-picture">profile picture</a></li>
-    </ul>
+    </div>
+    <div class="setting-links py-4  container w-full relative ">
+        <ul class="flex items-center gap-8 capitalize font-semibold cursor-pointer border-b-2 py-4 text-black/70 border-black/20">
+            <li><a class="duration-1000 hover:text-black/80 py-4 border-b-2 border-black font-extrabold" id="edu-profile">User profile</a></li>
+            <li><a class="duration-1000 hover:text-black/80 py-4" id="profile-picture">profile picture</a></li>
+        </ul>
 
-</div>
-<div class="edu-profile container block py-4 ">
-    <form asp-action="Edit" asp-controller="User">
-        <div class="profile-content capitalize font-bold text-black/80 text-sm lg:flex  lg:gap-8">
-            <div class="part-one lg:w-1/2">
-                <div class="f-name flex flex-col">
-                    <label asp-for="FirstName"></label>
-                    <input asp-for="FirstName" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
-                    <span asp-validation-for="FirstName" class="text-red-500"></span>
-                </div>
-                <div class="l-name f-name flex flex-col">
-                    <label asp-for="LastName"></label>
-                    <input asp-for="LastName" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
-                    <span asp-validation-for="FirstName" class="text-red-500"></span>
-                </div>
-                <div class="biography f-name flex flex-col ">
-                    <label asp-for="Bio"></label>
-                    <div class="txt-area mt-3 relative">
-                        <div class="style absolute w-full  px-4 py-2 flex items-center gap-5 uppercase font-extrabold text-lg border-b-2 border-black/30 ">
-                            <span id="bold-sign" onclick="textBold()" class=" hover:bg-black/20 cursor-pointer w-6 text-center rounded-lg duration-1000 ">B</span>
-                            <span id="italic-sign" onclick="textItalic()" class=" hover:bg-black/20 cursor-pointer w-6 text-center rounded-lg duration-1000 "><i>I</i></span>
-                        </div>
-                        <textarea asp-for="Bio" id="txt-area" class=" resize-none w-full duration-1000 hover:bg-black/10  py-12 px-4  border-2 border-black/30 rounded-md  outline-blue-800/50"></textarea>
-                        <span asp-validation-for="Bio" class="text-red-500"></span>
+    </div>
+    <div class="edu-profile container block py-4 ">
+        <form asp-action="Edit" asp-controller="User">
+            <div class="profile-content capitalize font-bold text-black/80 text-sm lg:flex  lg:gap-8">
+                <div class="part-one lg:w-1/2">
+                    <div class="f-name flex flex-col">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
+                        <span asp-validation-for="FirstName" class="text-red-500"></span>
                     </div>
-                    <p class="text-sm  font-extralight mb-3   ">To help learners learn more about you, your bio should reflect your Credibility, Empathy, Passion, and Personality. Your biography should have at least 50 words, links and coupon codes are not permitted.</p>
+                    <div class="l-name f-name flex flex-col">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
+                        <span asp-validation-for="FirstName" class="text-red-500"></span>
+                    </div>
+                    <div class="biography f-name flex flex-col ">
+                        <label asp-for="Bio"></label>
+                        <div class="txt-area mt-3 relative">
+                            <div class="style absolute w-full  px-4 py-2 flex items-center gap-5 uppercase font-extrabold text-lg border-b-2 border-black/30 ">
+                                <span id="bold-sign" onclick="textBold()" class=" hover:bg-black/20 cursor-pointer w-6 text-center rounded-lg duration-1000 ">B</span>
+                                <span id="italic-sign" onclick="textItalic()" class=" hover:bg-black/20 cursor-pointer w-6 text-center rounded-lg duration-1000 "><i>I</i></span>
+                            </div>
+                            <textarea asp-for="Bio" id="txt-area" class=" resize-none w-full duration-1000 hover:bg-black/10  py-12 px-4  border-2 border-black/30 rounded-md  outline-blue-800/50"></textarea>
+                            <span asp-validation-for="Bio" class="text-red-500"></span>
+                        </div>
+                        <p class="text-sm  font-extralight mb-3   ">To help learners learn more about you, your bio should reflect your Credibility, Empathy, Passion, and Personality. Your biography should have at least 50 words, links and coupon codes are not permitted.</p>
+                    </div>
+                </div>
+                <div class="part-two lg:w-1/2">
+                    <div class="l-name f-name flex flex-col">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
+                        <span asp-validation-for="Username" class="text-red-500"></span>
+                    </div>
+                    <div class="l-name f-name flex flex-col">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
+                        <span asp-validation-for="Email" class="text-red-500"></span>
+                    </div>
+                    <div class="l-name f-name flex flex-col">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
+                        <span asp-validation-for="PhoneNumber" class="text-red-500"></span>
+                    </div>
                 </div>
             </div>
-            <div class="part-two lg:w-1/2">
-                <div class="l-name f-name flex flex-col">
-                    <label asp-for="Username"></label>
-                    <input asp-for="Username" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
-                    <span asp-validation-for="Username" class="text-red-500"></span>
+            <input class="my-5  bg-blue-700 px-3 py-2 rounded-lg cursor-pointer duration-1000 hover:bg-blue-800  font-bold capitalize text-white hover:text-white/80 " type="submit" value="save">
+        </form>
+    </div>
+    <div class="profile-picture hidden container py-4 ">
+        <form asp-action="UploadPhoto" enctype="multipart/form-data">
+            <div class="pic-content flex flex-col gap-4 w-full">
+                <div class="para">
+                    <h3 class="font-bold capitalize text-sm text-black/80  mb-3 ">image preview</h3>
+                    <p class="text-sm font-thin ">Minimum 200x200 pixels, Maximum 6000x6000 pixels</p>
                 </div>
-                <div class="l-name f-name flex flex-col">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
-                    <span asp-validation-for="Email" class="text-red-500"></span>
+                <div class="pic-container h-52  w-1/2 border-2 border-black/10 p-3  flex justify-center items-center ">
+                    <img class="h-full image-place" src="@(Model.Image?.URL??"/assets/dashboard/imgs/user_Placeholder.png")" alt="user profile photo">
                 </div>
-                <div class="l-name f-name flex flex-col">
-                    <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="border-2 duration-1000 hover:bg-black/10 border-black/30 rounded-md py-2 outline-blue-800/50 px-4 my-3">
-                    <span asp-validation-for="PhoneNumber" class="text-red-500"></span>
+                <div class="src-path w-1/2">
+                    <input name="ImageFile" id="file" class="img-src border-2 border-black/30 hidden rounded-md cursor-pointer" type="file">
+                    <label class="flex  items-center gap-2 w-full capitalize " for="file">
+                        <p class="img-url overflow-hidden w-2/3 border-2 border-black/30 py-3 rounded-md px-2 ">no file selected</p>
+                        <span class="btn-upload w-1/3 capitalize border-2 py-3 px-2 rounded-md border-blue-800/80 hover:bg-black/10 duration-1000 font-bold text-center flex justify-center text-blue-800 cursor-pointer text-sm">upload </span>
+                    </label>
                 </div>
             </div>
-        </div>
-        <input class="my-5  bg-blue-700 px-3 py-2 rounded-lg cursor-pointer duration-1000 hover:bg-blue-800  font-bold capitalize text-white hover:text-white/80 " type="submit" value="save">
-    </form>
-</div>
-<div class="profile-picture hidden container py-4 ">
-    <form asp-action="UploadPhoto" enctype="multipart/form-data">
-        <div class="pic-content flex flex-col gap-4 w-full">
-            <div class="para">
-                <h3 class="font-bold capitalize text-sm text-black/80  mb-3 ">image preview</h3>
-                <p class="text-sm font-thin ">Minimum 200x200 pixels, Maximum 6000x6000 pixels</p>
-            </div>
-            <div class="pic-container h-52  w-1/2 border-2 border-black/10 p-3  flex justify-center items-center ">
-                <img class="h-full image-place" src="@(Model.Image?.URL??"/assets/dashboard/imgs/user_Placeholder.png")" alt="user profile photo">
-            </div>
-            <div class="src-path w-1/2">
-                <input name="ImageFile" id="file" class="img-src border-2 border-black/30 hidden rounded-md cursor-pointer" type="file">
-                <label class="flex  items-center gap-2 w-full capitalize " for="file">
-                    <p class="img-url overflow-hidden w-2/3 border-2 border-black/30 py-3 rounded-md px-2 ">no file selected</p>
-                    <span class="btn-upload w-1/3 capitalize border-2 py-3 px-2 rounded-md border-blue-800/80 hover:bg-black/10 duration-1000 font-bold text-center flex justify-center text-blue-800 cursor-pointer text-sm">upload </span>
-                </label>
-            </div>
-        </div>
-        <input class="my-5  bg-blue-800/50 px-3 py-2 rounded-lg cursor-pointer duration-1000 hover:bg-blue-800/70  font-bold capitalize text-white/80 " type="submit" value="save">
-    </form>
+            <input class="my-5  bg-blue-800/50 px-3 py-2 rounded-lg cursor-pointer duration-1000 hover:bg-blue-800/70  font-bold capitalize text-white/80 " type="submit" value="save">
+        </form>
 
-</div>
+    </div>
+</main>
+
 
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
