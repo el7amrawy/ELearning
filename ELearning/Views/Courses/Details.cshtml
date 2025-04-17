@@ -80,8 +80,8 @@
                             @foreach (var lecture in Model.Sections[i].Lectures)
                             {
                                 <div class="flex justify-between py-2 border-b">
-                                    <span class="text-gray-700"><i class="fas fa-play-circle text-blue-500 mr-2"></i> @Html.Display(lecture.Title)</span>
-                                    <span class="text-gray-500">@Html.Display(lecture.Duration.FormatDuration())</span>
+                                    <span class="text-gray-700"><i class="fas fa-play-circle text-blue-500 mr-2"></i> @Html.DisplayFor(m=>lecture.Title)</span>
+                                    <span class="text-gray-500">@lecture.Duration.FormatDuration()</span>
                                 </div>
                             }
                         </div>
@@ -96,11 +96,13 @@
             <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
                 <div class="mb-6">
                     <img src="@Model.Image" alt="Course Thumbnail" class="rounded-lg w-full mb-4">
-                    <div class="flex justify-between items-center mb-4">
+                    @* <div class="flex justify-between items-center mb-4">
                         <span class="text-2xl font-bold text-gray-800">$@Model.Price</span>
                         <span class="text-gray-500 line-through">$199.99</span>
+                    </div> *@
+                    <div class="items-center mb-4">
+                        <span class="text-2xl font-bold text-gray-800">@(Model.Price==0?"Free":Model.Price+"Egp")</span>
                     </div>
-                    <p class="text-green-600 font-semibold mb-4"><i class="fas fa-bolt mr-2"></i> 50% OFF - Limited Time!</p>
                     <button class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
                         <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
                     </button>
