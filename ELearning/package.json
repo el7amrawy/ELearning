@@ -2,16 +2,19 @@
   "name": "elearning",
   "version": "1.0.0",
   "main": "index.js",
-    "scripts": {
-        "css:build": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css",
-        "css:watch": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css --watch",
-        "dashboardcss:build": "npx tailwindcss -i ./wwwroot/assets/dashboard/css/main.css -o ./wwwroot/assets/dashboard/css/output.css"
-    },
+  "scripts": {
+    "css:build": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css",
+    "css:watch": "npx tailwindcss -i ./wwwroot/assets/css/index.css -o ./wwwroot/assets/css/output.css --watch",
+    "dashboardcss:build": "npx tailwindcss -i ./wwwroot/assets/dashboard/css/main.css -o ./wwwroot/assets/dashboard/css/output.css"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "tailwindcss": "^3.4.16"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }
