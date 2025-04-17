@@ -1,5 +1,5 @@
 ﻿@model CreateCourse_ViewModel
-@inject ELearning.Core.Interfaces.IUnitOfWork _unitOfWork
+@inject IUnitOfWork _unitOfWork
 @{
 	ViewBag.Title = "Create Course";
 	ViewBag.ActiveTab = NavTabsEnum.Courses;
@@ -85,14 +85,13 @@
             </div>
 
             <!-- Description -->
-            <div class="mb-6">
+            <div class="prose max-w-none mb-6">
                 <label class="block text-gray-700 font-medium mb-2">
-                    <i class="fas fa-align-left mr-2 text-indigo-500"></i> Description
+                    <i class="fas fa-align-left mr-2 text-blue-500"></i> Description
                 </label>
-                <textarea asp-for="Description" placeholder="What will students learn?"
-                          class="w-full field-sizing-content focus:outline-none p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
-                <span asp-validation-for="Description" class="text-red-500"></span>
-
+                <textarea class="w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                          id="editor" rows="4" placeholder="What will students learn?">@Html.DisplayFor(m=>m.Description)</textarea>
+                <textarea asp-for="Description" hidden></textarea>
             </div>
 
             <!-- Category -->
@@ -149,7 +148,26 @@
     </div>
 </div>
 
-@section Scripts{
+@section Scripts {
     <script src="/assets/Instructor/js/CreateCourse.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/trumbowyg@2.24.0/dist/trumbowyg.min.js"></script>
+    <script>
+        // Initialize Trumbowyg
+        $(document).ready(function () {
+            $('#editor').trumbowyg();
+
+            // When the form is submitted, we get the HTML content from the editor and set it in the hidden textarea
+            $('form').on('submit', function (e) {
+                var descriptionInput = document.querySelector('#Description');
+                descriptionInput.value = $('#editor').trumbowyg('html');
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <!-- Trumbowyg CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trumbowyg@2.24.0/dist/ui/trumbowyg.min.css"/>
 }

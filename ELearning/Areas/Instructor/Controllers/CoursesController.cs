@@ -7,6 +7,7 @@ using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using ELearning.Helpers;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Instructor.Controllers
@@ -39,6 +40,10 @@ namespace ELearning.Areas.Instructor.Controllers
             {
                 var instructor = await _unitOfWork.Users.GetByIdAsync(User.GetUserId());
 
+                var sanitizer = new HtmlSanitizer();
+
+                model.Description = sanitizer.Sanitize(model.Description);
+
                 var course = _mapper.Map<Course>(model);
 
                 var res = await _photoService.AddPhotoAsync(model.ImageFile, 900, 1600);
@@ -67,6 +72,10 @@ namespace ELearning.Areas.Instructor.Controllers
         public async Task<IActionResult> Edit(EditCourse_ViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
+
+            var sanitizer = new HtmlSanitizer();
+
+            model.Description = sanitizer.Sanitize(model.Description);
 
             var course = await _unitOfWork.Courses.GetItemAsync(c => c.Id == model.Id, ["Image"]);
 
