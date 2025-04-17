@@ -21,6 +21,7 @@ namespace ELearning.Areas.Instructor.Helpers
             CreateMap<EditCourse_ViewModel, Course>()
                 .ForMember(dest => dest.Image, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageId, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ReverseMap();
             CreateMap<AppUser, Instructor_ViewModel>();
             CreateMap<AppUser, InstructorHomeIndex_ViewModel>()
