@@ -9,8 +9,8 @@
 		public int SectionId { get; set; }
 		public int VideoId { get; set; }
 		public DateTime CreatedAt { get; set; }
-		public Video? Video { get; set; }
-		public Section? Section { get; set; }
-		public Material? Material { get; set; }
+		public Video Video { get; set; }
+		public Section Section { get; set; }
+		public Material Material { get; set; }
 	}
 }

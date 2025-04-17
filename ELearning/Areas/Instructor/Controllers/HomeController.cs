@@ -1,5 +1,6 @@
 ﻿using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Core.Consts;
+using ELearning.Core.Enums;
 using ELearning.Core.Interfaces;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;

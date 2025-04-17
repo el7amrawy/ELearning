@@ -50,45 +50,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach (var course in Model.Courses)
                 {
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 min-h-[450px] flex flex-col">
-                        <img src="@course.Image.URL" alt="Course" class="w-full h-48 object-cover">
-
-                        <div class="p-6 flex flex-col h-full">
-                            <!-- Badge & Rating -->
-                            <div class="flex items-center mb-2">
-                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">@course.LevelName</span>
-                                <span class="ml-2 text-yellow-500">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-gray-600 text-sm ml-1">(4.0)</span>
-                                </span>
-                            </div>
-
-                            <!-- Course Title -->
-                            <h3 class="text-xl font-semibold mt-2 mb-1">@course.Title</h3>
-
-                            <!-- Instructor -->
-                            <div class="flex items-center text-sm text-gray-500 mb-3">@course.Instructor.FirstName @course.Instructor.LastName</div>
-
-                            <!-- Description -->
-                            <p class="text-gray-600 mb-4 flex-grow">@course.SubTitle</p>
-
-                            <!-- Price & Button -->
-                            <div>
-                                <div class="flex justify-between items-center mb-3">
-                                    <span class="font-bold text-blue-500">@(course.Price == 0 ? "Free" : $"{course.Price}Egp")</span>
-                                    <span class="text-sm text-gray-500"><i class="fas fa-users mr-1"></i> 890 enrolled</span>
-                                </div>
-                                <button class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
-                                    <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
+                    <partial name="_CourseCardPartialView" model="course" />
                 }
                 <!-- Course Card with Instructor -->
                 </div>
