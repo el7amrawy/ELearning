@@ -53,30 +53,3 @@ document.addEventListener('click', (event) => {
         }
     }
 });
- //================>>> Focus Data <<<================= 
-//let focus_data = document.querySelectorAll(".focus_data .data");
-//let details = document.querySelectorAll(".view_Details img");
-
-//if (focus_data) focus_data.forEach(function (ele) {
-//    ele.addEventListener('click', function () {
-//        focus_data.forEach(function (focus) {
-//            focus.classList.remove("border-sky-500");
-//        })
-//        details.forEach(function (img) {
-//            if (img.getAttribute("data") !== ele.getAttribute("focus")) {
-//                img.classList.add("hidden");
-//            } else {
-//                img.classList.remove("hidden");
-//            }
-//        })
-//        this.classList.add("border-sky-500");
-//    })
-//})
-
-// //============>>> options <<<============== 
-//let options = document.querySelectorAll(".options .option");
-//options.forEach(function (option) {
-//    option.addEventListener('click', function () {
-//        this.children[1].classList.toggle("h-0");
-//    })
-//})

@@ -1,6 +1,3 @@
-// active classes of setting links
-//edu profile
-
 let settingLinks = document.querySelectorAll(".setting-links ul li a");
 
 settingLinks.forEach(link => {
@@ -56,23 +53,8 @@ let imgInput = document.querySelector(".img-src");
 let urlPlace = document.querySelector(".img-url");
 let uploadBtn = document.querySelector(".btn-upload");
 
-
-
-
-
 imgInput.onchange = function(){
     urlPlace.innerHTML = imgInput.value;
     imagePlace.src = URL.createObjectURL(imgInput.files[0]);
    
 }
-
-
-
-
-
-
-
-
-
-
-
