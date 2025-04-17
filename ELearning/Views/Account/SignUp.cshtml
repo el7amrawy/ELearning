@@ -2,42 +2,60 @@
 @{
 	ViewBag.Title = "Sign Up";
 }
-<div class="sign">
-    <div class="container">
-        <div class=" flex flex-col justify-between items-center lg:flex-row lg:justify-around ">
-            <div class="text-center flex-col">
-                <img class="lg:flex hidden" src="/assets/images/desktop-illustration-x1 (1).webp" alt="">
-                <img class="lg:hidden mb-10 mt-7 text-center" src="/assets/images/mobile-illustration-x1.webp" alt="">
-            </div>
-            <form class="flex flex-col lg: text-center" id="form" asp-action="SignUp">
-                <h2 class="#000  font-bold mb-14 font text-2xl lg:text-3xl text-center lg:mr-5 ">Sign up and start learning</h2>
-                <div class="input-control">
-                    <input class="bg-white  border-stone-950" asp-for="FirstName" id="username" placeholder="@Html.DisplayNameFor(e=>e.FirstName)">
-                    <span asp-validation-for="FirstName" class="text-red-500 text-sm"></span>
-                </div>
-                <div class="input-control">
-                    <input class="bg-white  border-stone-950" asp-for="LastName" id="second" placeholder="@Html.DisplayNameFor(e=>e.LastName)">
-                    <span asp-validation-for="LastName" class="text-red-500 text-sm"></span>
-                </div>
-                <div class="input-control">
-                    <input class="bg-white  border-stone-950" asp-for="Username" placeholder="Username">
-                    <span asp-validation-for="Username" class="text-red-500 text-sm"></span>
-                </div>
-                <div class="input-control">
-                    <input class="bg-white  border-stone-950" asp-for="Email" id="email" placeholder="@Html.DisplayNameFor(e=>e.Email)">
-                    <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
-                </div>
-                <div class="input-control">
-                    <input class="bg-white  border-stone-950 " asp-for="Password" id="password" placeholder="@Html.DisplayNameFor(e=>e.Password)">
-                    <span asp-validation-for="Password" class="text-red-500 text-sm inline-block max-w-80"></span>
-                </div>
-                <button type="submit">Sign Up</button>
-                <p class="">By signing up, you agree to our<a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</p>
-                <h6>Already have an account?<a asp-action="SignIn" asp-controller="Account" class="log">Sign In</a></h6>
-            </form>
+
+<!-- Sign Up Section -->
+<div class="bg-gradient-to-r from-blue-500 to-blue-700 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-2xl">
+        <div>
+            <h2 class="text-center text-3xl font-extrabold text-gray-900">
+                Sign up and start learning
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Create your account to access our courses
+            </p>
         </div>
+        <form class="mt-8 space-y-6" asp-action="SignUp">
+            <div class="space-y-4">
+                <div class="input-control">
+                    <label asp-for="FirstName" class="sr-only"></label>
+                    <input asp-for="FirstName" class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="@Html.DisplayNameFor(a=>a.FirstName)">
+                    <span asp-validation-for="FirstName" class="text-red-500 text-sm mt-1 block"></span>
+                </div>
+                <div class="input-control">
+                    <label asp-for="LastName" class="sr-only"></label>
+                    <input asp-for="LastName" id="lastName" class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="@Html.DisplayNameFor(a=>a.LastName)">
+                    <span asp-validation-for="LastName" class="text-red-500 text-sm mt-1 block"></span>
+                </div>
+                <div class="input-control">
+                    <label asp-for="Username" class="sr-only"></label>
+                    <input asp-for="Username" class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="@Html.DisplayNameFor(a=>a.Username)">
+                    <span asp-validation-for="Username"class="text-red-500 text-sm mt-1 block"></span>
+                </div>
+                <div class="input-control">
+                    <label asp-for="Email" class="sr-only"></label>
+                    <input asp-for="Email" class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="@Html.DisplayNameFor(a=>a.Email)">
+                    <span asp-validation-for="Email" class="text-red-500 text-sm mt-1 block"></span>
+                </div>
+                <div class="input-control">
+                    <label asp-for="Password" class="sr-only"></label>
+                    <input asp-for="Password" class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="@Html.DisplayNameFor(a=>a.Password)">
+                    <span asp-validation-for="Password" class="text-red-500 text-sm mt-1 block max-w-full"></span>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="group relative w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                    <i class="fas fa-user-plus mr-2"></i> Sign Up
+                </button>
+            </div>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Already have an account?
+                <a asp-action="SignIn" class="font-medium text-blue-500 hover:text-blue-600 transition duration-300" asp-action="SignIn" asp-controller="Account">Sign In</a>
+            </p>
+        </form>
     </div>
 </div>
+
 
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
