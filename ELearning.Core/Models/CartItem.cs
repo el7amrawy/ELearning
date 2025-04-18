@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace ELearning.Core.Models
@@ -11,12 +10,8 @@ namespace ELearning.Core.Models
         public int CartId {  get; set; }
         [Column(Order = 1)]
         public int CourseId { get; set; }
-        [Required]
         public DateTime CreatedAt { get; set; }
-        [Required]
-        public DateTime UpdatedAt { get; set; }
         public virtual Cart? Cart { get; set; }
         public virtual Course? Course { get; set; }
-
     }
 }
