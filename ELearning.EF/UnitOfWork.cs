@@ -25,7 +25,7 @@ namespace ELearning.EF
         public ISectionsRepository Sections => new SectionsRepository(_db, _mapper);
         public ILecturesRepository Lectures => new LecturesRepository(_db, _mapper);
         public IVideosRepository Videos => new VideosRepository(_db, _mapper);
-        public ICartsRepository Cart => new CartsRepository(_db, _mapper);
+        public ICartsRepository Carts => new CartsRepository(_db, _mapper);
         public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
         public async Task<IDbContextTransaction> BeginTransactionAsync() => await _db.Database.BeginTransactionAsync();

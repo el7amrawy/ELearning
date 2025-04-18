@@ -6,6 +6,6 @@ namespace ELearning.EF.Repositories
 {
     public class CartsRepository : BaseRepository<Cart>, ICartsRepository
     {
-        public CartsRepository(IMapper mapper, AppDbContext context) : base(context, mapper) { }
+        public CartsRepository(AppDbContext context, IMapper mapper) : base(context, mapper) { }
     }
 }
