@@ -30,6 +30,12 @@ namespace ELearning.Helpers
                 .ForMember(dest => dest.Lectures, opt => opt.MapFrom(src => src.Lectures.OrderBy(l => l.Order)));
             CreateMap<Lecture, Lecture_ViewModel>()
                 .ForMember(dest => dest.Duration, opt => opt.MapFrom(src => src.Video.Duration));
+
+            CreateMap<Course, CartCourse_ViewModel>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.URL));
+            CreateMap<CartItem, CartItem_ViewModel>();
+            CreateMap<Cart, Cart_ViewModel>()
+                .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.CartItems.Sum(c => c.Course.Price)));
         }
     }
 }

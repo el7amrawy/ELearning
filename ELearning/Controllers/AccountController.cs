@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ELearning.Core.Interfaces;
+using ELearning.Core.Interfaces.Services;
 using ELearning.Core.Models;
 using ELearning.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -13,37 +14,40 @@ namespace ELearning.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly ICartService _cartService;
+        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IMapper mapper, ICartService cartService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _unitOfWork = unitOfWork;
+            _cartService = cartService;
         }
         [HttpGet]
         public IActionResult SignUp() => View();
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(SignUp_ViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
+            var result = await _userManager.CreateAsync(newUser, model.Password);
+
+            if (result.Succeeded)
             {
-                var newUser = new AppUser { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Username, Email = model.Email, CreatedAt = DateTime.Now };
-                var result = await _userManager.CreateAsync(newUser, model.Password);
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(newUser, "Student");
-                    await _signInManager.SignInAsync(newUser, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
-                    TempData["Success"] = "User Created Successfully";
-                    return RedirectToAction("Index", "Home");
-                }
-                foreach (var item in result.Errors)
-                {
-                    TempData["Error"] += item.Description + " ";
-                }
+                await _userManager.AddToRoleAsync(newUser, "Student");
+                await _signInManager.SignInAsync(newUser, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
+                TempData["Success"] = "User Created Successfully";
+
+                var cartRes = await _cartService.CreateAsync(newUser.Id);
+
+                if (!cartRes.IsSuccess) TempData["Error"] += "," + cartRes.ErrorMessage;
+
+                return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                TempData["Error"] = "Invalid Data";
-            }
+
+            foreach (var item in result.Errors)
+                TempData["Error"] += "," + item.Description;
+
             return View(model);
         }
         [HttpGet]

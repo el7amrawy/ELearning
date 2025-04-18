@@ -1,4 +1,10 @@
-﻿<nav class="header shadow-lg fixed shadow-md bg-white z-30 w-full">
+﻿@using ELearning.Extensions
+@inject IUnitOfWork _uof
+@{
+    var cartItemsCount = await _uof.CartItems.CountAsync(c => c.Cart.UserId == User.GetUserId(), ["Cart"]);
+}
+
+<nav class="header shadow-lg fixed shadow-md bg-white z-30 w-full">
     <div class="mx-auto  max-w-7xl px-2 sm:px-6">
         <div class="relative flex spa  h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -41,10 +47,12 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </span>
                 </button>
-                <button class="relative p-2 text-gray-800 transition-all hover:text-sky-600">
+                <a asp-action="Index" asp-controller="Cart" class="relative p-2 text-gray-800 transition-all hover:text-sky-600">
                     <i class="fas fa-shopping-cart text-xl"></i>
-                    <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-                </button>
+                    @if(cartItemsCount>0){
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">@cartItemsCount</span>
+                    }
+                </a>
                 <div class="relative ml-3">
                     <div>
                         <button type="button" class="relative flex rounded-full bg-gray-800 text-sm" id="user-menu-button">

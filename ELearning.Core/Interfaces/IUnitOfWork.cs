@@ -16,6 +16,7 @@ namespace ELearning.Core.Interfaces
 		public ILecturesRepository Lectures { get; }
 		public IVideosRepository Videos { get; }
 		public ICartsRepository Carts { get; }
+		public ICartItemsRepository CartItems { get; }
 		public Task<int> CompleteAsync();
 		public Task<IDbContextTransaction> BeginTransactionAsync();
     }

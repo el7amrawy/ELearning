@@ -13,9 +13,9 @@
             <p class="text-xl md:text-2xl mb-8 text-gray-100 drop-shadow-md">
                 @Html.DisplayFor(c => c.SubTitle)
             </p>
-            <button class="bg-white text-blue-600 font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition duration-300 transform shadow-lg">
+            <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id" class="bg-white text-blue-600 font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition duration-300 transform shadow-lg">
                 <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-            </button>
+            </a>
         </div>
         <div class="mt-8 md:mt-0 md:w-1/2 flex justify-center">
             <img src="@Model.Image" alt="Web Development Course Thumbnail" class="rounded-lg shadow-xl w-full max-w-lg">
@@ -101,11 +101,11 @@
                         <span class="text-gray-500 line-through">$199.99</span>
                     </div> *@
                     <div class="items-center mb-4">
-                        <span class="text-2xl font-bold text-gray-800">@(Model.Price==0?"Free":Model.Price+"Egp")</span>
+                        <span class="text-2xl font-bold text-gray-800">@(Model.Price == 0 ? "Free" : "Egp" + Model.Price)</span>
                     </div>
-                    <button class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
+                    <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
                         <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-                    </button>
+                    </a>
                     <button class="w-full border border-blue-500 text-blue-500 font-bold py-3 rounded-lg hover:bg-blue-50 transition duration-300">
                         <i class="far fa-heart mr-2"></i> Add to Wishlist
                     </button>

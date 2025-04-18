@@ -20,12 +20,16 @@ namespace ELearning.EF.Repositories
         public void Add(Entity entity) => _db.Add(entity);
         public void Update(Entity entity) => _db.Entry(entity).State = EntityState.Modified;
         public void Delete(Entity entity) => _db.Entry(entity).State = EntityState.Deleted;
-        public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null)
+        public async Task<int> CountAsync(Expression<Func<Entity, bool>> criteria = null, string[] includes = null)
         {
             var query = _db.Set<Entity>().AsQueryable();
 
             if (criteria != null)
                 query = query.Where(criteria);
+
+            if (includes != null)
+                foreach (var item in includes)
+                    query = query.Include(item);
 
             return await query.CountAsync();
         }
