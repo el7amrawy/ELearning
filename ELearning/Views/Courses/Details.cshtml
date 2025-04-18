@@ -34,37 +34,6 @@
                     @Html.Raw(Model.Description)
                 </div>
             </div>
-
-            @* <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h2 class="text-2xl font-bold mb-4">What You'll Learn</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Build responsive websites with HTML5 and CSS3</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Create interactive UIs with modern JavaScript</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Develop single-page applications with React</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Build RESTful APIs with Node.js and Express</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Work with databases using MongoDB</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-                        <span>Implement authentication and authorization</span>
-                    </div>
-                </div>
-            </div>
- *@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <h2 class="text-2xl font-bold mb-4">Course Content</h2>
                 <div class="space-y-2">
@@ -96,16 +65,14 @@
             <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
                 <div class="mb-6">
                     <img src="@Model.Image" alt="Course Thumbnail" class="rounded-lg w-full mb-4">
-                    @* <div class="flex justify-between items-center mb-4">
-                        <span class="text-2xl font-bold text-gray-800">$@Model.Price</span>
-                        <span class="text-gray-500 line-through">$199.99</span>
-                    </div> *@
                     <div class="items-center mb-4">
                         <span class="text-2xl font-bold text-gray-800">@(Model.Price == 0 ? "Free" : "Egp" + Model.Price)</span>
                     </div>
-                    <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id" class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
-                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
-                    </a>
+                    <button class="w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
+                        <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id">
+                            <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                        </a>
+                    </button>
                     <button class="w-full border border-blue-500 text-blue-500 font-bold py-3 rounded-lg hover:bg-blue-50 transition duration-300">
                         <i class="far fa-heart mr-2"></i> Add to Wishlist
                     </button>
@@ -118,10 +85,6 @@
                             <i class="fas fa-video text-blue-500 mr-2"></i>
                             <span>@Model.Duration.FormatDuration() on-demand video</span>
                         </li>
-                        @* <li class="flex items-center">
-                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>
-                            <span>15 articles and resources</span>
-                        </li> *@
                         <li class="flex items-center">
                             <i class="fas fa-download text-blue-500 mr-2"></i>
                             <span>Downloadable assets</span>
