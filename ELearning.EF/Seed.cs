@@ -56,6 +56,7 @@ namespace ELearning.EF
             await SeedCourseStatus();
             await SeedLanguages();
             await SeedLevels();
+            await SeedPaymentStatus();
 
             await _unitOfOfWork.CompleteAsync();
 
@@ -87,6 +88,18 @@ namespace ELearning.EF
             };
             await _userManager.CreateAsync(admin, "Pas$w0rd");
             await _userManager.AddToRoleAsync(admin, "Admin");
+        }
+        private async Task SeedPaymentStatus()
+        {
+            if (await _unitOfOfWork.PaymentStatus.CountAsync() > 0)
+                return;
+
+            await _unitOfOfWork.PaymentStatus.AddRangeAsync([
+                new PaymentStatus{ Name="Pending"},
+                new PaymentStatus{Name="Completed"},
+                new PaymentStatus{Name="Failed"},
+                new PaymentStatus{Name="Canceled"}
+                ]);
         }
     }
 }

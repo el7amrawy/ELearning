@@ -18,6 +18,9 @@ namespace ELearning.EF
 		public DbSet<Image> Images { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Video> Videos { get; set; }
+		public DbSet<PaymentStatus> PaymentStatus { get; set; }
+		public DbSet<Payment> Payments { get; set; }
+		public DbSet<Checkout> Checkouts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
 

@@ -17,5 +17,7 @@ namespace ELearning.Core.Models
 		public virtual Image Image { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; } = [];
 		public virtual ICollection<Course> Courses { get; set; } = [];
+		public virtual ICollection<Payment> Payments { get; set; } = [];
+		public virtual ICollection<Checkout> Checkouts { get; set; } = [];
     }
 }
