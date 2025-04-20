@@ -11,8 +11,8 @@
         }
         public static ServiceResult Success() => new(true);
         public static ServiceResult Failure(string errorMessage) => new(false, errorMessage);
-        public static ServiceResult<TResult> Success<TResult>(TResult result) => new ServiceResult<TResult>(true, result);
-        public static ServiceResult<TResult> Failure<TResult>(string errorMessage) => new ServiceResult<TResult>(false, default, errorMessage);
+        public static ServiceResult<TResult> Success<TResult>(TResult result) => new(true, result);
+        public static ServiceResult<TResult> Failure<TResult>(string errorMessage) => new(false, default, errorMessage);
     }
     public class ServiceResult<TResult>
     {

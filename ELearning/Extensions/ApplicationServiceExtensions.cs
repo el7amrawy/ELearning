@@ -29,6 +29,7 @@ namespace ELearning.Extensions
             services.AddScoped<IVideoService, VideoService>();
             services.AddScoped<ILectureService, LectureService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IEnrollmentService, EnrollmentService>();
 
             // Filters
             services.AddScoped<CourseOwnerFilter>();

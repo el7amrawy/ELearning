@@ -2,19 +2,22 @@
 
 namespace ELearning.Core.Models
 {
-    [Table("Payments")]
     public class Payment
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public int CourseId { get; set; }
-        public string StripePaymentIntentId { get; set; }
         public decimal Amount { get; set; }
-        public string Currency { get; set; } = "USD";
+        public DateTime PaymentDate { get; set; }
+        public string TransactionId { get; set; }
         public int StatusId { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public virtual AppUser User { get; set; }
-        public virtual Course Course { get; set; }
+        public string Currency { get; set; }
+        public string BillingEmail { get; set; }
+        public string BillingFirstName { get; set; }
+        public string BillingLastName { get; set; }
         public virtual PaymentStatus Status { get; set; }
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
+        [NotMapped]
+        public int UserId => Enrollments.FirstOrDefault().StudentId;
+        [NotMapped]
+        public AppUser User => Enrollments.FirstOrDefault().Student;
     }
 }

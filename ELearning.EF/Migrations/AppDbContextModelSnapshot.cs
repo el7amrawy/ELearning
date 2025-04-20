@@ -194,28 +194,6 @@ namespace ELearning.EF.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ELearning.Core.Models.Checkout", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Checkouts");
-                });
-
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -310,9 +288,17 @@ namespace ELearning.EF.Migrations
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("int");
+
                     b.HasKey("StudentId", "CourseId");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("Enrollments");
                 });
@@ -451,33 +437,35 @@ namespace ELearning.EF.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
+                    b.Property<string>("BillingEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("BillingFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StripePaymentIntentId")
+                    b.Property<string>("TransactionId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
                     b.HasIndex("StatusId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Payments");
                 });
@@ -742,25 +730,6 @@ namespace ELearning.EF.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("ELearning.Core.Models.Checkout", b =>
-                {
-                    b.HasOne("ELearning.Core.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ELearning.Core.Models.AppUser", "User")
-                        .WithMany("Checkouts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ELearning.Core.Models.Course", b =>
                 {
                     b.HasOne("ELearning.Core.Models.Category", "Category")
@@ -812,6 +781,12 @@ namespace ELearning.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ELearning.Core.Models.Payment", "Payment")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ELearning.Core.Models.AppUser", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
@@ -819,6 +794,8 @@ namespace ELearning.EF.Migrations
                         .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Payment");
 
                     b.Navigation("Student");
                 });
@@ -855,29 +832,13 @@ namespace ELearning.EF.Migrations
 
             modelBuilder.Entity("ELearning.Core.Models.Payment", b =>
                 {
-                    b.HasOne("ELearning.Core.Models.Course", "Course")
-                        .WithMany("Payments")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ELearning.Core.Models.PaymentStatus", "Status")
                         .WithMany("Payments")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ELearning.Core.Models.AppUser", "User")
-                        .WithMany("Payments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
                     b.Navigation("Status");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Section", b =>
@@ -947,11 +908,7 @@ namespace ELearning.EF.Migrations
                     b.Navigation("Cart")
                         .IsRequired();
 
-                    b.Navigation("Checkouts");
-
                     b.Navigation("Enrollments");
-
-                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.Cart", b =>
@@ -968,8 +925,6 @@ namespace ELearning.EF.Migrations
                 {
                     b.Navigation("Enrollments");
 
-                    b.Navigation("Payments");
-
                     b.Navigation("Sections");
                 });
 
@@ -977,6 +932,11 @@ namespace ELearning.EF.Migrations
                 {
                     b.Navigation("Material")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ELearning.Core.Models.Payment", b =>
+                {
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("ELearning.Core.Models.PaymentStatus", b =>

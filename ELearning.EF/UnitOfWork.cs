@@ -29,7 +29,7 @@ namespace ELearning.EF
         public ICartItemsRepository CartItems => new CartItemsRepository(_db, _mapper);
         public IPaymentStatusRepository PaymentStatus => new PaymentStatusRepository(_db, _mapper);
         public IPaymentsRepository Payments => new PaymentsRepository(_db, _mapper);
-        public ICheckoutsRepository Checkouts => new CheckoutsRepository(_db, _mapper);
+        public IEnrollmentsRepository Enrollments => new EnrollmentsRepository(_db, _mapper);
         public async Task<int> CompleteAsync() => await _db.SaveChangesAsync();
 		public void Dispose() => _db.Dispose();
         public async Task<IDbContextTransaction> BeginTransactionAsync() => await _db.Database.BeginTransactionAsync();
