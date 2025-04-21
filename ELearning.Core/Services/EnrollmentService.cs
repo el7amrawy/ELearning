@@ -20,7 +20,6 @@ namespace ELearning.Core.Services
 
             if (course == null) return ServiceResult.Failure("course does not exist");
 
-
             if (await IsUserEnrolledAsync(userId, courseId)) return ServiceResult.Failure("You are already enrolled in this course");
 
             _unitOfWork.Enrollments.Add(new Enrollment

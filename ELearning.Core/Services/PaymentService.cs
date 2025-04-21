@@ -18,17 +18,10 @@ namespace ELearning.Core.Services
             _settings = options.Value;
             _unitOfWork = unitOfWork;
         }
-        
-        public async Task<ServiceResult> ProcessFreeCourseAsync(int courseId, int userId)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<ServiceResult<string>> ProcessPaymentAsync(PaymentRequest request)
         {
             throw new NotImplementedException();
-        }
-
-        
+        }               
     }
 }

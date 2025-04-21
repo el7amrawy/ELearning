@@ -57,7 +57,9 @@
         <!-- Checkout Button -->
         <div class="mt-8">
             <button id="checkout-btn" class="group relative w-full sm:w-auto flex justify-center py-4 px-8 border border-transparent text-base font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 transform">
-                <i class="fas fa-credit-card mr-2"></i> Proceed to Checkout
+                <a asp-action="Index" asp-controller="Checkout">
+                    <i class="fas fa-credit-card mr-2"></i> Proceed to Checkout
+                </a>
             </button>
         </div>
         <div class="text-center sm:text-left mt-6">

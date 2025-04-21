@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ELearning.Core.DTOs;
 using ELearning.Core.Enums;
 using ELearning.Core.Models;
 using ELearning.ViewModels;
@@ -36,6 +37,12 @@ namespace ELearning.Helpers
             CreateMap<CartItem, CartItem_ViewModel>();
             CreateMap<Cart, Cart_ViewModel>()
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.CartItems.Sum(c => c.Course.Price)));
+            CreateMap<CartCourse_ViewModel, CheckoutCourse>()
+               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title))
+               .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.SubTitle))
+               .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Price * 100));
+
+            CreateMap<Enrollment, Enrollment_ViewModel>();
         }
     }
 }

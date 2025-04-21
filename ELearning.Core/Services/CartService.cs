@@ -71,5 +71,14 @@ namespace ELearning.Core.Services
 
             return ServiceResult.Success();
         }
+
+        public async Task<ServiceResult> ClearAsync(int cartId)
+        {
+            _unitOfWork.Carts.Clear(cartId);
+
+            if (await _unitOfWork.CompleteAsync() < 1) return ServiceResult.Failure("failed to clear cart");
+
+            return ServiceResult.Success();
+        }
     }
 }

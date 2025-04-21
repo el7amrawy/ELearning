@@ -7,5 +7,6 @@ namespace ELearning.Core.Interfaces.Services
         public Task<ServiceResult> CreateAsync(int userId);
         public Task<ServiceResult> AddCourseAsync(int courseId, int userId);
         public Task<ServiceResult> DeleteCourseAsync(int courseId, int userId);
+        public Task<ServiceResult> ClearAsync(int cartId);
     }
 }

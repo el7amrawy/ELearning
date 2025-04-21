@@ -19,6 +19,8 @@ namespace ELearning.Extensions
                 client.DefaultRequestHeaders.Add("Authorization", $"Token {settings.SecretKey}");
             });
 
+            services.AddScoped<IPaymentService, PaymentService>();
+
             return services;
         }
     }

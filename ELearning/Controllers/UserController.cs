@@ -112,5 +112,7 @@ namespace ELearning.Controllers
             TempData["Success"] = "You are now an instructor";
             return RedirectToAction("Index", "Home", new { area = "Instructor" });
         }
+        [HttpGet]
+        public async Task<IActionResult> MyCourses() => View(await _unitOfWork.Enrollments.GetAllAsync<Enrollment_ViewModel>(e => e.StudentId == User.GetUserId() && e.IsPaid));
     }
 }

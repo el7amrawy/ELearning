@@ -1,6 +1,4 @@
-﻿using ELearning.Core.Models;
-
-namespace ELearning.Core.DTOs
+﻿namespace ELearning.Core.DTOs
 {
     public class PaymentRequest
     {
@@ -10,6 +8,6 @@ namespace ELearning.Core.DTOs
         public string BillingFirstName { get; set; }
         public string BillingLastName { get; set; }
         public string Currency { get; set; } = "EGP";
-        public List<Course> Courses { get; set; } = [];
+        public List<CheckoutCourse> Courses { get; set; } = [];
     }
 }

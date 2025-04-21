@@ -26,7 +26,7 @@ namespace ELearning.Core.Services
                 amount = request.Amount,
                 currency = "EGP",
                 payment_methods = _settings.PaymentMethods,
-                items = request.Courses.Select(c => new { Name = c.Title, Amount = c.Price, Description = c.SubTitle, Quantity = 1 }),
+                items = request.Courses,
                 billing_data = new
                 {
                     apartment = "dumy",
