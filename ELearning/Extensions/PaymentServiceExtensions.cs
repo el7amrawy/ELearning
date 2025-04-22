@@ -11,15 +11,13 @@ namespace ELearning.Extensions
         {
             services.Configure<PaymobSettings>(config.GetSection("Paymob"));
 
-            services.AddHttpClient<IPaymobPaymentProcessor, PaymobPaymentProcessor>((serviceProvider, client) =>
+            services.AddHttpClient<IPaymentService, PaymentService>((serviceProvider, client) =>
             {
                 var settings = serviceProvider.GetRequiredService<IOptions<PaymobSettings>>().Value;
 
                 client.BaseAddress = new Uri(settings.BaseUrl);
                 client.DefaultRequestHeaders.Add("Authorization", $"Token {settings.SecretKey}");
             });
-
-            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
         }

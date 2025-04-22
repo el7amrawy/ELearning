@@ -8,9 +8,8 @@
         public string MerchantId { get; set; }
         public string IframeId { get; set; }
         public string BaseUrl { get; set; }
-        public string[] PaymentMethods { get; set; }
+        public int[] PaymentMethods { get; set; }
         public string RedirectionUrl { get; set; }
         public string NotificationUrl { get; set; }
-
     }
 }

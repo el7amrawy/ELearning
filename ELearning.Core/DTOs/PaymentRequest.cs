@@ -2,7 +2,7 @@
 {
     public class PaymentRequest
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public decimal Amount { get; set; }
         public string BillingEmail { get; set; }
         public string BillingFirstName { get; set; }

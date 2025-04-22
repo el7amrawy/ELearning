@@ -5,6 +5,6 @@ namespace ELearning.Core.Interfaces.Services
 {
     public interface IPaymentService
     {
-        public Task<ServiceResult<string>> ProcessPaymentAsync(PaymentRequest request);
+        public Task<ServiceResult<string>> CreateOrderAsync(PaymentRequest request);
     }
 }
