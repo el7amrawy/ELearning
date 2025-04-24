@@ -31,5 +31,10 @@ namespace ELearning.Controllers
             
             return View(course);
         }
+        public async Task<IActionResult> Learn(int id)
+        {
+            var course = await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id);
+            return View(course);
+        }
     }
 }

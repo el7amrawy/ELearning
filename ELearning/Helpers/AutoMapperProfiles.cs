@@ -43,6 +43,14 @@ namespace ELearning.Helpers
                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Price * 100));
 
             CreateMap<Enrollment, Enrollment_ViewModel>();
+
+            CreateMap<Course, LearnCourse_ViewModel>()
+                .ForMember(dest => dest.Sections, opt => opt.MapFrom(src => src.Sections.OrderBy(l => l.Order)))
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.URL))
+                .ForMember(dest => dest.Instructor, opt => opt.MapFrom(dest => dest.Instructors.FirstOrDefault()));
+            CreateMap<Section, LearnSection_ViewModel>()
+                .ForMember(dest => dest.Lectures, opt => opt.MapFrom(src => src.Lectures.OrderBy(l => l.Order)));
+            CreateMap<Lecture, LearnLecture_ViewModel>();
         }
     }
 }

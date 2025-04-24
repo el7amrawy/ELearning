@@ -1,0 +1,43 @@
+﻿@model CourseCard_ViewModel
+
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 min-h-[450px] flex flex-col">
+    <!-- Image container with aspect ratio 16:9 (1600x900) -->
+    <div class="relative w-full pt-[56.25%]">
+        <!-- 56.25% = 9/16 * 100 for aspect ratio -->
+        <img src="@Model.Image.URL" alt="Course"
+             class="absolute top-0 left-0 w-full h-full object-cover bg-gray-100">
+    </div>
+
+    <div class="p-6 flex flex-col h-full">
+        <!-- Badge & Rating -->
+        <div class="flex items-center mb-2">
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">@Model.LevelName</span>
+            <span class="ml-2 text-yellow-500">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-gray-600 text-sm ml-1">(4.0)</span>
+            </span>
+        </div>
+
+        <!-- Course Title -->
+        <a asp-action="Details" asp-controller="Courses" asp-route-id="@Model.Id">
+            <h3 class="text-xl font-semibold mt-2 mb-1">@Model.Title</h3>
+        </a>
+
+        <!-- Instructor -->
+        <div class="flex items-center text-sm text-gray-500 mb-3">@Model.Instructor.FirstName @Model.Instructor.LastName</div>
+
+        <!-- Description -->
+        <p class="text-gray-600 mb-4 flex-grow">@Model.SubTitle</p>
+
+        <!-- Button -->
+        <div>
+            <a asp-action="Learn" asp-controller="Courses" asp-route-id="@Model.Id" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors duration-300">
+                <i class="fas fa-play mr-1"></i> Access Course
+            </a>
+        </div>
+    </div>
+</div>
