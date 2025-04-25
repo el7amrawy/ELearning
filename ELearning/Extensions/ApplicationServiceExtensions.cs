@@ -34,6 +34,7 @@ namespace ELearning.Extensions
             // Filters
             services.AddScoped<CourseOwnerFilter>();
             services.AddScoped<SectionExistsFilter>();
+            services.AddScoped<CourseAccessFilter>();
 
             return services;
         }

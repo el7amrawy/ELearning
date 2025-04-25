@@ -43,5 +43,15 @@ namespace ELearning.Core.Services
             }
 
         }
+
+        public async Task<ServiceResult> ValidateCoursePayment(int courseId, int userId)
+        {
+            var enrollment = await _unitOfWork.Enrollments
+                .GetItemAsync(e => e.CourseId == courseId && e.IsPaid && e.StudentId == userId);
+
+            if (enrollment == null) return ServiceResult.Failure("you are not allowed to access this course!");
+
+            return ServiceResult.Success();
+        }
     }
 }

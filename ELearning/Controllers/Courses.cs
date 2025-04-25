@@ -1,4 +1,5 @@
-﻿using ELearning.Core.Enums;
+﻿using ELearning.Attributes;
+using ELearning.Core.Enums;
 using ELearning.Core.Interfaces;
 using ELearning.Extensions;
 using ELearning.ViewModels;
@@ -13,7 +14,6 @@ namespace ELearning.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -31,10 +31,7 @@ namespace ELearning.Controllers
             
             return View(course);
         }
-        public async Task<IActionResult> Learn(int id)
-        {
-            var course = await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id);
-            return View(course);
-        }
+        [CourseAccess]
+        public async Task<IActionResult> Learn(int id) => View(await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id));
     }
 }
