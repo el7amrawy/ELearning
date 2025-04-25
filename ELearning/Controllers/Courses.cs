@@ -31,7 +31,19 @@ namespace ELearning.Controllers
             
             return View(course);
         }
-        [CourseAccess]
+        [CourseAccess,HttpGet]
         public async Task<IActionResult> Learn(int id) => View(await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id));
+        [CourseAccess, HttpGet]
+        public async Task<ActionResult<LearnCourse_ViewModel>> Course(int id) => await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id);
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CourseCard_ViewModel>>> Search(
+            string search,
+            int categoryId,
+            decimal maxPrice,
+            decimal minPrice,
+            double duration,
+            int pageNumber,
+            int pageSize
+            ) => Ok(await _unitOfWork.Courses.SearchAndFilterAsync<CourseCard_ViewModel>(search, categoryId, maxPrice, minPrice, duration, pageNumber, pageSize));
     }
 }

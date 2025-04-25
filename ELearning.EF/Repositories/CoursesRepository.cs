@@ -94,5 +94,106 @@ namespace ELearning.EF.Repositories
 
             return courseTotalDuration;
         }
+        public async Task<IEnumerable<Model>> SearchAndFilterAsync<Model>(
+            string? search = null,
+            int categoryId = 0,
+            decimal maxPrice = 0,
+            decimal minPrice = 0,
+            double duration = 0,
+            int pageNumber = 0,
+            int pageSize = 0,
+            string? orderByDirection = OrderBy.Ascending,
+            string[]? includes = null,
+            Expression<Func<Course, bool>>? criteria = null)
+        {
+            var query = _context.Courses.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim().ToLower();
+                query = query.Where(c => c.Title.ToLower().Contains(search) || (c.Description.ToLower() != null && c.Description.ToLower().Contains(search)));
+            }
+                       
+            if (categoryId > 0)
+                query = query.Where(c => c.CategoryId == categoryId);
+
+            if (maxPrice > 0)
+                query = query.Where(c => c.Price <= maxPrice);
+
+            if (minPrice > 0)
+                query = query.Where(c => c.Price >= maxPrice);
+
+            if (duration > 0)
+                query = query.Where(c => c.Duration <= duration);
+
+            if (orderByDirection == OrderBy.Descending)
+                query = query.OrderDescending();
+
+            if (includes != null)
+                foreach (var item in includes)
+                    query = query.Include(item);
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            if (pageNumber > 0)
+                query = query.Skip((pageNumber - 1) * pageSize);
+
+            if (pageSize > 0)
+                query = query.Take(pageSize);
+
+            return await query.ProjectTo<Model>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+        
+        public async Task<IEnumerable<Course>> SearchAndFilterAsync(
+            string? search = null,
+            int categoryId = 0,
+            decimal maxPrice = 0,
+            decimal minPrice = 0,
+            double duration = 0,
+            int pageNumber = 0,
+            int pageSize = 0,
+            string? orderByDirection = OrderBy.Ascending,
+            string[]? includes = null,
+            Expression<Func<Course, bool>>? criteria = null)
+        {
+            var query = _context.Courses.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim().ToLower();
+                query = query.Where(c => c.Title.ToLower().Contains(search) || (c.Description.ToLower() != null && c.Description.ToLower().Contains(search)));
+            }
+
+            if (categoryId > 0)
+                query = query.Where(c => c.CategoryId == categoryId);
+
+            if (maxPrice > 0)
+                query = query.Where(c => c.Price <= maxPrice);
+
+            if (minPrice > 0)
+                query = query.Where(c => c.Price >= maxPrice);
+
+            if (duration > 0)
+                query = query.Where(c => c.Duration <= duration);
+
+            if (orderByDirection == OrderBy.Descending)
+                query = query.OrderDescending();
+
+            if (includes != null)
+                foreach (var item in includes)
+                    query = query.Include(item);
+
+            if (criteria != null)
+                query = query.Where(criteria);
+
+            if (pageNumber > 0)
+                query = query.Skip((pageNumber - 1) * pageSize);
+
+            if (pageSize > 0)
+                query = query.Take(pageSize);
+
+            return await query.ToListAsync();
+        }
     }
 }
