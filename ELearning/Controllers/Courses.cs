@@ -32,7 +32,10 @@ namespace ELearning.Controllers
             return View(course);
         }
         [CourseAccess,HttpGet]
-        public async Task<IActionResult> Learn(int id) => View(await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id));
+        public IActionResult  Learn(int id)
+        {
+            return View("Learn", $"/Courses/Course/{id}");
+        }
         [CourseAccess, HttpGet]
         public async Task<ActionResult<LearnCourse_ViewModel>> Course(int id) => await _unitOfWork.Courses.GetItemAsync<LearnCourse_ViewModel>(c => c.Id == id);
         [HttpGet]

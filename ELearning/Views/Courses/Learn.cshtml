@@ -1,133 +1,446 @@
-﻿@model LearnCourse_ViewModel
-@using ELearning.Extensions
+﻿@model string
 @{
-	ViewBag.Title = Model.Title;
+    ViewBag.Title = "Learn";
 }
 
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8 flex-col lg:flex-row">
-    <!-- Video and Content Section -->
-    <div class="flex-1">
-        <!-- Video Player -->
-        <div class="bg-gray-900 aspect-video rounded-2xl mb-8 shadow-xl overflow-hidden">
-            <video class="w-full h-full object-cover"
-                   controls
-                   poster="@Model.Image">
-                <source src="@(Model.Sections.FirstOrDefault()?.Lectures.FirstOrDefault()?.Video?.URL??string.Empty)" type="video/mp4">
-                @* <source src="https://cdn.coverr.co/video/free/keyboard.webm" type="video/webm"> *@
-                Your browser does not support the video tag.
-            </video>
-        </div>
+@section Styles {
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <!-- JS -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+}
 
-        <!-- Resources Section -->
-        @* <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <div class="p-4 bg-gray-50 rounded-lg cursor-pointer flex justify-between items-center" onclick="toggleCollapse(this)">
-                <h4 class="text-lg font-semibold text-gray-900">Resources</h4>
-                <i class="fas fa-chevron-down text-gray-500 transition-transform duration-200"></i>
-            </div>
-            <div class="p-4 space-y-3">
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-lg">
-                    <i class="fas fa-file-pdf mr-3 text-red-500"></i>
-                    Lesson Slides (PDF)
-                </a>
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-lg">
-                    <i class="fas fa-code mr-3 text-blue-500"></i>
-                    Source Code (ZIP)
-                </a>
-                <a href="#" class="flex items-center p-3 hover:bg-gray-50 rounded-lg">
-                    <i class="fas fa-link mr-3 text-green-500"></i>
-                    Additional Reading
-                </a>
-            </div>
-        </div> *@
+<div style="min-height: 85vh">
+    <div class="block lg:grid grid-cols-3 gap-0 items-start">
+        <main class="col-span-2 p-5">
+            <div class="videosDisplay">
+                <div class="display_screen shadow-lg border-t p-5 rounded-lg">
+                    <div class="cont rounded-lg overflow-hidden border">
+                        <video id="player" playsinline controls poster="">
+                            <source src="" type="video/mp4" />
+                            <source src="" type="video/webm" />
+                            <source src="" type="video/youtube" />
+                        </video>
+                    </div>
+                </div>
+                <!-- Details -->
+                <div class="p-3  shadow-lg rounded-xl mt-5 border-t  bg-white">
+                    <ul class="flex list px-2">
+                        <li class="p-2 cursor-pointer border-b-2 font-semibold border-gray-50 active_btn" name="Discription">
+                            Description
+                        </li>
+                        <li class="p-2 cursor-pointer border-b-2 font-semibold border-gray-50 non_active_btn lg:hidden" name="Lectures">
+                            Lectures
+                        </li>
+                    </ul>
 
-        <!-- Course Description -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h3 class="text-xl font-bold text-gray-900 mb-4">Course Description</h3>
-            <p class="text-gray-600 mb-4">@Html.Raw(Model.Description)</p>
-        </div>
+                    <div class="result">
+                        <div class="content p-3" id="discription" name="Discription">
+                            <!-- Discrition -->
+                        </div>
+                        <div class="content py-3 px-2 hidden lg:hidden rounded-xl" name="Lectures">
+                            <ul class="Lectures listContainer">
+                                <!-- lectures in small screen -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Instructor Details -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <h3 class="text-xl font-bold text-gray-900 mb-4">Meet Your Instructor</h3>
-            <div class="flex items-center space-x-4">
-                <img src="@(Model.Instructor.Image??"/assets/dashboard/imgs/user_Placeholder.png")"
-                     alt="Instructor Avatar"
-                     class="w-20 h-20 rounded-full object-cover">
-                <div>
-                    <h4 class="text-lg font-semibold text-gray-900">@Model.Instructor.FirstName @Model.Instructor.LastName</h4>
-                    <p class="text-sm text-gray-500">Senior Web Developer</p>
-                    <p class="text-gray-600 mt-2">@Model.Instructor.Bio</p>
+                <!-- Resources Section -->
+                <div class="p-3 shadow-lg rounded-xl mt-5 border-t bg-white">
+                    <div class="p-3 bg-gray-50 border-b flex justify-between items-center module-header rounded-t-md">
+                        <div>
+                            <h4 class="font-semibold">Resources</h4>
+                        </div>
+                    </div>
+                    <div class="p-2 space-y-2 module-content">
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-file-pdf mr-3 text-red-500"></i>
+                            Lesson Slides (PDF)
+                        </a>
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-code mr-3 text-blue-500"></i>
+                            Source Code (ZIP)
+                        </a>
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-link mr-3 text-green-500"></i>
+                            Additional Reading
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Course completion rate -->
+                <div class="p-3 shadow-lg rounded-xl mt-5 border-t bg-white range">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold">Complete</h3>
+                        <span id="coursePercentage" class="text-2xl font-semibold text-blue-600">00%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                        <div id="mainProgress"
+                                class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out"></div>
+                    </div>
+                </div>
+                <!-- instructor info -->
+                <div class="p-3 shadow-lg rounded-xl mt-5 border-t bg-white instructor_info">
                 </div>
             </div>
-        </div>
+        </main>
 
-        <!-- Lesson Navigation -->
-        <div class="flex justify-between mb-8">
-            <button class="px-6 py-3 bg-gray-200 rounded-lg hover:bg-gray-300 text-gray-700 font-medium">
-                <i class="fas fa-arrow-left mr-2"></i>Previous Lesson
-            </button>
-            <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 font-medium">
-                Next Lesson<i class="fas fa-arrow-right ml-2"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Course Sidebar -->
-    <aside class="w-full lg:w-96">
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-6">Course Content</h3>
-            <div class="space-y-6 max-h-full overflow-y-auto">
-                @for (int i=0;i< Model.Sections.Count;i++)
-                {
-                    @* <div class="border border-gray-200 rounded-lg">
-                        <div class="p-4 bg-gray-50 rounded-t-lg cursor-pointer flex justify-between items-center" onclick="toggleCollapse(this)">
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-900">Section @(i+1): @Model.Sections[i]?.Name</h4>
-                            </div>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-200"></i>
-                        </div>
-                        <div class="p-4 space-y-3">
-                            @foreach (var item in Model.Sections[i]?.Lectures)
-                            {
-                                <a href="#" class="flex items-center p-3 text-blue-600 bg-blue-50 rounded-lg">
-                                    <i class="fas fa-play-circle mr-3 text-blue-600"></i>
-                                    @item.Title
-                                    <span class="ml-auto text-sm text-gray-500">@item.Video.Duration.FormatDuration()</span>
-                                </a>                                
-                            }
-                        </div>
-                    </div> *@
-                }
+        <aside class="sticky top-0 hidden lg:block px-4">
+            <div class="shadow-lg rounded-lg mt-6 bg-white p-5 border-t pt-1">
+                <h1 class="font-bold py-3 mb-3 border-b">Course Content</h1>
+                <!-- List Of Videos -->
+                <ul class="py-2 list_of_videos listContainer"></ul>
             </div>
-        </div>
-    </aside>
-</main>
+        </aside>
+    </div>
+</div>
 
 @section Scripts{
     <script>
-        // Simple toggle function for collapsible sections
-        function toggleCollapse(header) {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('i');
+                /* ================>>> Focus Data <<<================= */
+        let focus_data = document.querySelectorAll(".focus_data .data");
+        let details = document.querySelectorAll(".view_Details img");
 
-            // Toggle content visibility
-            content.classList.toggle('hidden');
+        if(focus_data)focus_data.forEach(function(ele){
+            ele.addEventListener('click' ,function(){
+                focus_data.forEach(function(focus){
+                    focus.classList.remove("border-sky-500");
+                })
+                details.forEach(function(img){
+                    if(img.getAttribute("data") !== ele.getAttribute("focus")){
+                        img.classList.add("hidden");
+                    }else{
+                        img.classList.remove("hidden");
+                    }
+                })
+                this.classList.add("border-sky-500");
+            })
+        })
 
-            // Rotate chevron icon
-            icon.classList.toggle('rotate-180');
+        /* ============>>> options <<<============== */
+        let options = document.querySelectorAll(".options .option");
+        options.forEach(function(option){
+            option.addEventListener('click' , function(){
+                this.children[1].classList.toggle("h-0");
+            })
+        })
+
+
+
+        const arrayVideo = [];
+
+        async function loadData() {
+            try {
+                const res = await fetch('@Model');
+                const data = await res.json();
+                arrayVideo.push(data);
+            } catch (err) {
+                console.error('Fetch error:', err.message);
+            }
+        }
+        let list_of_videos = document.querySelector(".list_of_videos");
+
+        loadData().then(() => {
+            // === data ===
+            const { instructor, sections, ...playList_details } = arrayVideo[0];
+            instructor_details = instructor;
+            sections_details = sections;
+
+            collection_video(sections_details, playList_details, instructor_details)
+
+            function collection_video(sections, disc, instructor_info) {
+                sections.forEach((section) => {
+                    create_list(section.name, section.lectures, section.id);
+                });
+                create_description(disc);
+                create_instructor_info(instructor_info)
+            }
+
+            /*        create List  (sections & lectures)         */
+            /* create List of videos in large screens */
+            function create_list(section, details, id) {
+                let title_video = document.createElement("li");
+                title_video.className = "title_video mb-2 border rounded-lg overflow-hidden";
+                title_video.setAttribute("section_Id", id);
+                let btn = document.createElement("button");
+                btn.className = "block rounded-t-lg p-3 bg-gray-100 w-full cursor-pointer flex justify-between items-center module-header border-b";
+                btn.appendChild(document.createTextNode(`Module 1: ${section}`))
+
+                let iconCount = document.createElement("i");
+                iconCount.className = "fas fa-chevron-down module-toggle transition-transform duration-200";
+                btn.appendChild(iconCount)
+
+                title_video.appendChild(btn);
+
+                let div = document.createElement("div");
+                div.className = "hidden px-1";
+
+                let selector = document.createElement("ul");
+                selector.className = "selector_list";
+                details.forEach(ele => {
+                    let li = document.createElement("li");
+                    li.className = "px-3 py-3 block flex justify-between items-center gap-2 mt-1 mb-1 cursor-pointer rounded-md transition-all hover:text-sky-600";
+                    li.setAttribute("data-video-src", ele.video.url);
+                    li.setAttribute("sec_id", id)
+
+                    let icon = document.createElement("ion-icon");
+                    icon.className = "fas fa-play-circle flex-shrink-0 mr-3 ml-0";
+
+                    let div = document.createElement("div");
+                    div.className = "whitespace-nowrap overflow-hidden text-ellipsis"
+                    div.appendChild(icon);
+                    div.appendChild(document.createTextNode(ele.title))
+
+                    li.setAttribute("lecture_Id", ele.id)
+                    li.appendChild(div);
+
+                    const shortDuration = duration_modified(ele.video.duration);
+                    if (shortDuration) {
+                        let span = document.createElement("span");
+                        span.innerHTML = shortDuration;
+                        span.className = 'ml-auto text-sm'
+                        li.appendChild(span)
+                    }
+
+                    selector.appendChild(li);
+                })
+                div.appendChild(selector)
+                title_video.appendChild(div);
+
+                list_of_videos.appendChild(title_video);
+
+                open_section(title_video);
+            }
+
+            /* create List of videos in small screens */
+            function open_section(...title_video) {
+                let List_small_screen = document.querySelector(".Lectures");
+                title_video.forEach(list => {
+                    let clonedVideo = list.cloneNode(true)
+                    List_small_screen.appendChild(clonedVideo);
+                    let newList = document.querySelectorAll(".Lectures .title_video");
+
+                    newList.forEach((list) => {
+                        list.children[0].addEventListener('click', function () {
+                            newList.forEach(e => e.children[1].classList.add("hidden"));
+                            list.children[1].classList.remove("hidden");
+                        })
+                    });
+                })
+            }
+
+            /* select section */
+            Array.from(list_of_videos.children).forEach((list, index, array) => {
+                list.children[0].addEventListener('click', function () {
+                    Array.from(list_of_videos.children).forEach(e => e.children[1].classList.add("hidden"));
+                    list.children[1].classList.remove("hidden");
+                })
+            })
+
+            /* focus video */
+            let list = document.querySelectorAll(".selector_list");
+
+            list.forEach((select) => {
+                Array.from(select.children).forEach(function (selected_list, index, array) {
+                    selected_list.addEventListener('click', function () {
+                        list.forEach(ele => Array.from(ele.children).forEach(local_ele => local_ele.classList.remove("currentCourse")))
+                        Array.from(select.children).forEach(ele => ele.classList.remove("currentCourse"))
+                        this.classList.add("currentCourse");
+
+                        let lec_id = this.getAttribute("lecture_id");
+                        let sec_id = this.getAttribute("sec_id");
+                        let lec_src = this.getAttribute("data-video-src");
+
+                        Store_video_position(sec_id, lec_id, lec_src);
+                        return_position_video();
+                    })
+                })
+            })
+            return_position_video();
+        })
+        /* ========================================================================= */
+        /* ========================================================================= */
+
+        /* store current data in sessionStorage */
+        function Store_video_position(s_id, l_id, source_of_video) {
+            let obj = {
+                "section_position": s_id,
+                "lecture_position": l_id,
+                "source_of_video": source_of_video,
+            }
+            window.sessionStorage.setItem("video_position", JSON.stringify(obj));
+        };
+
+        /* return number of video from sessionStorage */
+        function return_position_video() {
+            let sec_id;
+            let lec_id;
+            let src_video
+            if (window.sessionStorage.getItem("video_position")) {
+                let obj = JSON.parse(window.sessionStorage.getItem("video_position"));
+
+                sec_id = obj.section_position;
+                lec_id = obj.lecture_position;
+                src_video = obj.source_of_video;
+
+                changeVideo(src_video);
+            }
+            else {
+                sec_id = 1;
+                lec_id = 1;
+            }
+            focus_video(sec_id, lec_id);
         }
 
-        // Initialize all collapsible sections
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add rotate-180 class to all chevron icons by default if you want them to start collapsed
-            document.querySelectorAll('[onclick="toggleCollapse(this)"] i').forEach(icon => {
-                icon.classList.add('rotate-180');
-            });
+        /* focus video from start */
+        function focus_video(section_id, lecture_id) {
+            let list = document.querySelectorAll(".title_video");
+            list.forEach((sec) => {
+                if (sec.getAttribute("section_id") == section_id) {
+                    sec.children[1].classList.remove("hidden");
+                    Array.from(sec.children[1].children[0].children).forEach((ele) => {
+                        if (ele.getAttribute("lecture_id") == lecture_id) {
+                            ele.classList.add("currentCourse");
+                            changeVideo(ele.getAttribute("data-video-src"))
+                        }
+                        else {
+                            ele.classList.remove("currentCourse")
+                        }
+                    })
+                }
+                else {
+                    sec.children[1].classList.add("hidden");
+                }
+            })
+        }
 
-            // Collapse all content sections by default
-            document.querySelectorAll('[onclick="toggleCollapse(this)"]').forEach(header => {
-                header.nextElementSibling.classList.add('hidden');
-            });
+        /*  Show detail Of Video  */
+        let lists = document.querySelectorAll(".list li");
+        lists.forEach((list, index) => {
+            list.addEventListener('click', function () {
+                lists.forEach(list => {
+                    list.classList.add("non_active_btn");
+                    list.classList.remove("active_btn");
+                });
+                this.classList.remove("non_active_btn");
+                this.classList.add("active_btn");
+                let focus = this.getAttribute("name");
+
+                Array.from(document.querySelector(".result").children).forEach(function (ele) {
+                    ele.classList.add("hidden")
+                    if (ele.getAttribute("name") == focus) {
+                        ele.classList.remove("hidden");
+                    }
+                });
+            })
+        })
+
+        /* description */
+        function create_description(content) {
+            let disc = document.querySelector("#discription");
+
+            disc.innerHTML = `
+                <h1 class="font-bold mb-2 text-base md:text-xl lg:text-2xl mt-3">${content.title}</h1>
+                <p class=" text-sm md:text-base">${content.subTitle}</p>
+                <div class="disc  text-sm md:text-base">
+                    ${content.description}
+                </div>
+            `
+            document.querySelector(".cont video").poster = content.image;
+        }
+
+        /* convert duration */
+        function duration_modified(duration) {
+            let min = 0;
+            let hour = 0;
+            duration = Number(duration)
+
+            while (duration >= 3600) {
+                hour = Math.floor(duration / 3600);
+                duration = duration - hour * 3600;
+            }
+            while (duration >= 60) {
+                min = Math.floor(duration / 60);
+                duration = duration - min * 60;
+            }
+            /* convert to 00:00:00 */
+            min = min < 10 ? `0${min}` : min;
+            hour = hour < 10 ? `0${hour}` : hour;
+            duration = duration < 10 ? `0${duration}` : duration;
+
+            return `${hour}:${min}:${duration}`
+        }
+        /* Course completion rate */
+        range(30);
+
+        function range(value) {
+            let range = document.querySelector(".range");
+            range.querySelector("span").innerHTML = `${value}%`
+
+            range.querySelector('#mainProgress').style.width = `${value}%`
+        }
+
+        /* instructor info */
+        function create_instructor_info(info) {
+            document.querySelector(".instructor_info").innerHTML = `
+                <div class="px-4 py-8">
+                    <div class="bg-white">
+                        <div class="block md:flex items-center">
+                            <div class="mr-3 mb-3 flex justify-center">
+                                <img class="h-48 w-48 rounded-full object-cover flex-shrink-0 border-4 border-indigo-100"
+                                    src=${info.image ? info.image : "./assets/files/team-01.png"} alt="imstructor Image">
+                            </div>
+
+                            <div class="">
+                                <div class="block text-center md:text-left md:flex flex-col px-3">
+                                    <div>
+                                        <h1 class="text-3xl font-bold text-gray-800">${info.firstName} ${info.lastName}</h1>
+                                        <p class="text-gray-600 mt-1 mb-3">Front-End Developer</p>
+                                    </div>
+                                    <div class="w-20 rounded-lg text-center mx-auto md:m-0">
+                                        <p class="text-2xl font-semibold text-blue-600">${info.courseCount}</p>
+                                        <p class="text-gray-600">Course</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center md:text-left">
+                            ${info.bio ? `<h3 class="text-xl font-semibold text-gray-800">About</h3>
+                                <p class="text-gray-600 mt-2 leading-relaxed">${info.bio}</p>` : ""}
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+
+        /* =========================================================== */
+        /* ===================>>> Videos Library <<<================== */
+        /* =========================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            const player = new Plyr('#player');
         });
+
+        const player = new Plyr('#player', {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+            settings: ['captions', 'quality', 'speed'],
+            ratio: '16:9',
+            autoplay: false,
+            muted: false,
+            keyboard: { focused: true, global: false }
+        });
+
+
+        function changeVideo(videoUrl) {
+            const videoElement = document.querySelector('#player');
+            if (videoElement.querySelector("source").src !== videoUrl) {
+                if (videoElement) {
+                    videoElement.querySelectorAll('source').forEach((ele) => {
+                        ele.src = videoUrl
+                    })
+                    videoElement.load();
+                }
+            }
+        }
     </script>
 }

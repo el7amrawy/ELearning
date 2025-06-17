@@ -45,8 +45,15 @@ namespace ELearning.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            foreach (var item in result.Errors)
-                TempData["Error"] += "," + item.Description;
+            if (result.Errors.Count() == 1)
+                TempData["Error"] = result.Errors.First().Description;
+            else
+                foreach (var item in result.Errors)
+                {
+                    TempData["Error"] += item.Description;
+                    if (item != result.Errors.Last())
+                        TempData["Error"] += ",";
+                }
 
             return View(model);
         }

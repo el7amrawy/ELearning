@@ -6,11 +6,11 @@
     const duration = 2000;
     const position = "right"; // `left`, `center` or `right`
     const gravity = "top"; // `top` or `bottom
-
+    console.log(errorMessage)
     if (successMessage[0]) {
       successMessage.forEach((msg) => {
         Toastify({
-          text: msg,
+          text: decodeHtml(msg),
           duration,
           close: true,
           gravity: "top", // `top` or `bottom`
@@ -27,7 +27,7 @@
     if (errorMessage[0]) {
       errorMessage.forEach((msg) => {
         Toastify({
-          text: msg,
+          text: decodeHtml(msg),
           duration,
           close: true,
           gravity,
@@ -44,7 +44,7 @@
     if (infoMessage[0]) {
       infoMessage.forEach((msg) => {
         Toastify({
-          text: msg,
+          text: decodeHtml(msg),
           duration,
           close: true,
           gravity,
@@ -57,5 +57,11 @@
           onClick: function () {}, // Callback after click
         }).showToast();
       });
+    }
+
+    function decodeHtml(html) {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
     }
 </script>
