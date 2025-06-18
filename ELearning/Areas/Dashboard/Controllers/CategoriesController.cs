@@ -5,6 +5,7 @@ using ELearning.Core.Interfaces;
 using ELearning.Core.Models;
 using ELearning.Extensions;
 using ELearning.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Areas.Dashboard.Controllers
@@ -104,5 +105,8 @@ namespace ELearning.Areas.Dashboard.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet, AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Category>>> GetAll() =>
+            Ok(await _unitOfWork.Categories.GetAllAsync<Category_ViewModel>());
     }
 }
