@@ -1,4 +1,7 @@
-﻿using ELearning.Core.Interfaces;
+﻿using ELearning.Areas.Dashboard.ViewModels;
+using ELearning.Core.Consts;
+using ELearning.Core.Interfaces;
+using ELearning.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -13,9 +16,13 @@ namespace ELearning.Areas.Dashboard.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int pageNumber, int pageSize)
         {
-            return View();
+            var pagination = new Pagination(pageNumber > 0 ? pageNumber : 1, pageSize > 0 ? pageSize : 10, await _unitOfWork.Categories.CountAsync());
+            ViewBag.Pagination = pagination;
+
+            return View(await _unitOfWork.Courses
+                .GetAllAsync<Course_ViewModel>(pageNumber: pagination.PageNumber, pageSize: pagination.PageSize, orderBy: c => c.CreatedAt, orderByDirection: OrderBy.Descending));
         }
         public async Task<IActionResult> Create()
         {

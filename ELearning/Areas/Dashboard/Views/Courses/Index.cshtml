@@ -1,76 +1,133 @@
-﻿@{
+﻿@using ELearning.Core.Enums
+@model IEnumerable<Course_ViewModel>
+@{
     ViewBag.Title = "Courses";
     ViewBag.Active = AsideTabs.Courses;
+    var pagination = (Pagination)ViewBag.Pagination;
 }
 
-<section class="section main-section">
-    <div class="card has-table">
-        <header class="card-header">
-            <p class="card-header-title text-xl">
-                Lectures
-            </p>
-            <div class="card-header-icon">
-                <a asp-action="Create" class="button blue">Add</a>
-            </div>
-        </header>
-        <div class="card-content">
-            <table>
-                <thead class="bg-blue-200">
+<main class="bg-gray-50 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">
+                <i class="mdi mdi-bookshelf"></i>
+                Courses
+            </h1>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-800">
                     <tr>
-                        <th class="image-cell"></th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Level</th>
-                        <th>Language</th>
-                        <th>Status</th>
-                        <th>Created</th>
-                        <th></th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.Image)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.Title)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.Price)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.Level)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.Language)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.StatusId)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.CreatedAt)
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                            @Html.DisplayNameFor(c => c.UpdatedAt)
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="image-cell">
-                            <div class="image">
-                                <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full" />
-                            </div>
-                        </td>
-                        <td>Front-End</td>
-                        <td class="max-w-6">Unlock the power....</td>
-                        <td>2000 EGP</td>
-                        <td>Advanced</td>
-                        <td>Arabic</td>
-                        <td class="">
-                            <div class="bg-green-400 w-fit p-2 rounded-full text-white font-semibold">
-                                Active
-                            </div>
-                        </td>
-                        <td data-label="Created">
-                            <small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
-                        </td>
-                        <td class="actions-cell">
-                            <div class="buttons right nowrap">
-                                <button class="button small blue --jb-modal" data-target="sample-modal-2" type="button">
-                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                </button>
-                                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <img src="@item.Image" alt="Category Image"
+                                class="h-10 w-10 object-cover rounded">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @item.Title
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                @Html.DisplayFor(_ => item.Price)
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @Html.DisplayFor(_ => item.Level.Name)
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @Html.DisplayFor(_ => item.Language.Name)
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @switch (item.StatusId)
+                                {
+                                    case CourseStatusEnum.Canceled:
+                                        <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-red-500 rounded-full">
+                                            Canceled
+                                        </span>
+                                        break;
+                                    case CourseStatusEnum.Published:
+                                        <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">
+                                            Published
+                                        </span>
+                                        break;
+                                    default:
+                                        <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-yellow-500 rounded-full">
+                                            Draft
+                                        </span>
+                                        break;
+                                }
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @Html.DisplayFor(_ => item.CreatedAt)
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @Html.DisplayFor(_ => item.UpdatedAt)
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
-            <div class="table-pagination">
-                <div class="flex items-center justify-between">
-                    <div class="buttons">
-                        <button type="button" class="button active">1</button>
-                        <button type="button" class="button">2</button>
-                        <button type="button" class="button">3</button>
+        </div>
+        <!-- Pagination -->
+        @if (pagination.Count > pagination.PageSize)
+        {
+            <div class="flex items-center justify-between mt-4 px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Page <span class="font-medium">@pagination.PageNumber</span> of <span class="font-medium">@pagination.Pages</span>
+                        </p>
                     </div>
-                    <small>Page 1 of 3</small>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <a asp-action="Index" asp-route-pagenumber="@(pagination.PageNumber-1)" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <i class="mdi mdi-chevron-left"></i>
+                            </a>
+                            @for (int i = 1; i <= pagination.Pages; i++)
+                            {
+                                <a asp-action="Index" asp-route-pagenumber="@i" aria-current="page" class="hover:bg-gray-100 relative inline-flex items-center px-4 py-2 border text-sm font-medium @(i==pagination.PageNumber?"z-10 bg-blue-50 border-blue-500 text-blue-600":"border-gray-300 text-gray-500")">
+                                    @i
+                                </a>
+                            }
+                            <a asp-action="Index" asp-route-pagenumber="@(pagination.PageNumber+1)" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="mdi mdi-chevron-right"></i>
+                            </a>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-</section>
+</main>

@@ -14,6 +14,9 @@ namespace ELearning.Areas.Dashboard.Helpers
             CreateMap<Category_ViewModel, Category>()
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
             CreateMap<EditCategory_ViewModel, Category>().ReverseMap();
+            CreateMap<Course, Course_ViewModel>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image.URL));
+            CreateMap<Category, Category_ViewModel>();
         }
     }
 }
