@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELearning.Controllers
 {
-    public class Courses : Controller
+    public class CoursesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public Courses(IUnitOfWork unitOfWork)
+        public CoursesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
