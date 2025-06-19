@@ -111,5 +111,32 @@ namespace ELearning.Core.Services
             }
            
         }
+        public async Task<ServiceResult> EditAsync(EditLectureDto lectureDto, int courseId, string instructorName)
+        {
+            var lecture = await _unitOfWork.Lectures.GetItemAsync(l => l.Id == lectureDto.Id , ["Video"]);
+
+            if (lecture == null) return ServiceResult.Failure("lecture doesn't exist");
+
+            _mapper.Map(lectureDto, lecture);
+
+            if (lectureDto.VideoFile != null)
+            {
+                var oldVideo = lecture.Video;
+
+                var delRes = await _videoService.DeleteVideoAsync(oldVideo.PublicId);
+
+                if (delRes.Error != null) return ServiceResult.Failure($"{delRes.Error.Message}");
+
+                var vidRes = await _videoService.AddVideoAsync(lectureDto.VideoFile, instructorName, courseId);
+
+                lecture.Video = new Video { CreatedAt = DateTime.UtcNow, PublicId = vidRes.PublicId, URL = vidRes.SecureUrl.AbsoluteUri, Duration = vidRes.Duration };
+
+                _unitOfWork.Videos.Delete(oldVideo);
+            }
+
+            if (await _unitOfWork.CompleteAsync() > 0) return ServiceResult.Success();
+
+            return ServiceResult.Failure("Failed to update the lecture");
+        }
     }
 }

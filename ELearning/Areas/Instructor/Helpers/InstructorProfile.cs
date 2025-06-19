@@ -35,10 +35,12 @@ namespace ELearning.Areas.Instructor.Helpers
             CreateMap<Section, SectionWithCourse_ViewModel>();
 
             CreateMap<Lecture, LectureList_ViewModel>();
+            CreateMap<Lecture, EditLecture_ViewModel>();
 
             /* DTOs & Views */
             CreateMap<CreateSection_ViewModel, SectionDto>().ReverseMap();
             CreateMap<CreateLecture_ViewModel, CreateLectureDto>();
+            CreateMap<EditLecture_ViewModel, EditLectureDto>();
         }
     }
 }

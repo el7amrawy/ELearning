@@ -16,6 +16,8 @@ namespace ELearning.Core.Helpers
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Title))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.SubTitle))
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Price * 100));
+
+            CreateMap<EditLectureDto, Lecture>();
         }
     }
 }

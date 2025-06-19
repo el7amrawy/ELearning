@@ -2,6 +2,7 @@
 using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Attributes;
 using ELearning.Core.DTOs;
+using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Services;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,13 @@ namespace ELearning.Areas.Instructor.Controllers
         private readonly ILectureService _lectureService;
         private readonly IMapper _mapper;
         private readonly ICourseService _courseService;
-        public LecturesController(ILectureService lectureService, IMapper mapper, ICourseService courseService)
+        private readonly IUnitOfWork _unitOfWork;
+        public LecturesController(ILectureService lectureService, IMapper mapper, ICourseService courseService, IUnitOfWork unitOfWork)
         {
             _lectureService = lectureService;
             _mapper = mapper;
             _courseService = courseService;
+            _unitOfWork = unitOfWork;
         }
         [HttpGet]
         public IActionResult Index() => View();
@@ -69,6 +72,20 @@ namespace ELearning.Areas.Instructor.Controllers
             await _courseService.UpdateCourseDurationAsync(CourseId);
 
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id) =>
+            View(await _unitOfWork.Lectures.GetItemAsync<EditLecture_ViewModel>(l => l.Id == id));
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditLecture_ViewModel lecture)
+        {
+            var dto = _mapper.Map<EditLectureDto>(lecture);
+            var res = await _lectureService.EditAsync(dto, CourseId, User.GetUsername());
+
+            if (!res.IsSuccess) TempData["Error"] = res.ErrorMessage;
+            else TempData["Success"] = "Lecture updated successfully";
+
+            return RedirectToAction("Edit");
         }
     }
 }

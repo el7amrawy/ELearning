@@ -1,0 +1,105 @@
+﻿@model  EditLecture_ViewModel
+@using ELearning.Extensions
+@inject IUnitOfWork _uof
+@{
+    ViewBag.Title = "Edit Lecture";
+    ViewBag.ActiveTab = NavTabsEnum.Courses;
+
+    var courseId = int.Parse(Context.Request.RouteValues["CourseId"].ToString());
+    var sectionId = int.Parse(Context.Request.RouteValues["SectionId"].ToString());
+
+    var courseSection = await _uof.Sections.GetItemAsync<SectionWithCourse_ViewModel>(s => s.Id == sectionId && s.CourseId == courseId);
+}
+
+<div class="pt-16">
+    <div class="mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <a class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition"
+            asp-action="Index"
+            asp-controller="Lectures"
+            asp-route-courseid="@courseId"
+            asp-route-sectionid="@sectionId">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Lectures
+            </a>
+            <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
+                <i class="fas fa-edit text-indigo-500 mr-2"></i> Edit Lecture
+            </h1>
+            <div class="w-[140px]"></div>
+        </div>
+
+        <!-- Section Info Banner -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-6 rounded-lg">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle text-indigo-500 text-xl mr-3"></i>
+                <div>
+                    <h2 class="font-bold text-2xl text-indigo-700 mb-1">@courseSection.Course.Title</h2>
+                    <h3 class="font-medium text-gray-700">@courseSection.Name</h3>
+                    <p class="text-sm text-gray-600">Modify lecture details</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Lecture Form -->
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <h3 class="font-medium text-lg mb-4 flex items-center">
+                <i class="fas fa-edit text-indigo-500 mr-2"></i> Update Lecture
+            </h3>
+            <form enctype="multipart/form-data"
+                  asp-action="Edit"
+                  asp-route-courseid="@courseId"
+                  asp-route-sectionid="@sectionId"
+                  asp-route-id="@Model.Id">
+                <div class="mb-4">
+                    <label
+                        asp-for="Title"
+                        class="block text-gray-700 font-medium mb-2" for="Title"></label>
+                    <input placeholder="E.g., Variables Basics"
+                           class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                    asp-for="Title"       
+                    >
+                    <span class="text-red-500 field-validation-valid" asp-validation-for="Title"></span>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2" asp-for="Notes"></label>
+                    <textarea class="placeholder:text-slate-400 field-sizing-content block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y"
+                    asp-for="Notes"          
+                    ></textarea>
+                    <span class="text-red-500 field-validation-valid" asp-validation-for="Notes" ></span>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Current Video</label>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <video controls class="w-full rounded-md shadow-sm">
+                            <source src="@Model.Video.URL" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="text-sm text-gray-600 mt-2">Current lecture video (@Model.Video.Duration.FormatDuration())</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2" asp-for="VideoFile" >New Video (Optional)</label>
+                    <div class="relative border-2 border-dashed border-blue-300 rounded-lg p-6 text-center bg-gray-50">
+                        <i class="fas fa-cloud-upload-alt text-indigo-500 text-2xl mb-2 block"></i>
+                        <p class="text-sm text-gray-600">
+                            Click to upload a new video (leave empty to keep current
+                            video)
+                        </p>
+                        <p class="text-xs text-gray-400 mt-1">Accepted formats: MP4, AVI, MOV</p>
+                        <input accept="video/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                              asp-for="VideoFile" >
+                    </div>
+                    <span class="text-red-500 field-validation-valid" asp-validation-for="VideoFile"></span>
+                </div>
+                <button type="submit"
+                        class="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg">
+                    <i class="fas fa-save mr-2"></i> Update Lecture
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
