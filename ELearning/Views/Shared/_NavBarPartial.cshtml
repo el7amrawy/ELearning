@@ -4,7 +4,7 @@
     var cartItemsCount = await _uof.CartItems.CountAsync(c => c.Cart.UserId == User.GetUserId(), ["Cart"]);
 }
 
-<nav class="header shadow-lg fixed shadow-md bg-white z-30 w-full">
+<nav class="header shadow-lg shadow-md bg-white w-full">
     <div class="mx-auto  max-w-7xl px-2 sm:px-6">
         <div class="relative flex spa  h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center md:hidden">

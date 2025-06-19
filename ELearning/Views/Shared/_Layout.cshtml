@@ -11,7 +11,10 @@
     <title>@ViewBag.Title - EmbedSkill</title>
 </head>
 <body>
-    <partial name="_NavBarPartial" />
+    <header class="fixed z-30 w-full">
+        @await RenderSectionAsync("Exclusive", false)
+        <partial name="_NavBarPartial" />
+    </header>
     <div class="pt-16 bg-gray-50">
         @RenderBody()
     </div>

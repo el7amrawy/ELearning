@@ -1,0 +1,23 @@
+﻿@model string
+
+<div class="text-center py-4 px-2 flex items-center justify-center text-gray-100 bg-gradient-to-r from-red-500 to-indigo-700 text-sm md:text-base poppup" style="transition: 0.5s;">
+    <div class="grow flex justify-center flex-wrap">
+        <p>The Fota Course has been Recently Provided.</p>
+        <a href="@Model" class=" px-2 text-white ml-2 hover:text-gray-200 rounded font-semibold">Get Course..</a>
+    </div>
+    <span class="absolute right-5 cursor-pointer btn-close"><i class="fa-solid fa-xmark"></i></span>
+</div>
+
+<script>
+            /* exclusive */
+    let poppup = document.querySelector(".poppup");
+    let btn_close = document.querySelector(".btn-close");
+    /* close poppup by close_btn */
+
+    btn_close.addEventListener('click', function () {
+        poppup.classList.add("opacity-0");
+        setTimeout(() => {
+            poppup.classList.add("hidden");
+        }, 500)
+    })
+</script>

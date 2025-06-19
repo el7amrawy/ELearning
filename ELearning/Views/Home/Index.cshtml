@@ -1,11 +1,12 @@
 ﻿@model HomeIndex_ViewModel
+@inject IConfiguration _config
 @{
     ViewBag.Title = "Home";
 }
 
 <main class="bg-gray-50 font-sans">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-20">
+    <section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-32">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">Learn Without Limits</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Start, switch, or advance your career with 5,000+ courses, Professional Certificates, and degrees from world-class universities and companies.</p>
@@ -175,3 +176,7 @@
     </section>
 
 </main>
+
+@section Exclusive{
+    <partial name="ExclusivePartial" model="@(_config["Exclusive"]??"#")"/>
+}
