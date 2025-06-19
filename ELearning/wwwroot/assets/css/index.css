@@ -48,3 +48,19 @@
 .search_input{
     width: 90%;
 }
+
+.container {
+    @apply mx-auto max-w-7xl px-2 sm:px-6 lg:px-8
+}
+
+.active_btn {
+    @apply border-blue-500
+}
+
+.non_active_btn {
+    @apply text-gray-500
+}
+
+.currentCourse {
+    @apply bg-indigo-50 text-blue-500 hover:bg-indigo-100
+}
