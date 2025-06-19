@@ -22,16 +22,16 @@ namespace ELearning.Core.Services
             {
                 using var client = new SmtpClient(_smtpSettings.Host, _smtpSettings.Port)
                 {
-                    Credentials = new NetworkCredential(_smtpSettings.Username, _smtpSettings.ApiKey),
+                    Credentials = new NetworkCredential(_smtpSettings.Username, _smtpSettings.Password),
                     EnableSsl = true
                 };
                 await client.SendMailAsync(_smtpSettings.SenderEmail, toEmail, subject, body);
 
                 return ServiceResult.Success();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return ServiceResult.Failure("Failed to send email");
+                return ServiceResult.Failure(ex.Message);
             }
         }
     }
