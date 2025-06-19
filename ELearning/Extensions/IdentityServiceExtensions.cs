@@ -12,7 +12,8 @@ namespace ELearning.Extensions
             {
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<AppDbContext>();
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {

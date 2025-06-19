@@ -1,0 +1,54 @@
+﻿@model VerifyOTP_ViewModel
+@{
+    ViewBag.Title = "Verify OTP";
+}
+
+<main class="bg-gradient-to-r from-blue-500 to-blue-700 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-2xl">
+        <div>
+            <h2 class="text-center text-3xl font-extrabold text-gray-900">
+                Verify OTP
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Please enter the one-time password sent to your email
+            </p>
+        </div>
+        <form class="mt-8 space-y-6" asp-action="VerifyOTP">
+            <div class="space-y-4">
+                <div>
+                    <input hidden asp-for="Email" />
+                    <label class="sr-only" for="OTP">One-Time Password</label>
+                    <input class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                           placeholder="Enter OTP" asp-for="OTP" >
+                    <span class="text-red-500 text-sm mt-1 block field-validation-valid" asp-validation-for="OTP" ></span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="text-sm">
+                    <a asp-action="ForgotPassword" asp-controller="Account"
+                       class="font-medium text-blue-500 hover:text-blue-600 transition duration-300">
+                        Resend OTP?
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="group relative w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                    <i class="fas fa-check mr-2"></i> Verify OTP
+                </button>
+            </div>
+        </form>
+        <p class="mt-2 text-center text-sm text-gray-600">
+            Remember your password?
+            <a class="font-medium text-blue-500 hover:text-blue-600 transition duration-300" asp-action="SignIn" asp-controller="Account">
+                Sign In
+            </a>
+        </p>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
