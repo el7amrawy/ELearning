@@ -121,7 +121,7 @@ namespace ELearning.EF.Repositories
                 query = query.Where(c => c.Price <= maxPrice);
 
             if (minPrice > 0)
-                query = query.Where(c => c.Price >= maxPrice);
+                query = query.Where(c => c.Price >= minPrice);
 
             if (duration > 0)
                 query = query.Where(c => c.Duration <= duration);
