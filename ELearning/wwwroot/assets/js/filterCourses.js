@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const categoryId = categorySelect.value;
         const maxPrice = maxPriceInput.value;
 
-        let apiUrl = `http://localhost:5120/courses/search?pageNumber=${currentPage}&pageSize=${pageSize}`;
+        let apiUrl = `https://embedskill.tryasp.net/courses/search?pageNumber=${currentPage}&pageSize=${pageSize}`;
 
         if (searchTerm) apiUrl += `&search=${encodeURIComponent(searchTerm)}`;
         if (categoryId !== "0") apiUrl += `&categoryId=${categoryId}`;

@@ -72,11 +72,18 @@
                             }
                         </div>
                         <div class="flex space-x-2">
+                            <a asp-action="Edit"
+                                asp-controller="Sections"
+                                asp-route-courseId="@Model.CourseId"
+                                asp-route-Id="@sections[i].Id"
+                                class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit Section Name">
+                                <i class="fas fa-edit mr-2"></i>
+                            </a>
                             <a asp-action="Index"
                                 asp-controller="Lectures"
                                 asp-route-courseId="@Model.CourseId"
                                 asp-route-sectionId="@sections[i].Id"
-                                class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Edit">
+                                class="p-1.5 text-blue-600 hover:text-blue-800 text-sm" title="Manage">
                                 <i class="fas fa-cog mr-2"></i>
                             </a>
                             <button onclick=@($"confirmDelete('/instructor/courses/{Model.CourseId}/sections/delete/{sections[i].Id}')")

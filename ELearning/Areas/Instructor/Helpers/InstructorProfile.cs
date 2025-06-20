@@ -37,6 +37,7 @@ namespace ELearning.Areas.Instructor.Helpers
             CreateMap<Lecture, LectureList_ViewModel>();
             CreateMap<Lecture, EditLecture_ViewModel>();
 
+            CreateMap<EditSection_ViewModel, Section>().ForMember(dest => dest.CourseId, opt => opt.Ignore()).ReverseMap();
             /* DTOs & Views */
             CreateMap<CreateSection_ViewModel, SectionDto>().ReverseMap();
             CreateMap<CreateLecture_ViewModel, CreateLectureDto>();

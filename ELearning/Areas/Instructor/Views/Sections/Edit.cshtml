@@ -1,0 +1,65 @@
+﻿@model EditSection_ViewModel
+@inject IUnitOfWork _uof
+@{
+    ViewBag.Title = "Edit Section";
+    ViewBag.ActiveTab = NavTabsEnum.Courses;
+
+    var course = await _uof.Courses.GetItemAsync<SectionCourse_ViewModel>(c => c.Id == Model.CourseId);
+}
+
+
+<main class="bg-gray-100">
+    <div class="mx-auto px-4 py-8 max-w-4xl">
+        <!-- Course Info Banner -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-6 rounded-lg">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle text-indigo-500 text-xl mr-3"></i>
+                <div>
+                    <h3 class="font-semibold">@course.Title</h3>
+                    <p class="text-sm text-gray-600">Edit the section name below</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 relative">
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-gray-800 inline-block">
+                    <i class="fas fa-edit text-indigo-500 mr-2"></i> Edit Section
+                </h1>
+            </div>
+            <!-- Back Button -->
+            <a asp-action="Index" asp-controller="sections"
+               class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Sections
+            </a>
+        </div>
+
+        <!-- Edit Section Form -->
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <h3 class="font-medium text-lg mb-4 flex items-center">
+                <i class="fas fa-pencil-alt text-indigo-500 mr-2"></i> Update Section Name
+            </h3>
+            <form asp-action="Edit">
+                <input hidden asp-for="Id" />
+                <input hidden asp-for="CourseId" />
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2" asp-for="Name" >
+                    </label>
+                    <input asp-for="Name"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                            />
+                    <span class="text-red-500 text-sm" asp-validation-for="Name"></span>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
+                        <i class="fas fa-save mr-2"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -2,6 +2,7 @@
 using ELearning.Areas.Instructor.ViewModels;
 using ELearning.Attributes;
 using ELearning.Core.DTOs;
+using ELearning.Core.Interfaces;
 using ELearning.Core.Interfaces.Services;
 using ELearning.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +16,15 @@ namespace ELearning.Areas.Instructor.Controllers
         private readonly ISectionService _sectionService;
         private readonly IMapper _mapper;
         private readonly ICourseService _courseService;
+        private readonly IUnitOfWork _unitOfWork;
         [FromRoute]
         public int CourseId {  get; set; }
-        public SectionsController(ISectionService sectionService, IMapper mapper, ICourseService courseService)
+        public SectionsController(ISectionService sectionService, IMapper mapper, ICourseService courseService, IUnitOfWork unitOfWork)
         {
             _sectionService = sectionService;
             _mapper = mapper;
             _courseService = courseService;
+            _unitOfWork = unitOfWork;
         }
         [HttpGet]
         public IActionResult Index() => View(new CreateSection_ViewModel { CourseId = CourseId });
@@ -61,6 +64,27 @@ namespace ELearning.Areas.Instructor.Controllers
             else TempData["Success"] = "Deleted section successfully";
 
             await _courseService.UpdateCourseDurationAsync(CourseId);
+
+            return RedirectToAction("index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id) =>
+            View(await _unitOfWork.Sections.GetItemAsync<EditSection_ViewModel>(s => s.Id == id));
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditSection_ViewModel model)
+        {
+            var section = await _unitOfWork.Sections.GetByIdAsync(model.Id);
+
+            if (section == null)
+            {
+                TempData["Error"] = "section doesn't exist";
+                return RedirectToAction("index");
+            }
+
+            _mapper.Map(model, section);
+
+            if (await _unitOfWork.CompleteAsync() > 0)
+                TempData["Success"] = "updated section successfully";
 
             return RedirectToAction("index");
         }
