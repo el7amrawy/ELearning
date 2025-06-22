@@ -16,9 +16,9 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
         <a asp-action="Index"
-        asp-controller="Sections"
-        asp-route-courseid="@courseId"
-        class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+           asp-controller="Sections"
+           asp-route-courseid="@courseId"
+           class="bg-gray-200 inline-block hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
             <i class="fas fa-arrow-left mr-2"></i> Back to Sections
         </a>
         <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">
@@ -45,49 +45,52 @@
             <i class="fas fa-list-ol text-indigo-500 mr-2"></i> Current Lectures
         </h3>
         <ul class="divide-y divide-gray-200" id="lecturesList">
-            @for (int i=0; i<lectures.Count; i++)
+            @for (int i = 0; i < lectures.Count; i++)
             {
                 <li class="py-3 block md:flex justify-between items-center hover:bg-gray-50 transition">
                     <div class="flex-1 mb-3 md:m-0">
-                        <span class="font-medium">@(i+1). @lectures[i].Title</span>
+                        <span class="font-medium">@(i + 1). @lectures[i].Title</span>
                         <p class="text-sm text-gray-500">
-                            @if (lectures[i].Video == null) {
+                            @if (lectures[i].Video == null)
+                            {
                                 @("None")
-                            }else{
+                            }
+                            else
+                            {
                                 <span><i class="fas fa-clock mr-0.5 text-xs"></i>@lectures[i].Video.Duration.FormatDuration()</span>
                             }
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex flex-col space-y-1">
-                            @if (i != 0){
-                            <a 
-                                asp-action="SwapOrder"
-                                asp-route-lecid1="@lectures[i].Id"
-                                asp-route-lecid2="@lectures[i-1].Id"
-                                class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
-                                <i class="fas fa-arrow-up"></i>
-                            </a>
+                            @if (i != 0)
+                            {
+                                <a asp-action="SwapOrder"
+                                   asp-route-lecid1="@lectures[i].Id"
+                                   asp-route-lecid2="@lectures[i-1].Id"
+                                   class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move up">
+                                    <i class="fas fa-arrow-up"></i>
+                                </a>
                             }
-                            @if (i + 1 != lectures.Count){
-                            <a asp-action="SwapOrder"
-                               asp-route-lecid1="@lectures[i].Id"
-                               asp-route-lecid2="@lectures[i+1].Id"
-                                class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
-                                <i class="fas fa-arrow-down"></i>
-                            </a>
+                            @if (i + 1 != lectures.Count)
+                            {
+                                <a asp-action="SwapOrder"
+                                   asp-route-lecid1="@lectures[i].Id"
+                                   asp-route-lecid2="@lectures[i+1].Id"
+                                   class="p-1 text-gray-500 hover:text-gray-700 text-xs" title="Move down">
+                                    <i class="fas fa-arrow-down"></i>
+                                </a>
                             }
                         </div>
                         <div class="flex space-x-2">
-                            <a 
-                                asp-action="Edit"
-                                asp-route-id="@lectures[i].Id"
-                                asp-route-sectionid="@sectionId"
-                                asp-route-courseId="@courseId"
-                                class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm transition">
+                            <a asp-action="Edit"
+                               asp-route-id="@lectures[i].Id"
+                               asp-route-sectionid="@sectionId"
+                               asp-route-courseId="@courseId"
+                               class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm transition">
                                 <i class="fas fa-edit mr-1"></i> Edit
                             </a>
                             <button onclick=@($"confirmDelete('/instructor/courses/{courseId}/sections/{sectionId}/lectures/delete/{lectures[i].Id}')")
-                                class="text-red-500 hover:text-red-700 p-1">
+                                    class="text-red-500 hover:text-red-700 p-1">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -108,7 +111,7 @@
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2" asp-for="Title"></label>
                 <input asp-for="Title" placeholder="E.g., Variables Basics"
-                    class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
+                       class="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" required>
                 <span class="text-red-500" asp-validation-for="Title"></span>
             </div>
             <div class="mb-4">
@@ -116,27 +119,24 @@
                     Notes (Optional)
                 </label>
                 <textarea asp-for="Notes" placeholder="E.g., Key points or additional info"
-                    class="placeholder:text-slate-400 field-sizing-content block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y"></textarea>
+                          class="placeholder:text-slate-400 field-sizing-content block bg-white w-full border border-slate-300 rounded-md py-2 pl-5 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm resize-y"></textarea>
                 <span class="text-red-500" asp-validation-for="Notes"></span>
             </div>
+
             <div class="mb-4">
-                <label asp-for="VideoFile" class="block text-gray-700 font-medium mb-2"></label>
+                <label asp-for="VideoFile" class="block text-gray-700 font-medium mb-2">Video File</label>
                 <div class="relative border-2 border-dashed border-blue-300 rounded-lg p-6 text-center bg-gray-50">
                     <i class="fas fa-cloud-upload-alt text-indigo-500 text-2xl mb-2 block"></i>
                     <p class="text-sm text-gray-600">Click to upload a video</p>
                     <p class="text-xs text-gray-400 mt-1">Accepted formats: MP4, AVI, MOV</p>
                     <input asp-for="VideoFile" accept="video/*" required
-                           class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                           class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                           id="videoFileInput">
+                    <p id="videoFileName" class="text-sm text-gray-700 mt-2 hidden"></p> <!-- Element to show file name -->
                 </div>
                 <span class="text-red-500" asp-validation-for="VideoFile"></span>
             </div>
-@*             <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">
-                    Material File (Optional)
-                </label>
-                <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx"
-                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-            </div> *@
+
             <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">
                 <i class="fas fa-save mr-2"></i> Add Lecture
             </button>
@@ -144,7 +144,25 @@
     </div>
 </div>
 
-@section Scripts{
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    @{await Html.RenderPartialAsync("_DeleteItemAlertPartial");}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @{
+        await Html.RenderPartialAsync("_DeleteItemAlertPartial");
+    }
+    <script>
+        document.getElementById('videoFileInput').addEventListener('change', function () {
+            const fileInput = this;
+            const fileNameDisplay = document.getElementById('videoFileName');
+
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name; // Display the file name
+                fileNameDisplay.classList.remove('hidden'); // Show the file name element
+            } else {
+                fileNameDisplay.textContent = ''; // Clear the file name
+                fileNameDisplay.classList.add('hidden'); // Hide the file name element
+            }
+        });
+    </script>
 }

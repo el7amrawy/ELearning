@@ -32,6 +32,8 @@ namespace ELearning.Areas.Instructor.Controllers
         [HttpGet]
         public IActionResult Index() => View();
         [HttpPost]
+        [RequestFormLimits(MultipartBodyLengthLimit = 1024 * 1024 * 1024)]
+        [RequestSizeLimit(1024 * 1024 * 1024)]
         public async Task<IActionResult> Index(CreateLecture_ViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
