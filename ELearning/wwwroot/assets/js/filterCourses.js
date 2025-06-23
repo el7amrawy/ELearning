@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalCourses = 0;
     let categories = [];
 
+    const baseURL = "https://embedskill.com";
+
     // Initialize the page
     initPage();
 
@@ -34,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             showLoadingState("Loading categories...");
             const response = await fetch(
-                "https://embedskill.tryasp.net/dashboard/categories/getall"
+                baseURL + "/dashboard/categories/getall"
             );
 
             if (!response.ok) {
@@ -131,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const minPrice = minPriceInput.value;
         const maxPrice = maxPriceInput.value;
 
-        let apiUrl = `https://embedskill.tryasp.net/courses/search?pageNumber=${currentPage}&pageSize=${pageSize}`;
+        let apiUrl = `${baseURL}/courses/search?pageNumber=${currentPage}&pageSize=${pageSize}`;
 
         if (searchTerm) {
             apiUrl += `&search=${encodeURIComponent(searchTerm)}`;

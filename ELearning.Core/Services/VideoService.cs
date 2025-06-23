@@ -16,7 +16,7 @@ namespace ELearning.Core.Services
             _settings = options.Value;
             _cloudinary = new Cloudinary(_settings.URL)
             {
-                Api = { Timeout = int.MaxValue }
+                Api = { Timeout = 900000 }
             };
         }
         public async Task<VideoUploadResult> AddVideoAsync(IFormFile videoFile,string instructorName,int courseId)
@@ -31,8 +31,7 @@ namespace ELearning.Core.Services
 
             var eagerTransforms = new List<Transformation>
             {
-                new Transformation().Width(1280).Height(720).Crop("limit"), // Resize to 720p
-                //new Transformation().Quality("auto:low") // Reduce quality
+                new Transformation().Width(1280).Height(720).Crop("limit"),
             };
 
 
@@ -45,7 +44,7 @@ namespace ELearning.Core.Services
                 EagerAsync = true,
             };
 
-            return await _cloudinary.UploadAsync(uploadParams);
+            return await _cloudinary.UploadLargeAsync(uploadParams);
         }
 
         public async Task<DeletionResult> DeleteVideoAsync(string publicId)

@@ -47,6 +47,6 @@ namespace ELearning.Controllers
             double duration,
             int pageNumber,
             int pageSize
-            ) => Ok(await _unitOfWork.Courses.SearchAndFilterAsync<CourseCard_ViewModel>(search, categoryId, maxPrice, minPrice, duration, pageNumber, pageSize));
+            ) => Ok(await _unitOfWork.Courses.SearchAndFilterAsync<CourseCard_ViewModel>(search, categoryId, maxPrice, minPrice, duration, pageNumber, pageSize, criteria: c => c.StatusId == (int)CourseStatusEnum.Published));
     }
 }
