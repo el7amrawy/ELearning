@@ -37,7 +37,7 @@ namespace ELearning.Controllers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(newUser, "Student");
-                await _signInManager.SignInAsync(newUser, new AuthenticationProperties { ExpiresUtc = DateTime.Now.AddDays(10), IsPersistent = true });
+                await _signInManager.SignInAsync(newUser, new AuthenticationProperties { ExpiresUtc = DateTime.UtcNow.AddDays(10), IsPersistent = true });
                 TempData["Success"] = "User Created Successfully";
 
                 var cartRes = await _cartService.CreateAsync(newUser.Id);
@@ -75,11 +75,11 @@ namespace ELearning.Controllers
                     if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
                         throw new Exception("Wrong email or password!!");
 
-                    await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddDays(10) });
+                    await _signInManager.SignInAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.UtcNow.AddDays(10) });
                     //await _signInManager.SignInWithClaimsAsync(user, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = DateTime.Now.AddDays(10) }, [new Claim("ProfileImage", user.Image?.URL)]);
 
                     if (user.Image != null)
-                        Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.Now.AddDays(10) });
+                        Response.Cookies.Append("ProfileImage", user.Image.URL, new CookieOptions { Expires = DateTime.UtcNow.AddDays(10) });
 
                     TempData["Success"] = $"User {user.UserName} signed in successfully";
                     return RedirectToAction("Index", "Home");
