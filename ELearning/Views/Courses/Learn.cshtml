@@ -4,9 +4,7 @@
 }
 
 @section Styles {
-    <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-    <!-- JS -->
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 }
 
@@ -46,6 +44,40 @@
                     </div>
                 </div>
 
+                <!-- Resources Section -->
+                <div class="p-3 hidden shadow-lg rounded-xl mt-5 border-t bg-white">
+                    <div class="p-3 bg-gray-50 border-b flex justify-between items-center module-header rounded-t-md">
+                        <div>
+                            <h4 class="font-semibold">Resources</h4>
+                        </div>
+                    </div>
+                    <div class="p-2 space-y-2 module-content">
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-file-pdf mr-3 text-red-500"></i>
+                            Lesson Slides (PDF)
+                        </a>
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-code mr-3 text-blue-500"></i>
+                            Source Code (ZIP)
+                        </a>
+                        <a href="#" class="flex items-center p-2 hover:bg-gray-50 rounded">
+                            <i class="fas fa-link mr-3 text-green-500"></i>
+                            Additional Reading
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Course completion rate -->
+                <div class="p-3 hidden shadow-lg rounded-xl mt-5 border-t bg-white range">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold">Complete</h3>
+                        <span id="coursePercentage" class="text-2xl font-semibold text-blue-600">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                        <div id="mainProgress"
+                             class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out" style="width: 0;"></div>
+                    </div>
+                </div>
                 <!-- instructor info -->
                 <div class="p-3 shadow-lg rounded-xl mt-5 border-t bg-white instructor_info">
                 </div>
@@ -63,7 +95,7 @@
 </div>
 
 @section Scripts{
-    <script>
+  <script>
 
         const arrayVideo = [];
 
@@ -83,6 +115,7 @@
             const { instructor, sections, ...playList_details } = arrayVideo[0];
             instructor_details = instructor;
             sections_details = sections;
+            document.title = `EmbedSkill - ${arrayVideo[0].title}`
 
             collection_video(sections_details, playList_details, instructor_details)
 
@@ -309,14 +342,14 @@
             return `${hour}:${min}:${duration}`
         }
         /* Course completion rate */
-        range(30);
+        /* range(30);
 
         function range(value) {
             let range = document.querySelector(".range");
-            range.querySelector("span").innerHTML = `${value}%`
+            document.querySelector("#coursePercentage").innerHTML = `${value}%`
 
-            range.querySelector('#mainProgress').style.width = `${value}%`
-        }
+            document.querySelector('#mainProgress').style.width = `${value? value : 0}%`
+        } */
 
         /* instructor info */
         function create_instructor_info(info) {
@@ -379,5 +412,5 @@
                 }
             }
         }
-    </script>
+  </script>
 }
