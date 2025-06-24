@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let totalCourses = 0;
     let categories = [];
 
-    const baseURL = "https://embedskill.com";
+    const baseURL = "https://embedskill.com"; //const baseURL = "https://embedskill.tryasp.net";
 
     // Initialize the page
     initPage();
