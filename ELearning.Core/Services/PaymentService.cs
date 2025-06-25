@@ -13,12 +13,11 @@ namespace ELearning.Core.Services
     {
         private readonly HttpClient _client;
         private readonly PaymobSettings _settings;
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
         public PaymentService(HttpClient client, IOptions<PaymobSettings> options, IUnitOfWork unitOfWork)
         {
             _client = client;
             _settings = options.Value;
-            _unitOfWork = unitOfWork;
         }
         public async Task<ServiceResult<string>> CreateOrderAsync(PaymentRequest request)
         {
@@ -37,7 +36,12 @@ namespace ELearning.Core.Services
                 amount = request.Amount,
                 currency = "EGP",
                 payment_methods = _settings.PaymentMethods,
-                items = request.Courses,
+                items = request.Courses.Select(c =>
+                {
+                    if (!string.IsNullOrWhiteSpace(c.Name) && c.Name.Length > 50)
+                        c.Name = c.Name.Substring(0, 50);
+                    return c;
+                }),
                 billing_data = new
                 {
                     apartment = "dumy",
@@ -58,6 +62,8 @@ namespace ELearning.Core.Services
             };
 
             var response = await _client.PostAsJsonAsync("intention", content);
+
+            var res1 = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
             {

@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         courses.forEach((course) => {
             const priceDisplay =
-                course.price === 0 ? "Free" : `$${course.price.toFixed(2)}`;
+                course.price === 0 ? "Free" : `Egp ${course.price.toFixed(2)}`;
             const instructor = course.instructor
                 ? `${course.instructor.firstName} ${course.instructor.lastName}`
                 : "Unknown Instructor";
